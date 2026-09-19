@@ -24,9 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBar.appearance().tintColor = .darkThemeColor
         NotificationCenter.default.addObserver(self, selector: #selector(updateSemantic), name: LanguageManager.didChange, object: nil)
         
-        //craete array here
-        var arr:[Int] = [1,2,3,4]
-        print(arr)
+      
         
         return true
     }
