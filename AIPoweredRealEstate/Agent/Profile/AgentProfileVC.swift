@@ -4,21 +4,21 @@
 //
 
 import UIKit
-import PhotosUI
 
 final class AgentProfileVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     private enum Row: CaseIterable {
-        case edit, leads, notifications, clients, help, logout
+        case edit, leads, notifications, language, changePassword, help, logout
 
         var title: String {
             switch self {
-            case .edit: return "Edit Profile"
-            case .leads: return "Leads"
-            case .notifications: return "Notifications"
-            case .clients: return "Client searches"
-            case .help: return "Help & Support"
-            case .logout: return "Logout"
+            case .edit: return "Edit Profile".localized
+            case .leads: return "Leads".localized
+            case .notifications: return "Notifications".localized
+            case .language: return "Language".localized
+            case .changePassword: return "Change Password".localized
+            case .help: return "Help & Support".localized
+            case .logout: return "Logout".localized
             }
         }
 
@@ -27,19 +27,23 @@ final class AgentProfileVC: UIViewController, UITableViewDataSource, UITableView
             case .edit: return "pencil"
             case .leads: return "person.badge.plus"
             case .notifications: return "bell.fill"
-            case .clients: return "person.2.fill"
+            case .language: return "globe"
+            case .changePassword: return "key.fill"
             case .help: return "questionmark.circle.fill"
             case .logout: return "rectangle.portrait.and.arrow.right"
             }
-        }
-    }
+         }
+      }
 
     @IBOutlet weak var photoView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var agencyLabel: UILabel!
+    var agencyId: String = ""
     @IBOutlet weak var profileCardView: CustomView!
     @IBOutlet weak var tableView: UITableView!
     private let rows = Row.allCases
+    private var notificationUnread = 0
+    private var badgeToken = UUID()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,24 +52,82 @@ final class AgentProfileVC: UIViewController, UITableViewDataSource, UITableView
         tableView.backgroundColor = .clear
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(ProfileMenuCell.self, forCellReuseIdentifier: ProfileMenuCell.identifier)
+        ProfileMenuCell.register(on: tableView)
         tableView.tableFooterView = UIView()
         photoView.contentMode = .scaleAspectFill
         photoView.clipsToBounds = true
+        nameLabel.font = .systemFont(ofSize: 20, weight: .bold)
+        nameLabel.textColor = UIColor(red: 33/255, green: 37/255, blue: 41/255, alpha: 1)
+        applyProfile(nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
-        nameLabel.text = AgentAccount.shared.name
-        agencyLabel.text = "\(AgentAccount.shared.agency)  ·  \(AgentAccount.shared.email)"
-        photoView.image = AgentAccount.shared.profileImage
+        notificationUnread = NotificationUnreadStore.shared.count
         tableView.reloadData()
+        loadProfile()
+        loadNotificationBadge()
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         photoView.layer.cornerRadius = photoView.bounds.width / 2
+        photoView.layer.masksToBounds = true
+        CommonMethods.styleDashboardProfilePhoto(photoView)
+    }
+
+    private func loadProfile() {
+        Task {
+            do {
+                let res = try await AuthViewModel.profileAPI()
+                await MainActor.run { self.applyProfile(res.resolvedUser) }
+            } catch {
+                await MainActor.run { self.applyProfile(nil) }
+            }
+        }
+    }
+
+    private func applyProfile(_ user: User?) {
+        if let user {
+            AgentAccount.shared.apply(user: user)
+        }
+        agencyId = user?.agencyId?.trimmingCharacters(in: .whitespacesAndNewlines)
+            ?? AgentAccount.shared.agencyId
+        let name = user?.name?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        nameLabel.text = name.isEmpty ? nil : name
+        if let agency = user?.agencyName?.trimmingCharacters(in: .whitespacesAndNewlines),
+           !agency.isEmpty,
+           let email = user?.email?.trimmingCharacters(in: .whitespacesAndNewlines),
+           !email.isEmpty {
+            agencyLabel.text = "\(agency)  ·  \(email)"
+        } else {
+            agencyLabel.text = user?.email ?? user?.agencyName
+        }
+        let placeholder = UIImage(named: "profile") ?? UIImage(named: "tenantProfile")
+        photoView.setMediaProfileImage(user?.profileImage, placeholder: placeholder)
+    }
+
+    private func loadNotificationBadge() {
+        let token = UUID()
+        badgeToken = token
+        Task {
+            do {
+                let response = try await AgentViewModels.newNotificationsAPI()
+                await MainActor.run {
+                    guard self.badgeToken == token else { return }
+                    NotificationUnreadStore.shared.apply(response: response)
+                    self.notificationUnread = NotificationUnreadStore.shared.count
+                    self.tableView.reloadData()
+                }
+            } catch {
+                await MainActor.run {
+                    guard self.badgeToken == token else { return }
+                    self.notificationUnread = NotificationUnreadStore.shared.count
+                    self.tableView.reloadData()
+                }
+            }
+        }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { rows.count }
@@ -77,10 +139,11 @@ final class AgentProfileVC: UIViewController, UITableViewDataSource, UITableView
         let row = rows[indexPath.row]
         let subtitle: String?
         switch row {
-        case .leads: subtitle = "\(AgentStore.shared.openLeadCount) open"
+        case .leads: subtitle = "%d open".localized(AgentStore.shared.openLeadCount)
         case .notifications:
-            let unread = AgentStore.shared.unreadCount
-            subtitle = unread == 0 ? nil : "\(unread) unread"
+            subtitle = notificationUnread == 0 ? nil : "%d unread".localized(notificationUnread)
+        case .language:
+            subtitle = LanguageManager.shared.currentLanguage == "es" ? "Español" : "English"
         default: subtitle = nil
         }
         cell.configure(icon: row.icon, title: row.title, subtitle: subtitle, isDestructive: row == .logout)
@@ -91,16 +154,25 @@ final class AgentProfileVC: UIViewController, UITableViewDataSource, UITableView
         tableView.deselectRow(at: indexPath, animated: true)
         switch rows[indexPath.row] {
         case .edit:
-            push(AgentStoryboard.load("AgentEditProfileVC"))
+            push(AgentStoryboard.load("AgentEditProfileVC") as TenantEditProfileVC)
         case .leads:
             push(AgentStoryboard.load("AgentLeadsVC"))
         case .notifications:
             push(AgentStoryboard.load("AgentNotificationsVC"))
-        case .clients:
-            AgentStore.pendingSavedSection = 1
-            tabBarController?.selectedIndex = 2
+        case .language:
+            let picker: TenantOptionPickerVC = TenantStoryboard.load("TenantOptionPickerVC")
+            picker.dismissesOnSelect = false
+            let selected = LanguageManager.shared.currentLanguage == "es" ? "Español" : "English"
+            picker.configure(title: "Language", options: TenantAccount.languages, selected: selected) { value in
+                LanguageManager.shared.applyFromProfile(displayName: value, from: picker)
+            }
+            push(picker)
+        case .changePassword:
+            push(TenantChangePasswordVC())
         case .help:
-            push(TenantTextPageVC(titleText: "Help & Support", body: TenantLegalContent.help))
+            let page: TenantTextPageVC = TenantStoryboard.load("TenantTextPageVC")
+            page.configure(title: "Help & Support".localized, body: TenantLegalContent.help)
+            push(page)
         case .logout:
             logout()
         }
@@ -114,98 +186,14 @@ final class AgentProfileVC: UIViewController, UITableViewDataSource, UITableView
     }
 
     private func logout() {
-        let alert = UIAlertController(title: "Logout", message: "Are you sure you want to log out?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        alert.addAction(UIAlertAction(title: "Logout", style: .destructive) { _ in
-            let welcome = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "WelcomeVC")
-            let nav = UINavigationController(rootViewController: welcome)
-            nav.setNavigationBarHidden(true, animated: false)
-            CommonMethods.setRootViewController(nav)
-        })
-        present(alert, animated: true)
-    }
-}
-
-final class AgentEditProfileVC: UIViewController, PHPickerViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
-    @IBOutlet weak var photoView: UIImageView!
-    @IBOutlet weak var nameField: CustomTextField!
-    @IBOutlet weak var agencyField: CustomTextField!
-    @IBOutlet weak var emailField: CustomTextField!
-    @IBOutlet weak var phoneField: CustomTextField!
-    @IBOutlet weak var saveButton: CustomButton!
-    @IBOutlet weak var formCardView: CustomView!
-    private var pendingPhoto: UIImage?
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .screenBackgroundColor
-        navigationController?.navigationBar.tintColor = .darkThemeColor
-        photoView.contentMode = .scaleAspectFill
-        photoView.clipsToBounds = true
-        photoView.isUserInteractionEnabled = true
-        photoView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(changePhoto)))
-        [nameField, agencyField, emailField, phoneField].forEach { CommonMethods.styleTextField($0) }
-        CommonMethods.styleFormCard(formCardView)
-        CommonMethods.stylePrimaryButton(saveButton)
-        fill()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: animated)
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        photoView.layer.cornerRadius = photoView.bounds.width / 2
-        CommonMethods.updateGradientFrame(for: saveButton)
-    }
-
-    private func fill() {
-        photoView.image = AgentAccount.shared.profileImage
-        nameField.text = AgentAccount.shared.name
-        agencyField.text = AgentAccount.shared.agency
-        emailField.text = AgentAccount.shared.email
-        phoneField.text = AgentAccount.shared.phone
-    }
-
-    @objc private func changePhoto() {
-        var config = PHPickerConfiguration()
-        config.filter = .images
-        config.selectionLimit = 1
-        let picker = PHPickerViewController(configuration: config)
-        picker.delegate = self
-        present(picker, animated: true)
-    }
-
-    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        picker.dismiss(animated: true)
-        guard let provider = results.first?.itemProvider, provider.canLoadObject(ofClass: UIImage.self) else { return }
-        provider.loadObject(ofClass: UIImage.self) { [weak self] object, _ in
-            guard let image = object as? UIImage else { return }
-            DispatchQueue.main.async {
-                self?.pendingPhoto = image
-                self?.photoView.image = image
+        CommonMethods.showConfirmationAlert(title: "Logout".localized,message: "Are you sure you want to log out?".localized, from: self) {
+            
+            let sts = KeyChainManager.shared.deleteValue(key: "token")
+            let _ = KeyChainManager.shared.deleteValue(key: "UserRole")
+            if sts == true{
+                NotificationUnreadStore.shared.reset()
+                self.goToWelcomeTapped()
             }
         }
-    }
-
-    @IBAction func saveTapped(_ sender: Any) {
-        let account = AgentAccount.shared
-        if let name = nameField.text?.trimmingCharacters(in: .whitespacesAndNewlines), !name.isEmpty {
-            account.name = name
-        }
-        if let agency = agencyField.text?.trimmingCharacters(in: .whitespacesAndNewlines), !agency.isEmpty {
-            account.agency = agency
-        }
-        if let email = emailField.text?.trimmingCharacters(in: .whitespacesAndNewlines), !email.isEmpty {
-            account.email = email
-        }
-        if let phone = phoneField.text?.trimmingCharacters(in: .whitespacesAndNewlines), !phone.isEmpty {
-            account.phone = phone
-        }
-        if let pendingPhoto { account.saveProfileImage(pendingPhoto) }
-        navigationController?.popViewController(animated: true)
     }
 }

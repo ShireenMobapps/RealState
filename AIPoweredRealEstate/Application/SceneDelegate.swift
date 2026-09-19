@@ -12,10 +12,49 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
 
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+    func scene(
+        _ scene: UIScene,
+        willConnectTo session: UISceneSession,
+        options connectionOptions: UIScene.ConnectionOptions
+    ) {
         guard let windowScene = scene as? UIWindowScene else { return }
-        window?.frame = windowScene.coordinateSpace.bounds
-        window?.backgroundColor = .white
+
+        let launchColor = UIColor(red: 0.98, green: 0.976, blue: 0.965, alpha: 1)
+        let window = UIWindow(windowScene: windowScene)
+        window.frame = windowScene.coordinateSpace.bounds
+        window.backgroundColor = launchColor
+        window.tintColor = .darkThemeColor
+        window.rootViewController = LaunchSplashViewController()
+        window.makeKeyAndVisible()
+        self.window = window
+
+        let destination = makeRootViewController()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) { [weak self] in
+            guard let window = self?.window else { return }
+            UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve) {
+                window.rootViewController = destination
+            }
+        }
+    }
+
+    private func makeRootViewController() -> UIViewController {
+        let token = KeyChainManager.shared.getValue(key: "token") ?? ""
+        let role = KeyChainManager.shared.getValue(key: "UserRole") ?? ""
+
+        if token != "" {
+            if role == "buyer" {
+                return UIStoryboard(name: "TenantSB", bundle: nil)
+                    .instantiateViewController(withIdentifier: "TenantTabBarController")
+            }
+            return UIStoryboard(name: "AgentSB", bundle: nil)
+                .instantiateViewController(withIdentifier: "AgentTabBarController")
+        }
+
+        let onboarding = UIStoryboard(name: "Main", bundle: nil)
+            .instantiateViewController(withIdentifier: "OnboardingVC")
+        let nav = UINavigationController(rootViewController: onboarding)
+        nav.setNavigationBarHidden(true, animated: false)
+        return nav
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -45,7 +84,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
+}
 
+private final class LaunchSplashViewController: UIViewController {
+    override func loadView() {
+        let imageView = UIImageView(image: UIImage(named: "launchSpeedyPop"))
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.backgroundColor = UIColor(red: 0.98, green: 0.976, blue: 0.965, alpha: 1)
+        view = imageView
+    }
 
+    override var prefersStatusBarHidden: Bool { true }
 }
 

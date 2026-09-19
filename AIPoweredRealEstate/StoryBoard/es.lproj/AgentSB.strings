@@ -1,0 +1,270 @@
+
+/* Class = "UIButton"; normalTitle = "Buy"; ObjectID = "btn-buy"; */
+"btn-buy.normalTitle" = "Buy";
+
+/* Class = "UIButton"; normalTitle = "Add to compare"; ObjectID = "btn-cmp-ad"; */
+"btn-cmp-ad.normalTitle" = "Add to compare";
+
+/* Class = "UIButton"; normalTitle = "Compare"; ObjectID = "btn-cmp-ws"; */
+"btn-cmp-ws.normalTitle" = "Compare";
+
+/* Class = "UIButton"; normalTitle = "Copy"; ObjectID = "btn-copy"; */
+"btn-copy.normalTitle" = "Copy";
+
+/* Class = "UIButton"; normalTitle = "Filters"; ObjectID = "btn-filters"; */
+"btn-filters.normalTitle" = "Filters";
+
+/* Class = "UIButton"; normalTitle = "Generate"; ObjectID = "btn-gen"; */
+"btn-gen.normalTitle" = "Generate";
+
+/* Class = "UIButton"; normalTitle = "Generate marketing copy"; ObjectID = "btn-mkt-ad"; */
+"btn-mkt-ad.normalTitle" = "Generate marketing copy";
+
+/* Class = "UIButton"; normalTitle = "Select a property"; ObjectID = "btn-pick"; */
+"btn-pick.normalTitle" = "Select a property";
+
+/* Class = "UIButton"; normalTitle = "Rent"; ObjectID = "btn-rent"; */
+"btn-rent.normalTitle" = "Rent";
+
+/* Class = "UIButton"; normalTitle = "Client report"; ObjectID = "btn-rep-ad"; */
+"btn-rep-ad.normalTitle" = "Client report";
+
+/* Class = "UIButton"; normalTitle = "Create client report"; ObjectID = "btn-report-ws"; */
+"btn-report-ws.normalTitle" = "Create client report";
+
+/* Class = "UIButton"; normalTitle = "Save for client"; ObjectID = "btn-save-client"; */
+"btn-save-client.normalTitle" = "Save for client";
+
+/* Class = "UIButton"; normalTitle = "Save"; ObjectID = "btn-save-edit"; */
+"btn-save-edit.normalTitle" = "Save";
+
+/* Class = "UIButton"; normalTitle = "Share / send"; ObjectID = "btn-share"; */
+"btn-share.normalTitle" = "Share / send";
+
+/* Class = "UIButton"; normalTitle = "Share report"; ObjectID = "btn-share-rep"; */
+"btn-share-rep.normalTitle" = "Share report";
+
+/* Class = "UIButton"; normalTitle = "Sort"; ObjectID = "btn-sort"; */
+"btn-sort.normalTitle" = "Sort";
+
+/* Class = "UILabel"; text = ""; ObjectID = "lb-ahome-agency"; */
+"lb-ahome-agency.text" = "";
+
+/* Class = "UILabel"; text = ""; ObjectID = "lb-ahome-name"; */
+"lb-ahome-name.text" = "";
+
+/* Class = "UILabel"; text = "What property are you looking for?"; ObjectID = "lb-ai-sub"; */
+"lb-ai-sub.text" = "What property are you looking for?";
+
+/* Class = "UILabel"; text = "AI Search"; ObjectID = "lb-ai-title"; */
+"lb-ai-title.text" = "AI Search";
+
+/* Class = "UILabel"; text = "Amenities"; ObjectID = "lb-amen"; */
+"lb-amen.text" = "Amenities";
+
+/* Class = "UILabel"; text = "3"; ObjectID = "lb-badge"; */
+"lb-badge.text" = "3";
+
+/* Class = "UILabel"; text = "0 listings"; ObjectID = "lb-count"; */
+"lb-count.text" = "0 listings";
+
+/* Class = "UILabel"; text = "Recent Searches"; ObjectID = "lb-cs"; */
+"lb-cs.text" = "Búsquedas recientes";
+
+/* Class = "UILabel"; text = "No listings match this inventory search."; ObjectID = "lb-empty-inv"; */
+"lb-empty-inv.text" = "No listings match this inventory search.";
+
+/* Class = "UILabel"; text = "Inventory"; ObjectID = "lb-inv"; */
+"lb-inv.text" = "Inventory";
+
+/* Class = "UILabel"; text = "No buyer enquiries yet."; ObjectID = "lb-leads-empty"; */
+"lb-leads-empty.text" = "No buyer enquiries yet.";
+
+/* Class = "UILabel"; text = "Listed by"; ObjectID = "lb-listed"; */
+"lb-listed.text" = "Listed by";
+
+/* Class = "UILabel"; text = "Location"; ObjectID = "lb-loc"; */
+"lb-loc.text" = "Location";
+
+/* Class = "UILabel"; text = "4 portals  ·  8 listings  ·  1 open leads  ·  0 saved"; ObjectID = "lb-metrics"; */
+"lb-metrics.text" = "4 portals  ·  8 listings  ·  1 open leads  ·  0 saved";
+
+/* Class = "UILabel"; text = "Generate a listing description, Instagram caption, WhatsApp message, email, or a client-facing report."; ObjectID = "lb-mkt-hint"; */
+"lb-mkt-hint.text" = "Generate a listing description, Instagram caption, WhatsApp message, email, or a client-facing report.";
+
+/* Class = "UILabel"; text = "Portals"; ObjectID = "lb-portals"; */
+"lb-portals.text" = "Portals";
+
+/* Class = "UILabel"; text = "Profile"; ObjectID = "lb-pr"; */
+"lb-pr.text" = "Profile";
+
+/* Class = "UILabel"; text = ""; ObjectID = "lb-pr-ag"; */
+"lb-pr-ag.text" = "";
+
+/* Class = "UILabel"; text = ""; ObjectID = "lb-pr-name"; */
+"lb-pr-name.text" = "";
+
+/* Class = "UILabel"; text = "$0"; ObjectID = "lb-price"; */
+"lb-price.text" = "$0";
+
+/* Class = "UILabel"; text = "Quick Actions"; ObjectID = "lb-qa"; */
+"lb-qa.text" = "Quick Actions";
+
+/* Class = "UILabel"; text = "Describe a home in plain language"; ObjectID = "lb-qa-ai-s"; */
+"lb-qa-ai-s.text" = "Describe a home in plain language";
+
+/* Class = "UILabel"; text = "AI Property Search"; ObjectID = "lb-qa-ai-t"; */
+"lb-qa-ai-t.text" = "AI Property Search";
+
+/* Class = "UILabel"; text = "Pick 2–3 listings, then compare"; ObjectID = "lb-qa-cmp-s"; */
+"lb-qa-cmp-s.text" = "Pick 2–3 listings, then compare";
+
+/* Class = "UILabel"; text = "Compare Properties"; ObjectID = "lb-qa-cmp-t"; */
+"lb-qa-cmp-t.text" = "Compare Properties";
+
+/* Class = "UILabel"; text = "Buyer enquiries and follow-up status"; ObjectID = "lb-qa-lead-s"; */
+"lb-qa-lead-s.text" = "Buyer enquiries and follow-up status";
+
+/* Class = "UILabel"; text = "Leads"; ObjectID = "lb-qa-lead-t"; */
+"lb-qa-lead-t.text" = "Leads";
+
+/* Class = "UILabel"; text = "Listing, Instagram, WhatsApp, email, reports"; ObjectID = "lb-qa-mkt-s"; */
+"lb-qa-mkt-s.text" = "Listing, Instagram, WhatsApp, email, reports";
+
+/* Class = "UILabel"; text = "Generate Marketing Content"; ObjectID = "lb-qa-mkt-t"; */
+"lb-qa-mkt-t.text" = "Generate Marketing Content";
+
+/* Class = "UILabel"; text = "Client-facing summary to share"; ObjectID = "lb-qa-rep-s"; */
+"lb-qa-rep-s.text" = "Client-facing summary to share";
+
+/* Class = "UILabel"; text = "Create Client Report"; ObjectID = "lb-qa-rep-t"; */
+"lb-qa-rep-t.text" = "Create Client Report";
+
+/* Class = "UILabel"; text = "Recommended Properties"; ObjectID = "lb-rec"; */
+"lb-rec.text" = "Recommended Properties";
+
+/* Class = "UILabel"; text = "Pick a listing, choose Instagram, WhatsApp, Email or listing copy, then generate."; ObjectID = "lb-result"; */
+"lb-result.text" = "Pick a listing, choose Instagram, WhatsApp, Email or listing copy, then generate.";
+
+/* Class = "UILabel"; text = "Recent Searches"; ObjectID = "lb-rs"; */
+"lb-rs.text" = "Recent Searches";
+
+/* Class = "UILabel"; text = "Saved Properties"; ObjectID = "lb-saved"; */
+"lb-saved.text" = "Saved Properties";
+
+/* Class = "UILabel"; text = "Specs"; ObjectID = "lb-specs"; */
+"lb-specs.text" = "Specs";
+
+/* Class = "UILabel"; text = "Summary"; ObjectID = "lb-sum"; */
+"lb-sum.text" = "Summary";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "lb-title"; */
+"lb-title.text" = "Title";
+
+/* Class = "UILabel"; text = "  Buy · Villa  "; ObjectID = "lb-type"; */
+"lb-type.text" = "  Buy · Villa  ";
+
+/* Class = "UILabel"; text = "Workspace"; ObjectID = "lb-ws"; */
+"lb-ws.text" = "Workspace";
+
+/* Class = "UINavigationItem"; title = "Listing"; ObjectID = "ni-adet"; */
+"ni-adet.title" = "Listing";
+
+/* Class = "UINavigationItem"; title = "Edit Profile"; ObjectID = "ni-aedit"; */
+"ni-aedit.title" = "Edit Profile";
+
+/* Class = "UINavigationItem"; title = "Home"; ObjectID = "ni-ahome"; */
+"ni-ahome.title" = "Home";
+
+/* Class = "UINavigationItem"; title = "Lead"; ObjectID = "ni-aleadd"; */
+"ni-aleadd.title" = "Lead";
+
+/* Class = "UINavigationItem"; title = "Leads"; ObjectID = "ni-aleads"; */
+"ni-aleads.title" = "Leads";
+
+/* Class = "UINavigationItem"; title = "Marketing"; ObjectID = "ni-amkt"; */
+"ni-amkt.title" = "Marketing";
+
+/* Class = "UINavigationItem"; title = "Notifications"; ObjectID = "ni-anotif"; */
+"ni-anotif.title" = "Notifications";
+
+/* Class = "UINavigationItem"; title = "Profile"; ObjectID = "ni-aprofile"; */
+"ni-aprofile.title" = "Profile";
+
+/* Class = "UINavigationItem"; title = "Client report"; ObjectID = "ni-arep"; */
+"ni-arep.title" = "Client report";
+
+/* Class = "UINavigationItem"; title = "Workspace"; ObjectID = "ni-asaved"; */
+"ni-asaved.title" = "Workspace";
+
+/* Class = "UINavigationItem"; title = "Inventory"; ObjectID = "ni-asearch"; */
+"ni-asearch.title" = "Inventory";
+
+/* Class = "UISegmentedControl"; seg-ch.segmentTitles[0] = "Listing"; ObjectID = "seg-ch"; */
+"seg-ch.segmentTitles[0]" = "Listing";
+
+/* Class = "UISegmentedControl"; seg-ch.segmentTitles[1] = "Instagram"; ObjectID = "seg-ch"; */
+"seg-ch.segmentTitles[1]" = "Instagram";
+
+/* Class = "UISegmentedControl"; seg-ch.segmentTitles[2] = "WhatsApp"; ObjectID = "seg-ch"; */
+"seg-ch.segmentTitles[2]" = "WhatsApp";
+
+/* Class = "UISegmentedControl"; seg-ch.segmentTitles[3] = "Email"; ObjectID = "seg-ch"; */
+"seg-ch.segmentTitles[3]" = "Email";
+
+/* Class = "UISegmentedControl"; seg-status.segmentTitles[0] = "New"; ObjectID = "seg-status"; */
+"seg-status.segmentTitles[0]" = "New";
+
+/* Class = "UISegmentedControl"; seg-status.segmentTitles[1] = "Contacted"; ObjectID = "seg-status"; */
+"seg-status.segmentTitles[1]" = "Contacted";
+
+/* Class = "UISegmentedControl"; seg-status.segmentTitles[2] = "Viewing"; ObjectID = "seg-status"; */
+"seg-status.segmentTitles[2]" = "Viewing";
+
+/* Class = "UISegmentedControl"; seg-status.segmentTitles[3] = "Closed"; ObjectID = "seg-status"; */
+"seg-status.segmentTitles[3]" = "Closed";
+
+/* Class = "UISegmentedControl"; seg-ws.segmentTitles[0] = "Properties"; ObjectID = "seg-ws"; */
+"seg-ws.segmentTitles[0]" = "Properties";
+
+/* Class = "UISegmentedControl"; seg-ws.segmentTitles[1] = "Searches"; ObjectID = "seg-ws"; */
+"seg-ws.segmentTitles[1]" = "Búsquedas";
+
+/* Class = "UISegmentedControl"; seg-ws.segmentTitles[2] = "Compare"; ObjectID = "seg-ws"; */
+"seg-ws.segmentTitles[2]" = "Comparar";
+
+/* Class = "UITabBarItem"; title = "Home"; ObjectID = "tbi-ahome"; */
+"tbi-ahome.title" = "Home";
+
+/* Class = "UITabBarItem"; title = "Profile"; ObjectID = "tbi-aprofile"; */
+"tbi-aprofile.title" = "Profile";
+
+/* Class = "UITabBarItem"; title = "Workspace"; ObjectID = "tbi-asaved"; */
+"tbi-asaved.title" = "Workspace";
+
+/* Class = "UITabBarItem"; title = "Inventory"; ObjectID = "tbi-asearch"; */
+"tbi-asearch.title" = "Inventory";
+
+/* Class = "UITextField"; placeholder = "Agency"; ObjectID = "tf-agency"; */
+"tf-agency.placeholder" = "Agency";
+
+/* Class = "UITextField"; placeholder = "Client name"; ObjectID = "tf-client"; */
+"tf-client.placeholder" = "Selecciona un cliente";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "tf-email"; */
+"tf-email.placeholder" = "Email";
+
+/* Class = "UILabel"; text = "Document"; ObjectID = "lb-aedit-doc"; */
+"lb-aedit-doc.text" = "Documento";
+
+/* Class = "UITextField"; placeholder = "License number"; ObjectID = "tf-license"; */
+"tf-license.placeholder" = "Número de licencia";
+
+/* Class = "UITextField"; placeholder = "Client brief, location, or portal"; ObjectID = "tf-inv"; */
+"tf-inv.placeholder" = "Client brief, location, or portal";
+
+/* Class = "UITextField"; placeholder = "Full name"; ObjectID = "tf-name"; */
+"tf-name.placeholder" = "Full name";
+
+/* Class = "UITextField"; placeholder = "Phone"; ObjectID = "tf-phone"; */
+"tf-phone.placeholder" = "Phone";

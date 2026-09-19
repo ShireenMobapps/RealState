@@ -32,6 +32,7 @@ final class CustomTextField: UITextField {
     }
 
     @IBInspectable
+    
     var leftPadding: CGFloat = 10
 
     override func awakeFromNib() {
@@ -53,6 +54,8 @@ final class CustomTextField: UITextField {
         font = .systemFont(ofSize: 16, weight: .regular)
         textColor = .black
         updatePlaceholder()
+        attachKeyboardDoneButton()
+        addTarget(self, action: #selector(dismissKeyboardFromToolbar), for: .editingDidEndOnExit)
     }
 
     private func updatePlaceholder() {
@@ -79,7 +82,9 @@ final class CustomTextField: UITextField {
     }
 
     override func rightViewRect(forBounds bounds: CGRect) -> CGRect {
-        CGRect(x: bounds.width - 40, y: 0, width: 36, height: bounds.height)
+        let size: CGFloat = 36
+        let y = max(0, (bounds.height - size) / 2)
+        return CGRect(x: bounds.width - size - 4, y: y, width: size, height: size)
     }
 
     private var textInsets: UIEdgeInsets {

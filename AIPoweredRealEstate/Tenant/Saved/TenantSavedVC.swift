@@ -11,175 +11,335 @@ class TenantSavedVC: UIViewController {
         case properties, searches, compare
     }
 
+    @IBOutlet weak var segment: UISegmentedControl!
+    @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var emptyLabel: UILabel!
+    @IBOutlet weak var compareButton: CustomButton!
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var tableView: UITableView!
+
     private var section: Section = .properties
     private var favorites: [PropertyItem] = []
     private var candidates: [PropertyItem] = []
-
-    private let segment = UISegmentedControl(items: ["Properties", "Searches", "Compare"])
-    private let addButton = UIButton(type: .system)
-    private let emptyLabel = UILabel()
-    private let compareButton = UIButton(type: .system)
-    private let collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = 14
-        return UICollectionView(frame: .zero, collectionViewLayout: layout)
-    }()
-    private let tableView = UITableView(frame: .zero, style: .plain)
+    private var favoritesToken = UUID()
+    private var lastCollectionWidth: CGFloat = 0
+    private var searchItems: [AISearchHistoryItem] = []
+    private var searchLoadToken = UUID()
+    private var isUpdatingSearches = false
+    private let searchesTableView = UITableView(frame: .zero, style: .plain)
+    private let searchesSpinner = UIActivityIndicatorView(style: .medium)
+    private let removeAllButton = UIButton(type: .system)
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .screenBackgroundColor
-        buildLayout()
+        segment.selectedSegmentTintColor = .darkThemeColor
+        segment.setTitleTextAttributes([.foregroundColor: UIColor.white, .font: UIFont.systemFont(ofSize: 13, weight: .semibold)], for: .selected)
+        segment.setTitleTextAttributes([.foregroundColor: UIColor.darkThemeColor, .font: UIFont.systemFont(ofSize: 13, weight: .medium)], for: .normal)
+        CommonMethods.stylePrimaryButton(compareButton)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(PropertyCardCell.nib, forCellWithReuseIdentifier: PropertyCardCell.identifier)
+        collectionView.backgroundColor = .clear
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 24, right: 16)
+        tableView.backgroundColor = .clear
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(CompareSelectCell.nib, forCellReuseIdentifier: CompareSelectCell.identifier)
+        addButton.isHidden = true
+        addButton.isUserInteractionEnabled = false
+        installSearchesViews()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
         reloadContent()
+        if section == .searches {
+            loadSearchHistory()
+        } else if section == .properties || section == .compare {
+            loadFavorites()
+        }
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        collectionView.collectionViewLayout.invalidateLayout()
+        let width = collectionView.bounds.width
+        if section == .properties,
+           collectionView.isHidden == false,
+           width > 32,
+           abs(width - lastCollectionWidth) > 0.5 {
+            lastCollectionWidth = width
+            collectionView.collectionViewLayout.invalidateLayout()
+        }
         CommonMethods.updateGradientFrame(for: compareButton)
         view.bringSubviewToFront(compareButton)
+        view.bringSubviewToFront(removeAllButton)
     }
 
-    private func buildLayout() {
-        let titleLabel = UILabel()
-        titleLabel.text = "Saved"
-        titleLabel.font = .systemFont(ofSize: 28, weight: .bold)
-        titleLabel.textColor = UIColor(red: 33/255, green: 37/255, blue: 41/255, alpha: 1)
+    private func installSearchesViews() {
+        searchesTableView.translatesAutoresizingMaskIntoConstraints = false
+        searchesTableView.backgroundColor = .clear
+        searchesTableView.separatorStyle = .none
+        searchesTableView.dataSource = self
+        searchesTableView.delegate = self
+        searchesTableView.rowHeight = AISearchQueryCell.rowHeight
+        searchesTableView.register(AISearchQueryCell.self, forCellReuseIdentifier: AISearchQueryCell.identifier)
+        searchesTableView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 16, right: 0)
+        searchesTableView.isHidden = true
+        view.addSubview(searchesTableView)
 
-        let plus = UIImage(systemName: "plus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .semibold))
-        addButton.setImage(plus, for: .normal)
-        addButton.tintColor = .darkThemeColor
-        addButton.addTarget(self, action: #selector(addSearchTapped), for: .touchUpInside)
-        NSLayoutConstraint.activate([
-            addButton.widthAnchor.constraint(equalToConstant: 40),
-            addButton.heightAnchor.constraint(equalToConstant: 40)
-        ])
+        searchesSpinner.translatesAutoresizingMaskIntoConstraints = false
+        searchesSpinner.hidesWhenStopped = true
+        view.addSubview(searchesSpinner)
 
-        let headerRow = UIStackView(arrangedSubviews: [titleLabel, UIView(), addButton])
-        headerRow.axis = .horizontal
-        headerRow.alignment = .center
-
-        segment.selectedSegmentIndex = 0
-        segment.selectedSegmentTintColor = .darkThemeColor
-        segment.setTitleTextAttributes([.foregroundColor: UIColor.white, .font: UIFont.systemFont(ofSize: 13, weight: .semibold)], for: .selected)
-        segment.setTitleTextAttributes([.foregroundColor: UIColor.darkThemeColor, .font: UIFont.systemFont(ofSize: 13, weight: .medium)], for: .normal)
-        segment.addTarget(self, action: #selector(segmentChanged), for: .valueChanged)
-        segment.heightAnchor.constraint(equalToConstant: 34).isActive = true
-
-        collectionView.backgroundColor = .clear
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.register(PropertyCardCell.nib, forCellWithReuseIdentifier: PropertyCardCell.identifier)
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 24, right: 16)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-
-        tableView.backgroundColor = .clear
-        tableView.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(SavedSearchCell.self, forCellReuseIdentifier: SavedSearchCell.identifier)
-        tableView.register(CompareSelectCell.self, forCellReuseIdentifier: CompareSelectCell.identifier)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-
-        emptyLabel.font = .systemFont(ofSize: 15, weight: .medium)
-        emptyLabel.textColor = UIColor(red: 108/255, green: 117/255, blue: 125/255, alpha: 1)
-        emptyLabel.textAlignment = .center
-        emptyLabel.numberOfLines = 0
-        emptyLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        compareButton.setTitle("Compare", for: .normal)
-        compareButton.setTitleColor(.white, for: .normal)
-        compareButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
-        CommonMethods.stylePrimaryButton(compareButton)
-        compareButton.addTarget(self, action: #selector(openComparison), for: .touchUpInside)
-        compareButton.translatesAutoresizingMaskIntoConstraints = false
-
-        let topStack = UIStackView(arrangedSubviews: [headerRow, segment])
-        topStack.axis = .vertical
-        topStack.spacing = 14
-        topStack.translatesAutoresizingMaskIntoConstraints = false
-
-        view.addSubview(topStack)
-        view.addSubview(collectionView)
-        view.addSubview(tableView)
-        view.addSubview(emptyLabel)
-        view.addSubview(compareButton)
+        removeAllButton.translatesAutoresizingMaskIntoConstraints = false
+        removeAllButton.setTitle("Remove All".localized, for: .normal)
+        removeAllButton.setTitleColor(.accentThemeColor, for: .normal)
+        removeAllButton.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
+        removeAllButton.addTarget(self, action: #selector(removeAllSearchesTapped), for: .touchUpInside)
+        removeAllButton.isHidden = true
+        view.addSubview(removeAllButton)
 
         NSLayoutConstraint.activate([
-            topStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12),
-            topStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            topStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-
-            collectionView.topAnchor.constraint(equalTo: topStack.bottomAnchor, constant: 14),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-
-            tableView.topAnchor.constraint(equalTo: collectionView.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-
-            emptyLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
-            emptyLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32),
-            emptyLabel.topAnchor.constraint(equalTo: topStack.bottomAnchor, constant: 48),
-
-            compareButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            compareButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            compareButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -12),
-            compareButton.heightAnchor.constraint(equalToConstant: 50)
+            searchesTableView.topAnchor.constraint(equalTo: collectionView.topAnchor),
+            searchesTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            searchesTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            searchesTableView.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor),
+            searchesSpinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            searchesSpinner.centerYAnchor.constraint(equalTo: collectionView.centerYAnchor),
+            removeAllButton.centerYAnchor.constraint(equalTo: addButton.centerYAnchor),
+            removeAllButton.trailingAnchor.constraint(equalTo: addButton.trailingAnchor)
         ])
+        view.bringSubviewToFront(removeAllButton)
     }
 
-    private func reloadContent() {
+    private func reloadContent(resetCompareOrder: Bool = false) {
         favorites = PropertyStore.shared.favoriteProperties()
-        candidates = PropertyStore.shared.compareCandidates()
-        addButton.isHidden = section != .searches
+        if section == .compare {
+            if resetCompareOrder || candidates.isEmpty {
+                candidates = PropertyStore.shared.favoriteProperties()
+            } else {
+                candidates = Self.mergeKeepingOrder(current: candidates, incoming: PropertyStore.shared.favoriteProperties())
+            }
+        } else {
+            candidates = PropertyStore.shared.favoriteProperties()
+        }
+        addButton.isHidden = true
         collectionView.isHidden = section != .properties
-        tableView.isHidden = section == .properties
+        tableView.isHidden = section != .compare
+        searchesTableView.isHidden = section != .searches
         compareButton.isHidden = section != .compare
+        updateRemoveAllButton()
 
         switch section {
         case .properties:
-            emptyLabel.text = "Tap the heart on a listing to shortlist it here."
+            emptyLabel.text = "Tap the heart on a listing to shortlist it here.".localized
             emptyLabel.isHidden = !favorites.isEmpty
             collectionView.reloadData()
         case .searches:
-            emptyLabel.text = "Save a search from the Search tab to get alerts."
-            emptyLabel.isHidden = !PropertyStore.shared.savedSearches.isEmpty
-            tableView.contentInset.bottom = 8
-            tableView.reloadData()
+            emptyLabel.text = "No data found".localized
+            emptyLabel.isHidden = !searchItems.isEmpty || searchesSpinner.isAnimating
+            searchesTableView.reloadData()
         case .compare:
-            let count = PropertyStore.shared.compareIDs.count
-            emptyLabel.isHidden = true
-            compareButton.setTitle("Compare (\(count))", for: .normal)
-            compareButton.alpha = count >= 2 ? 1 : 0.45
-            compareButton.isEnabled = count >= 2
+            emptyLabel.text = "Save listings first, then pick 2–3 to compare.".localized
+            emptyLabel.isHidden = !candidates.isEmpty
+            refreshCompareButton()
             tableView.contentInset.bottom = 70
             tableView.verticalScrollIndicatorInsets.bottom = 70
-            tableView.reloadData()
+            UIView.performWithoutAnimation {
+                self.tableView.reloadData()
+            }
         }
     }
 
-    @objc private func segmentChanged() {
-        section = Section(rawValue: segment.selectedSegmentIndex) ?? .properties
-        reloadContent()
+    private static func mergeKeepingOrder(current: [PropertyItem], incoming: [PropertyItem]) -> [PropertyItem] {
+        let incomingById = Dictionary(incoming.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
+        var kept = current.compactMap { incomingById[$0.id] }
+        let keptIDs = Set(kept.map(\.id))
+        kept.append(contentsOf: incoming.filter { keptIDs.contains($0.id) == false })
+        return kept
     }
 
-    @objc private func addSearchTapped() {
+    private func refreshCompareButton() {
+        let count = PropertyStore.shared.compareIDs.count
+        compareButton.setTitle("Compare (%d)".localized(count), for: .normal)
+        compareButton.alpha = count >= 2 ? 1 : 0.45
+        compareButton.isEnabled = count >= 2
+    }
+
+    private func loadFavorites() {
+        let token = UUID()
+        favoritesToken = token
+        Task {
+            do {
+                let items = try await TenantViewModels.favoritesAPI()
+                await MainActor.run {
+                    guard self.favoritesToken == token else { return }
+                    PropertyStore.shared.setFavorites(items)
+                    if self.section == .compare {
+                        self.favorites = PropertyStore.shared.favoriteProperties()
+                        self.candidates = Self.mergeKeepingOrder(
+                            current: self.candidates,
+                            incoming: PropertyStore.shared.favoriteProperties()
+                        )
+                        if self.candidates.isEmpty {
+                            self.candidates = PropertyStore.shared.favoriteProperties()
+                        }
+                        self.emptyLabel.isHidden = !self.candidates.isEmpty
+                        self.refreshCompareButton()
+                        UIView.performWithoutAnimation {
+                            self.tableView.reloadData()
+                        }
+                    } else {
+                        self.reloadContent()
+                    }
+                }
+            } catch {
+                await MainActor.run {
+                    guard self.favoritesToken == token else { return }
+                    PropertyStore.shared.setFavorites([])
+                    if self.section == .properties || self.section == .compare {
+                        self.reloadContent(resetCompareOrder: true)
+                    }
+                }
+            }
+        }
+    }
+
+    @IBAction func segmentChanged(_ sender: UISegmentedControl) {
+        section = Section(rawValue: sender.selectedSegmentIndex) ?? .properties
+        reloadContent(resetCompareOrder: section == .compare)
+        if section == .searches {
+            loadSearchHistory()
+        } else if section == .properties || section == .compare {
+            loadFavorites()
+        }
+    }
+
+    @IBAction func addSearchTapped(_ sender: Any) {
         openSavedSearch(nil)
     }
 
-    @objc private func openComparison() {
+    @IBAction func openComparison(_ sender: Any) {
         let selected = PropertyStore.shared.comparedProperties()
         guard selected.count >= 2 else { return }
         openCompare(selected)
+    }
+
+    private func updateRemoveAllButton() {
+        let show = section == .searches
+            && AISearchHistoryItem.showsRemoveAll(count: searchItems.count)
+            && !isUpdatingSearches
+        removeAllButton.isHidden = !show
+        removeAllButton.isEnabled = show
+        removeAllButton.setTitle("Remove All".localized, for: .normal)
+    }
+
+    private func loadSearchHistory() {
+        let token = UUID()
+        searchLoadToken = token
+        searchesSpinner.startAnimating()
+        emptyLabel.isHidden = true
+        updateRemoveAllButton()
+        Task {
+            do {
+                let remote = try await AgentViewModels.recentlyAISearchAPI()
+                await MainActor.run {
+                    guard self.searchLoadToken == token else { return }
+                    self.applySearchItems(remote)
+                }
+            } catch {
+                await MainActor.run {
+                    guard self.searchLoadToken == token else { return }
+                    self.applySearchItems([])
+                }
+            }
+        }
+    }
+
+    private func applySearchItems(_ remote: [AISearchHistoryItem]) {
+        searchesSpinner.stopAnimating()
+        searchItems = remote
+        emptyLabel.text = "No data found".localized
+        emptyLabel.isHidden = section != .searches || !remote.isEmpty
+        searchesTableView.reloadData()
+        updateRemoveAllButton()
+    }
+
+    @objc private func removeAllSearchesTapped() {
+        guard AISearchHistoryItem.showsRemoveAll(count: searchItems.count), !isUpdatingSearches else { return }
+        CommonMethods.showConfirmationAlert(
+            message: "Clear all AI search history?",
+            confirmTitle: "Remove All",
+            confirmStyle: .destructive,
+            from: self
+        ) { [weak self] in
+            self?.deleteAllSearchHistory()
+        }
+    }
+
+    private func deleteAllSearchHistory() {
+        isUpdatingSearches = true
+        updateRemoveAllButton()
+        Task {
+            do {
+                try await AgentViewModels.deleteAllAISearchHistoryAPI()
+                await MainActor.run {
+                    self.isUpdatingSearches = false
+                    self.applySearchItems([])
+                }
+            } catch {
+                await MainActor.run {
+                    self.isUpdatingSearches = false
+                    self.updateRemoveAllButton()
+                    self.showSearchAPIError(error)
+                }
+            }
+        }
+    }
+
+    private func confirmDeleteSearch(_ item: AISearchHistoryItem) {
+        guard !isUpdatingSearches else { return }
+        CommonMethods.showConfirmationAlert(
+            message: "Delete this search history?",
+            confirmTitle: "Delete",
+            confirmStyle: .destructive,
+            from: self
+        ) { [weak self] in
+            self?.deleteSearchHistory(item)
+        }
+    }
+
+    private func deleteSearchHistory(_ item: AISearchHistoryItem) {
+        isUpdatingSearches = true
+        updateRemoveAllButton()
+        Task {
+            do {
+                try await AgentViewModels.deleteAISearchHistoryAPI(id: item.historyId)
+                await MainActor.run {
+                    self.isUpdatingSearches = false
+                    self.searchItems.removeAll { $0.historyId == item.historyId }
+                    self.emptyLabel.isHidden = self.section != .searches || !self.searchItems.isEmpty
+                    self.searchesTableView.reloadData()
+                    self.updateRemoveAllButton()
+                }
+            } catch {
+                await MainActor.run {
+                    self.isUpdatingSearches = false
+                    self.updateRemoveAllButton()
+                    self.showSearchAPIError(error)
+                }
+            }
+        }
+    }
+
+    private func showSearchAPIError(_ error: Error) {
+        let message = ((error as? APIError)?.errorDescription ?? error.localizedDescription)
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+        let text = message.isEmpty ? "Unable to delete search history.".localized : message
+        CommonMethods.showAlert(message: text, from: self)
     }
 }
 
@@ -189,7 +349,8 @@ extension TenantSavedVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
+        guard indexPath.item < favorites.count,
+              let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: PropertyCardCell.identifier,
             for: indexPath
         ) as? PropertyCardCell else {
@@ -198,40 +359,57 @@ extension TenantSavedVC: UICollectionViewDataSource, UICollectionViewDelegate, U
         let property = favorites[indexPath.item]
         cell.configure(with: property, isFavorite: true)
         cell.onFavorite = { [weak self] in
-            PropertyStore.shared.toggleFavorite(property.id)
-            self?.reloadContent()
+            self?.toggleFavoriteRemote(propertyId: property.id) { isFav in
+                guard let self else { return }
+                if !isFav {
+                    self.favorites.removeAll { $0.id == property.id }
+                    PropertyStore.shared.setFavorite(property.id, isOn: false)
+                }
+                self.emptyLabel.isHidden = !self.favorites.isEmpty
+                self.collectionView.reloadData()
+            }
         }
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard indexPath.item < favorites.count else { return }
         openPropertyDetails(favorites[indexPath.item])
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: collectionView.bounds.width - 32, height: 268)
+        let width = max(collectionView.bounds.width - 32, 1)
+        return CGSize(
+            width: width,
+            height: PropertyCardCell.height(forTitle: favorites[indexPath.item].title, width: width)
+        )
     }
 }
 
 extension TenantSavedVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.section == .searches ? PropertyStore.shared.savedSearches.count : candidates.count
+        tableView == searchesTableView ? searchItems.count : candidates.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if section == .searches {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: SavedSearchCell.identifier, for: indexPath) as? SavedSearchCell else {
+        if tableView == searchesTableView {
+            guard indexPath.row < searchItems.count,
+                  let cell = tableView.dequeueReusableCell(
+                    withIdentifier: AISearchQueryCell.identifier,
+                    for: indexPath
+                  ) as? AISearchQueryCell else {
                 return UITableViewCell()
             }
-            let search = PropertyStore.shared.savedSearches[indexPath.row]
-            cell.configure(search)
-            cell.onAlertChange = { isOn in
-                PropertyStore.shared.setAlert(id: search.id, isOn: isOn)
+            let item = searchItems[indexPath.row]
+            cell.configure(query: item.query)
+            cell.onDelete = { [weak self] in
+                self?.confirmDeleteSearch(item)
             }
             return cell
         }
 
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CompareSelectCell.identifier, for: indexPath) as? CompareSelectCell else {
+        guard indexPath.row < candidates.count,
+              let cell = tableView.dequeueReusableCell(withIdentifier: CompareSelectCell.identifier, for: indexPath) as? CompareSelectCell else {
             return UITableViewCell()
         }
         let property = candidates[indexPath.row]
@@ -241,141 +419,27 @@ extension TenantSavedVC: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if section == .searches {
-            openSavedSearch(PropertyStore.shared.savedSearches[indexPath.row])
+        if tableView == searchesTableView {
+            guard indexPath.row < searchItems.count else { return }
+            let item = searchItems[indexPath.row]
+            openAISearch(prefilled: item.query, chatId: item.historyId)
             return
         }
-            let property = candidates[indexPath.row]
-            if !PropertyStore.shared.isCompared(property.id), PropertyStore.shared.compareIDs.count >= 3 {
-                let alert = UIAlertController(title: "Compare", message: "You can compare up to 3 properties.", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default))
-                present(alert, animated: true)
-                return
-            }
-            PropertyStore.shared.toggleCompare(property.id)
-            reloadContent()
-    }
-
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard section == .searches else { return nil }
-        let delete = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, done in
-            let store = PropertyStore.shared
-            guard store.savedSearches.indices.contains(indexPath.row) else {
-                done(false)
-                return
-            }
-            store.deleteSearch(id: store.savedSearches[indexPath.row].id)
-            self?.reloadContent()
-            done(true)
+        guard indexPath.row < candidates.count else { return }
+        let property = candidates[indexPath.row]
+        if !PropertyStore.shared.isCompared(property.id), PropertyStore.shared.compareIDs.count >= 3 {
+            let alert = UIAlertController(title: "Compare".localized, message: "You can compare up to 3 properties.".localized, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK".localized, style: .default))
+            present(alert, animated: true)
+            return
         }
-        return UISwipeActionsConfiguration(actions: [delete])
+        PropertyStore.shared.toggleCompare(property.id)
+        refreshCompareButton()
+        guard let cell = tableView.cellForRow(at: indexPath) as? CompareSelectCell else { return }
+        cell.configure(property, selected: PropertyStore.shared.isCompared(property.id))
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        section == .compare ? 76 : 78
-    }
-}
-
-final class SavedSearchCell: UITableViewCell {
-    static let identifier = "SavedSearchCell"
-    var onAlertChange: ((Bool) -> Void)?
-
-    private let titleLabel = UILabel()
-    private let subtitleLabel = UILabel()
-    private let alertSwitch = UISwitch()
-    private let bellView = UIImageView()
-
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = .clear
-        selectionStyle = .none
-        titleLabel.font = .systemFont(ofSize: 16, weight: .semibold)
-        titleLabel.textColor = UIColor(red: 33/255, green: 37/255, blue: 41/255, alpha: 1)
-        subtitleLabel.font = .systemFont(ofSize: 13, weight: .regular)
-        subtitleLabel.textColor = UIColor(red: 108/255, green: 117/255, blue: 125/255, alpha: 1)
-        subtitleLabel.numberOfLines = 2
-        bellView.tintColor = .darkThemeColor
-        alertSwitch.onTintColor = .darkThemeColor
-        alertSwitch.addTarget(self, action: #selector(alertChanged), for: .valueChanged)
-        let text = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel])
-        text.axis = .vertical
-        text.spacing = 4
-        let row = UIStackView(arrangedSubviews: [bellView, text, alertSwitch])
-        row.axis = .horizontal
-        row.alignment = .center
-        row.spacing = 10
-        row.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(row)
-        NSLayoutConstraint.activate([
-            bellView.widthAnchor.constraint(equalToConstant: 20),
-            row.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
-            row.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            row.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            row.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12)
-        ])
-    }
-
-    required init?(coder: NSCoder) { nil }
-
-    func configure(_ search: SavedSearch) {
-        titleLabel.text = search.title
-        subtitleLabel.text = search.subtitle
-        alertSwitch.isOn = search.alertOn
-        bellView.image = UIImage(systemName: search.alertOn ? "bell.fill" : "bell.slash")
-    }
-
-    @objc private func alertChanged() {
-        bellView.image = UIImage(systemName: alertSwitch.isOn ? "bell.fill" : "bell.slash")
-        onAlertChange?(alertSwitch.isOn)
-    }
-}
-
-final class CompareSelectCell: UITableViewCell {
-    static let identifier = "CompareSelectCell"
-
-    private let photoView = UIImageView()
-    private let titleLabel = UILabel()
-    private let subtitleLabel = UILabel()
-    private let checkView = UIImageView()
-
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = .clear
-        selectionStyle = .none
-        photoView.contentMode = .scaleAspectFill
-        photoView.clipsToBounds = true
-        photoView.layer.cornerRadius = 10
-        titleLabel.font = .systemFont(ofSize: 16, weight: .semibold)
-        titleLabel.textColor = UIColor(red: 33/255, green: 37/255, blue: 41/255, alpha: 1)
-        subtitleLabel.font = .systemFont(ofSize: 13, weight: .regular)
-        subtitleLabel.textColor = UIColor(red: 108/255, green: 117/255, blue: 125/255, alpha: 1)
-        let text = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel])
-        text.axis = .vertical
-        text.spacing = 3
-        let row = UIStackView(arrangedSubviews: [photoView, text, checkView])
-        row.axis = .horizontal
-        row.alignment = .center
-        row.spacing = 12
-        row.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(row)
-        NSLayoutConstraint.activate([
-            photoView.widthAnchor.constraint(equalToConstant: 56),
-            photoView.heightAnchor.constraint(equalToConstant: 56),
-            checkView.widthAnchor.constraint(equalToConstant: 24),
-            row.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            row.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            row.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            row.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
-        ])
-    }
-
-    required init?(coder: NSCoder) { nil }
-
-    func configure(_ property: PropertyItem, selected: Bool) {
-        photoView.image = UIImage(named: property.imageName)
-        titleLabel.text = property.title
-        subtitleLabel.text = "\(property.location)  ·  \(property.priceText)"
-        checkView.image = UIImage(systemName: selected ? "checkmark.circle.fill" : "circle")
-        checkView.tintColor = selected ? .darkThemeColor : UIColor(white: 0.75, alpha: 1)
+        tableView == searchesTableView ? AISearchQueryCell.rowHeight : CompareSelectCell.rowHeight
     }
 }

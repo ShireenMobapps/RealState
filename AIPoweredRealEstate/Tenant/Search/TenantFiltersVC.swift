@@ -10,117 +10,71 @@ final class TenantFiltersVC: UIViewController {
     var criteria = PropertySearchCriteria()
     var onApply: ((PropertySearchCriteria) -> Void)?
 
-    private let scrollView = UIScrollView()
-    private let contentStack = UIStackView()
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var contentStack: UIStackView!
+    @IBOutlet weak var applyButton: CustomButton!
+
+    @IBOutlet var locationButtons: [UIButton]!
+    @IBOutlet var typeButtons: [UIButton]!
+    @IBOutlet var priceButtons: [UIButton]!
+    @IBOutlet var bedroomButtons: [UIButton]!
+    @IBOutlet var bathroomButtons: [UIButton]!
+    @IBOutlet var sizeButtons: [UIButton]!
+    @IBOutlet var furnishedButtons: [UIButton]!
+    @IBOutlet var amenityButtons: [UIButton]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .screenBackgroundColor
-        title = "Filters"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(resetTapped))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(applyTapped))
+        title = "Filters".localized
+        navigationItem.leftBarButtonItem?.title = "Reset".localized
+        navigationItem.rightBarButtonItem?.title = "Done".localized
         navigationController?.navigationBar.tintColor = .darkThemeColor
-        buildLayout()
-        reloadChips()
-    }
-
-    private func buildLayout() {
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        contentStack.translatesAutoresizingMaskIntoConstraints = false
-        contentStack.axis = .vertical
-        contentStack.spacing = 22
-        view.addSubview(scrollView)
-        scrollView.addSubview(contentStack)
-
-        NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            contentStack.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 20),
-            contentStack.leadingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.leadingAnchor, constant: 20),
-            contentStack.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor, constant: -20),
-            contentStack.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -28)
-        ])
-    }
-
-    private func addSection(_ title: String, options: [String], selected: String?, action: Selector, multi: Bool = false) {
-        let label = UILabel()
-        label.text = title
-        label.font = .systemFont(ofSize: 16, weight: .bold)
-        label.textColor = UIColor(red: 33/255, green: 37/255, blue: 41/255, alpha: 1)
-
-        let row = UIScrollView()
-        row.showsHorizontalScrollIndicator = false
-        row.tag = title.hashValue
-        let stack = UIStackView()
-        stack.axis = .horizontal
-        stack.spacing = 8
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        row.addSubview(stack)
-        NSLayoutConstraint.activate([
-            stack.topAnchor.constraint(equalTo: row.topAnchor),
-            stack.leadingAnchor.constraint(equalTo: row.leadingAnchor),
-            stack.trailingAnchor.constraint(equalTo: row.trailingAnchor, constant: -4),
-            stack.bottomAnchor.constraint(equalTo: row.bottomAnchor),
-            stack.heightAnchor.constraint(equalToConstant: 36),
-            row.heightAnchor.constraint(equalToConstant: 36)
-        ])
-        stack.accessibilityIdentifier = title
-
-        for option in options {
-            let isOn: Bool
-            if multi {
-                isOn = criteria.amenities.contains(option)
-            } else {
-                isOn = option == selected
-            }
-            let button = CommonMethods.makeFilterChip(title: option, selected: isOn)
-            button.addTarget(self, action: action, for: .touchUpInside)
-            stack.addArrangedSubview(button)
-        }
-
-        let section = UIStackView(arrangedSubviews: [label, row])
-        section.axis = .vertical
-        section.spacing = 10
-        contentStack.addArrangedSubview(section)
-    }
-
-    private func reloadChips() {
-        contentStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
-        addSection("Location", options: ["Any"] + PropertyStore.locations, selected: criteria.location ?? "Any", action: #selector(locationTapped(_:)))
-        addSection("Property Type", options: ["Any"] + PropertyStore.propertyTypes, selected: criteria.propertyType ?? "Any", action: #selector(typeTapped(_:)))
-        addSection("Price Range", options: ["Any", "Up to $1,500", "Up to $5,000", "Up to $300k", "Up to $500k", "$500k+"], selected: priceTitle(), action: #selector(priceTapped(_:)))
-        addSection("Bedrooms", options: ["Any", "1+", "2+", "3+", "4+"], selected: bedsTitle(), action: #selector(bedsTapped(_:)))
-        addSection("Bathrooms", options: ["Any", "1+", "2+", "3+"], selected: bathsTitle(), action: #selector(bathsTapped(_:)))
-        addSection("Property Size", options: ["Any", "80+ m²", "150+ m²", "300+ m²"], selected: areaTitle(), action: #selector(areaTapped(_:)))
-        addSection("Furnished", options: ["Any", "Yes", "No"], selected: furnishedTitle(), action: #selector(furnishedTapped(_:)))
-        addSection("Amenities", options: PropertyStore.amenityOptions, selected: nil, action: #selector(amenityTapped(_:)), multi: true)
-
-        let applyButton = UIButton(type: .system)
-        applyButton.setTitle("Apply Filters", for: .normal)
-        applyButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
-        applyButton.setTitleColor(.white, for: .normal)
+        applyButton.setTitle("Apply Filters".localized, for: .normal)
         CommonMethods.stylePrimaryButton(applyButton)
-        applyButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        applyButton.addTarget(self, action: #selector(applyTapped), for: .touchUpInside)
-        contentStack.addArrangedSubview(applyButton)
+        refreshSelection()
     }
 
-    @objc private func locationTapped(_ sender: UIButton) {
-        let title = sender.configuration?.title ?? ""
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        CommonMethods.updateGradientFrame(for: applyButton)
+    }
+
+    private func refreshSelection() {
+        style(locationButtons, selected: criteria.location ?? "Any")
+        style(typeButtons, selected: criteria.propertyType ?? "Any")
+        style(priceButtons, selected: priceTitle())
+        style(bedroomButtons, selected: bedsTitle())
+        style(bathroomButtons, selected: bathsTitle())
+        style(sizeButtons, selected: areaTitle())
+        style(furnishedButtons, selected: furnishedTitle())
+        for button in amenityButtons ?? [] {
+            let value = button.chipValue
+            CommonMethods.styleFilterChip(button, title: value, selected: criteria.amenities.contains(value))
+        }
+    }
+
+    private func style(_ buttons: [UIButton]?, selected: String) {
+        buttons?.forEach { button in
+            let value = button.chipValue
+            CommonMethods.styleFilterChip(button, title: value, selected: value == selected)
+        }
+    }
+
+    @IBAction func locationTapped(_ sender: UIButton) {
+        let title = sender.chipValue
         criteria.location = title == "Any" ? nil : title
-        reloadChips()
+        refreshSelection()
     }
 
-    @objc private func typeTapped(_ sender: UIButton) {
-        let title = sender.configuration?.title ?? ""
+    @IBAction func typeTapped(_ sender: UIButton) {
+        let title = sender.chipValue
         criteria.propertyType = title == "Any" ? nil : title
-        reloadChips()
+        refreshSelection()
     }
 
-    @objc private func priceTapped(_ sender: UIButton) {
-        switch sender.configuration?.title {
+    @IBAction func priceTapped(_ sender: UIButton) {
+        switch sender.chipValue {
         case "Up to $1,500":
             criteria.minPrice = nil
             criteria.maxPrice = 1_500
@@ -140,54 +94,54 @@ final class TenantFiltersVC: UIViewController {
             criteria.minPrice = nil
             criteria.maxPrice = nil
         }
-        reloadChips()
+        refreshSelection()
     }
 
-    @objc private func bedsTapped(_ sender: UIButton) {
-        criteria.minBedrooms = intPrefix(sender.configuration?.title)
-        reloadChips()
+    @IBAction func bedsTapped(_ sender: UIButton) {
+        criteria.minBedrooms = intPrefix(sender.chipValue)
+        refreshSelection()
     }
 
-    @objc private func bathsTapped(_ sender: UIButton) {
-        criteria.minBathrooms = intPrefix(sender.configuration?.title)
-        reloadChips()
+    @IBAction func bathsTapped(_ sender: UIButton) {
+        criteria.minBathrooms = intPrefix(sender.chipValue)
+        refreshSelection()
     }
 
-    @objc private func areaTapped(_ sender: UIButton) {
-        switch sender.configuration?.title {
+    @IBAction func areaTapped(_ sender: UIButton) {
+        switch sender.chipValue {
         case "80+ m²": criteria.minArea = 80; criteria.maxArea = nil
         case "150+ m²": criteria.minArea = 150; criteria.maxArea = nil
         case "300+ m²": criteria.minArea = 300; criteria.maxArea = nil
         default: criteria.minArea = nil; criteria.maxArea = nil
         }
-        reloadChips()
+        refreshSelection()
     }
 
-    @objc private func furnishedTapped(_ sender: UIButton) {
-        switch sender.configuration?.title {
+    @IBAction func furnishedTapped(_ sender: UIButton) {
+        switch sender.chipValue {
         case "Yes": criteria.furnished = true
         case "No": criteria.furnished = false
         default: criteria.furnished = nil
         }
-        reloadChips()
+        refreshSelection()
     }
 
-    @objc private func amenityTapped(_ sender: UIButton) {
-        let title = sender.configuration?.title ?? ""
+    @IBAction func amenityTapped(_ sender: UIButton) {
+        let title = sender.chipValue
         if criteria.amenities.contains(title) {
             criteria.amenities.remove(title)
         } else {
             criteria.amenities.insert(title)
         }
-        reloadChips()
+        refreshSelection()
     }
 
-    @objc private func resetTapped() {
+    @IBAction func resetTapped(_ sender: Any) {
         criteria.resetFilters()
-        reloadChips()
+        refreshSelection()
     }
 
-    @objc private func applyTapped() {
+    @IBAction func applyTapped(_ sender: Any) {
         onApply?(criteria)
         dismiss(animated: true)
     }

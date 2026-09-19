@@ -1,0 +1,162 @@
+
+/* Class = "UILabel"; text = "Choose Your Role"; ObjectID = "MGn-g6-gS7"; */
+"MGn-g6-gS7.text" = "Choose Your Role";
+
+/* Class = "UILabel"; text = "Realtor / Agent"; ObjectID = "UQE-Hd-Zzp"; */
+"UQE-Hd-Zzp.text" = "Realtor / Agent";
+
+/* Class = "UILabel"; text = "Buyer / Tenant"; ObjectID = "YtZ-8Y-ffk"; */
+"YtZ-8Y-ffk.text" = "Buyer / Tenant";
+
+/* Class = "UILabel"; text = "Search inventories and create marketing content with AI."; ObjectID = "ag-desc"; */
+"ag-desc.text" = "Search inventories and create marketing content with AI.";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "fp-email"; */
+"fp-email.placeholder" = "Email";
+
+/* Class = "UIButton"; normalTitle = "Back to Login"; ObjectID = "fp-login"; */
+"fp-login.normalTitle" = "Back to Login";
+
+/* Class = "UIButton"; normalTitle = "Send Reset Link"; ObjectID = "fp-send"; */
+"fp-send.normalTitle" = "Enviar OTP";
+
+/* Class = "UILabel"; text = "Enter your email to receive a reset link"; ObjectID = "fp-sub"; */
+"fp-sub.text" = "Enter your email to receive a reset link";
+
+/* Class = "UILabel"; text = "Forgot Password"; ObjectID = "fp-title"; */
+"fp-title.text" = "Forgot Password";
+
+/* Class = "UIButton"; accessibilityLabel = "Continue as Buyer or Tenant"; ObjectID = "gnM-jU-h7T"; */
+"gnM-jU-h7T.accessibilityLabel" = "Continue as Buyer or Tenant";
+
+/* Class = "UILabel"; text = "Find the right property with AI."; ObjectID = "hdr-sub"; */
+"hdr-sub.text" = "Find the right property with AI.";
+
+/* Class = "UILabel"; text = "Speedy Prop"; ObjectID = "hdr-title"; */
+"hdr-title.text" = "Speedy Prop";
+
+/* Class = "UIButton"; normalTitle = "Select Language"; ObjectID = "welcome-lang"; */
+"welcome-lang.normalTitle" = "Seleccionar idioma";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "login-email"; */
+"login-email.placeholder" = "Email";
+
+/* Class = "UIButton"; normalTitle = "Forgot Password?"; ObjectID = "login-forgot"; */
+"login-forgot.normalTitle" = "¿Olvidaste tu contraseña?";
+
+/* Class = "UIButton"; normalTitle = "Verify Email"; ObjectID = "login-verify"; */
+"login-verify.normalTitle" = "Verificar correo";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "login-password"; */
+"login-password.placeholder" = "Password";
+
+/* Class = "UIButton"; normalTitle = "Create Account"; ObjectID = "login-signup"; */
+"login-signup.normalTitle" = "Create Account";
+
+/* Class = "UILabel"; text = "Don't have an account?"; ObjectID = "login-signup-label"; */
+"login-signup-label.text" = "Don't have an account?";
+
+/* Class = "UILabel"; text = "Login to continue"; ObjectID = "login-sub"; */
+"login-sub.text" = "Login to continue";
+
+/* Class = "UIButton"; normalTitle = "Login"; ObjectID = "login-submit"; */
+"login-submit.normalTitle" = "Login";
+
+/* Class = "UILabel"; text = "Welcome Back"; ObjectID = "login-title"; */
+"login-title.text" = "Welcome Back";
+
+/* Class = "UIButton"; normalTitle = "Skip"; ObjectID = "ob-skip"; */
+"ob-skip.normalTitle" = "Skip";
+
+/* Class = "UIButton"; normalTitle = "Get Started"; ObjectID = "ob-start"; */
+"ob-start.normalTitle" = "Get Started";
+
+/* Class = "UILabel"; text = "Resend in 60s"; ObjectID = "otp-count"; */
+"otp-count.text" = "Resend in 60s";
+
+/* Class = "UITextField"; placeholder = "Enter OTP"; ObjectID = "otp-field"; */
+"otp-field.placeholder" = "Enter OTP";
+
+/* Class = "UIButton"; normalTitle = "Resend OTP"; ObjectID = "otp-resend"; */
+"otp-resend.normalTitle" = "Resend OTP";
+
+/* Class = "UILabel"; text = "Enter the OTP sent to your email"; ObjectID = "otp-sub"; */
+"otp-sub.text" = "Enter the OTP sent to your email";
+
+/* Class = "UILabel"; text = "Verify OTP"; ObjectID = "otp-title"; */
+"otp-title.text" = "Verify OTP";
+
+/* Class = "UIButton"; normalTitle = "Verify OTP"; ObjectID = "otp-verify"; */
+"otp-verify.normalTitle" = "Verify OTP";
+
+/* Class = "UIButton"; accessibilityLabel = "Continue as Realtor or Agent"; ObjectID = "plo-L4-gvF"; */
+"plo-L4-gvF.accessibilityLabel" = "Continue as Realtor or Agent";
+
+/* Class = "UITextField"; placeholder = "Agency / Company name"; ObjectID = "rg-agency"; */
+"rg-agency.placeholder" = "Agencia / Empresa";
+
+/* Class = "UITextField"; placeholder = "License number"; ObjectID = "rg-license"; */
+"rg-license.placeholder" = "Número de licencia";
+
+/* Class = "UIButton"; normalTitle = "Upload license document"; ObjectID = "rg-document"; */
+"rg-document.normalTitle" = "Subir documento de licencia";
+
+/* Class = "UITextField"; placeholder = "Confirm password"; ObjectID = "rg-confirm"; */
+"rg-confirm.placeholder" = "Confirm password";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "rg-email"; */
+"rg-email.placeholder" = "Email";
+
+/* Class = "UITextField"; placeholder = "First name"; ObjectID = "rg-first"; */
+"rg-first.placeholder" = "First name";
+
+/* Class = "UITextField"; placeholder = "Last name"; ObjectID = "rg-last"; */
+"rg-last.placeholder" = "Last name";
+
+/* Class = "UIButton"; normalTitle = "Login"; ObjectID = "rg-login"; */
+"rg-login.normalTitle" = "Login";
+
+/* Class = "UILabel"; text = "Already have an account?"; ObjectID = "rg-login-label"; */
+"rg-login-label.text" = "Already have an account?";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "rg-password"; */
+"rg-password.placeholder" = "Password";
+
+/* Class = "UITextField"; placeholder = "Phone number"; ObjectID = "rg-phone"; */
+"rg-phone.placeholder" = "Phone number";
+
+/* Class = "UILabel"; text = "Register to continue"; ObjectID = "rg-sub"; */
+"rg-sub.text" = "Register to continue";
+
+/* Class = "UIButton"; normalTitle = "Create Account"; ObjectID = "rg-submit"; */
+"rg-submit.normalTitle" = "Create Account";
+
+/* Class = "UILabel"; text = "I accept the terms and conditions"; ObjectID = "rg-terms-label"; */
+"rg-terms-label.text" = "I accept the terms and conditions";
+
+/* Class = "UILabel"; text = "Create Account"; ObjectID = "rg-title"; */
+"rg-title.text" = "Create Account";
+
+/* Class = "UILabel"; text = "Select how you want to continue and start finding the right property faster."; ObjectID = "role-sub-01"; */
+"role-sub-01.text" = "Select how you want to continue and start finding the right property faster.";
+
+/* Class = "UITextField"; placeholder = "Confirm password"; ObjectID = "rp-confirm"; */
+"rp-confirm.placeholder" = "Confirm password";
+
+/* Class = "UIButton"; normalTitle = "Back to Login"; ObjectID = "rp-login"; */
+"rp-login.normalTitle" = "Back to Login";
+
+/* Class = "UITextField"; placeholder = "New password"; ObjectID = "rp-password"; */
+"rp-password.placeholder" = "New password";
+
+/* Class = "UIButton"; normalTitle = "Reset Password"; ObjectID = "rp-reset"; */
+"rp-reset.normalTitle" = "Reset Password";
+
+/* Class = "UILabel"; text = "Create a new password for your account"; ObjectID = "rp-sub"; */
+"rp-sub.text" = "Create a new password for your account";
+
+/* Class = "UILabel"; text = "Reset Password"; ObjectID = "rp-title"; */
+"rp-title.text" = "Reset Password";
+
+/* Class = "UILabel"; text = "Find your ideal property faster with AI-powered search."; ObjectID = "tn-desc"; */
+"tn-desc.text" = "Find your ideal property faster with AI-powered search.";

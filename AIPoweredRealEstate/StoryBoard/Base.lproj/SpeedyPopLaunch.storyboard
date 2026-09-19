@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="SP0-ln-vc1">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="SP0-sc-001">
+            <objects>
+                <viewController id="SP0-ln-vc1" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SP0-vw-001">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchSpeedyPop" translatesAutoresizingMaskIntoConstraints="NO" id="SP0-im-001">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="SP0-sf-001"/>
+                        <color key="backgroundColor" red="0.98039215686274506" green="0.97647058823529409" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="SP0-im-001" firstAttribute="leading" secondItem="SP0-vw-001" secondAttribute="leading" id="SP0-c-l"/>
+                            <constraint firstAttribute="bottom" secondItem="SP0-im-001" secondAttribute="bottom" id="SP0-c-b"/>
+                            <constraint firstAttribute="trailing" secondItem="SP0-im-001" secondAttribute="trailing" id="SP0-c-t"/>
+                            <constraint firstItem="SP0-im-001" firstAttribute="top" secondItem="SP0-vw-001" secondAttribute="top" id="SP0-c-tp"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SP0-fr-001" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="53" y="375"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="launchSpeedyPop" width="852" height="1846"/>
+    </resources>
+</document>

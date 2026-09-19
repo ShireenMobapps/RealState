@@ -37,8 +37,8 @@ final class OnboardingCell: UICollectionViewCell {
 
     func configure(with item: OnboardingItem) {
         iconImageView.image = UIImage(systemName: item.iconName)
-        titleLabel.text = item.title
-        subtitleLabel.text = item.subtitle
+        titleLabel.text = item.title.localized
+        subtitleLabel.text = item.subtitle.localized
         CommonMethods.gradientOverView(view: iconContainer)
     }
 

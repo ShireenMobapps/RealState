@@ -8,7 +8,7 @@ import UIKit
 final class AgentSavedVC: UIViewController {
 
     private enum Section: Int {
-        case properties, clients, compare
+        case properties, searches, compare
     }
 
     @IBOutlet weak var segment: UISegmentedControl!
@@ -22,6 +22,15 @@ final class AgentSavedVC: UIViewController {
     private var section: Section = .properties
     private var favorites: [PropertyItem] = []
     private var candidates: [PropertyItem] = []
+    private var searchItems: [AISearchHistoryItem] = []
+    private var searchLoadToken = UUID()
+    private var favoritesToken = UUID()
+    private var isUpdatingSearches = false
+    private var lastCollectionWidth: CGFloat = 0
+
+    private let searchesTableView = UITableView(frame: .zero, style: .plain)
+    private let searchesSpinner = UIActivityIndicatorView(style: .medium)
+    private let removeAllButton = UIButton(type: .system)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,78 +47,333 @@ final class AgentSavedVC: UIViewController {
         tableView.backgroundColor = .clear
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "client")
-        tableView.register(CompareSelectCell.self, forCellReuseIdentifier: CompareSelectCell.identifier)
+        tableView.register(CompareSelectCell.nib, forCellReuseIdentifier: CompareSelectCell.identifier)
+        addButton.isHidden = true
+        addButton.isUserInteractionEnabled = false
+        reportButton.isHidden = true
+        reportButton.isUserInteractionEnabled = false
+        reportButton.heightAnchor.constraint(equalToConstant: 0).isActive = true
+        ensureSearchSegment()
+        installSearchesViews()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
         if let pending = AgentStore.pendingSavedSection {
-            segment.selectedSegmentIndex = pending
-            section = Section(rawValue: pending) ?? .properties
+            let mapped = min(max(pending, 0), max(segment.numberOfSegments - 1, 0))
+            segment.selectedSegmentIndex = mapped
+            section = Section(rawValue: mapped) ?? .properties
             AgentStore.pendingSavedSection = nil
         }
         reloadContent()
+        if section == .searches {
+            loadSearchHistory()
+        } else if section == .properties || section == .compare {
+            loadFavorites()
+        }
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        collectionView.collectionViewLayout.invalidateLayout()
+        let width = collectionView.bounds.width
+        if section == .properties,
+           collectionView.isHidden == false,
+           width > 32,
+           abs(width - lastCollectionWidth) > 0.5 {
+            lastCollectionWidth = width
+            collectionView.collectionViewLayout.invalidateLayout()
+        }
         CommonMethods.updateGradientFrame(for: compareButton)
+    }
+
+    private func ensureSearchSegment() {
+        if segment.numberOfSegments == 2 {
+            segment.insertSegment(withTitle: "Searches".localized, at: 1, animated: false)
+        }
+    }
+
+    private func installSearchesViews() {
+        searchesTableView.translatesAutoresizingMaskIntoConstraints = false
+        searchesTableView.backgroundColor = .clear
+        searchesTableView.separatorStyle = .none
+        searchesTableView.dataSource = self
+        searchesTableView.delegate = self
+        searchesTableView.rowHeight = AISearchQueryCell.rowHeight
+        searchesTableView.register(AISearchQueryCell.self, forCellReuseIdentifier: AISearchQueryCell.identifier)
+        searchesTableView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 16, right: 0)
+        searchesTableView.isHidden = true
+        view.addSubview(searchesTableView)
+
+        searchesSpinner.translatesAutoresizingMaskIntoConstraints = false
+        searchesSpinner.hidesWhenStopped = true
+        view.addSubview(searchesSpinner)
+
+        removeAllButton.translatesAutoresizingMaskIntoConstraints = false
+        removeAllButton.setTitle("Remove All".localized, for: .normal)
+        removeAllButton.setTitleColor(.accentThemeColor, for: .normal)
+        removeAllButton.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
+        removeAllButton.addTarget(self, action: #selector(removeAllSearchesTapped), for: .touchUpInside)
+        removeAllButton.isHidden = true
+        view.addSubview(removeAllButton)
+
+        NSLayoutConstraint.activate([
+            searchesTableView.topAnchor.constraint(equalTo: collectionView.topAnchor),
+            searchesTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            searchesTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            searchesTableView.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor),
+            searchesSpinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            searchesSpinner.centerYAnchor.constraint(equalTo: collectionView.centerYAnchor),
+            removeAllButton.centerYAnchor.constraint(equalTo: addButton.centerYAnchor),
+            removeAllButton.trailingAnchor.constraint(equalTo: addButton.trailingAnchor)
+        ])
+        view.bringSubviewToFront(removeAllButton)
     }
 
     private func reloadContent() {
         favorites = AgentStore.shared.favoriteProperties()
-        candidates = AgentStore.shared.compareCandidates()
-        addButton.isHidden = section != .clients
-        collectionView.isHidden = section != .properties
-        tableView.isHidden = section == .properties
-        compareButton.isHidden = section != .compare
-        reportButton.isHidden = section != .compare
+        if section == .compare {
+            if candidates.isEmpty {
+                candidates = AgentStore.shared.compareCandidates()
+            } else {
+                candidates = Self.mergeKeepingOrder(
+                    current: candidates,
+                    incoming: AgentStore.shared.compareCandidates()
+                )
+            }
+            AgentStore.shared.pruneCompareIDs(keeping: candidates.map(\.id))
+        } else {
+            candidates = AgentStore.shared.compareCandidates()
+        }
+        addButton.isHidden = true
+        reportButton.isHidden = true
+        updateSegmentTitles()
+        updateRemoveAllButton()
 
         switch section {
         case .properties:
-            emptyLabel.text = "Shortlist listings with the heart to build your working set."
+            emptyLabel.text = "Shortlist up to %d listings with the heart. This working set is used for compare, marketing, and reports.".localized(AgentStore.maxWorkingSet)
             emptyLabel.isHidden = !favorites.isEmpty
-            collectionView.reloadData()
-        case .clients:
-            emptyLabel.text = "Save a search for a client from Inventory."
-            emptyLabel.isHidden = !AgentStore.shared.clientSearches.isEmpty
-            tableView.contentInset.bottom = 8
-            tableView.reloadData()
+        case .searches:
+            emptyLabel.text = "No data found".localized
+            emptyLabel.isHidden = !searchItems.isEmpty || searchesSpinner.isAnimating
         case .compare:
-            let count = AgentStore.shared.compareIDs.count
-            emptyLabel.isHidden = true
-            compareButton.setTitle("Compare (\(count))", for: .normal)
+            AgentStore.shared.pruneCompareIDs(keeping: candidates.map(\.id))
+            let count = AgentStore.shared.selectedCompareCount(in: candidates.map(\.id))
+            let hasWorkingSet = !favorites.isEmpty
+            emptyLabel.text = "Save listings first, then pick 2–3 from your working set to compare.".localized
+            emptyLabel.isHidden = hasWorkingSet
+            compareButton.setTitle("Compare (%d)".localized(count), for: .normal)
             compareButton.alpha = count >= 2 ? 1 : 0.45
             compareButton.isEnabled = count >= 2
-            reportButton.alpha = count >= 2 ? 1 : 0.45
-            reportButton.isEnabled = count >= 2
-            tableView.contentInset.bottom = 110
-            tableView.reloadData()
+            tableView.contentInset.bottom = 70
+        }
+
+        UIView.performWithoutAnimation {
+            self.collectionView.reloadData()
+            self.tableView.reloadData()
+            self.searchesTableView.reloadData()
+        }
+        collectionView.isHidden = section != .properties
+        tableView.isHidden = section != .compare || favorites.isEmpty
+        searchesTableView.isHidden = section != .searches
+        compareButton.isHidden = section != .compare
+    }
+
+    private func updateSegmentTitles() {
+        guard segment.numberOfSegments > 0 else { return }
+        segment.setTitle("Properties (%d)".localized(favorites.count), forSegmentAt: 0)
+        if segment.numberOfSegments > 1 {
+            segment.setTitle("Searches".localized, forSegmentAt: 1)
+        }
+        if segment.numberOfSegments > 2 {
+            segment.setTitle("Compare".localized, forSegmentAt: 2)
+        }
+    }
+
+    private func updateRemoveAllButton() {
+        let show = section == .searches
+            && AISearchHistoryItem.showsRemoveAll(count: searchItems.count)
+            && !isUpdatingSearches
+        removeAllButton.isHidden = !show
+        removeAllButton.isEnabled = show
+        removeAllButton.setTitle("Remove All".localized, for: .normal)
+    }
+
+    private func loadSearchHistory() {
+        let token = UUID()
+        searchLoadToken = token
+        searchesSpinner.startAnimating()
+        emptyLabel.isHidden = true
+        updateRemoveAllButton()
+        Task {
+            do {
+                let remote = try await AgentViewModels.recentlyAISearchAPI()
+                await MainActor.run {
+                    guard self.searchLoadToken == token else { return }
+                    self.applySearchItems(remote)
+                }
+            } catch {
+                await MainActor.run {
+                    guard self.searchLoadToken == token else { return }
+                    self.applySearchItems([])
+                }
+            }
+        }
+    }
+
+    private func applySearchItems(_ remote: [AISearchHistoryItem]) {
+        searchesSpinner.stopAnimating()
+        searchItems = remote
+        emptyLabel.text = "No data found".localized
+        emptyLabel.isHidden = section != .searches || !remote.isEmpty
+        searchesTableView.reloadData()
+        updateRemoveAllButton()
+    }
+
+    @objc private func removeAllSearchesTapped() {
+        guard AISearchHistoryItem.showsRemoveAll(count: searchItems.count), !isUpdatingSearches else { return }
+        CommonMethods.showConfirmationAlert(
+            message: "Clear all AI search history?",
+            confirmTitle: "Remove All",
+            confirmStyle: .destructive,
+            from: self
+        ) { [weak self] in
+            self?.deleteAllSearchHistory()
+        }
+    }
+
+    private func deleteAllSearchHistory() {
+        isUpdatingSearches = true
+        updateRemoveAllButton()
+        Task {
+            do {
+                try await AgentViewModels.deleteAllAISearchHistoryAPI()
+                await MainActor.run {
+                    self.isUpdatingSearches = false
+                    self.applySearchItems([])
+                }
+            } catch {
+                await MainActor.run {
+                    self.isUpdatingSearches = false
+                    self.updateRemoveAllButton()
+                    self.showSearchAPIError(error)
+                }
+            }
+        }
+    }
+
+    private func confirmDeleteSearch(_ item: AISearchHistoryItem) {
+        guard !isUpdatingSearches else { return }
+        CommonMethods.showConfirmationAlert(
+            message: "Delete this search history?",
+            confirmTitle: "Delete",
+            confirmStyle: .destructive,
+            from: self
+        ) { [weak self] in
+            self?.deleteSearchHistory(item)
+        }
+    }
+
+    private func deleteSearchHistory(_ item: AISearchHistoryItem) {
+        isUpdatingSearches = true
+        updateRemoveAllButton()
+        Task {
+            do {
+                try await AgentViewModels.deleteAISearchHistoryAPI(id: item.historyId)
+                await MainActor.run {
+                    self.isUpdatingSearches = false
+                    self.searchItems.removeAll { $0.historyId == item.historyId }
+                    self.emptyLabel.isHidden = self.section != .searches || !self.searchItems.isEmpty
+                    self.searchesTableView.reloadData()
+                    self.updateRemoveAllButton()
+                }
+            } catch {
+                await MainActor.run {
+                    self.isUpdatingSearches = false
+                    self.updateRemoveAllButton()
+                    self.showSearchAPIError(error)
+                }
+            }
+        }
+    }
+
+    private func showSearchAPIError(_ error: Error) {
+        let message = ((error as? APIError)?.errorDescription ?? error.localizedDescription)
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+        let text = message.isEmpty ? "Unable to delete search history.".localized : message
+        CommonMethods.showAlert(message: text, from: self)
+    }
+
+    private func refreshCompareControls() {
+        let count = AgentStore.shared.selectedCompareCount(in: candidates.map(\.id))
+        compareButton.setTitle("Compare (%d)".localized(count), for: .normal)
+        compareButton.alpha = count >= 2 ? 1 : 0.45
+        compareButton.isEnabled = count >= 2
+    }
+
+    private static func mergeKeepingOrder(current: [PropertyItem], incoming: [PropertyItem]) -> [PropertyItem] {
+        let incomingById = Dictionary(incoming.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
+        var kept = current.compactMap { incomingById[$0.id] }
+        let keptIDs = Set(kept.map(\.id))
+        kept.append(contentsOf: incoming.filter { keptIDs.contains($0.id) == false })
+        return kept
+    }
+
+    private func loadFavorites() {
+        let token = UUID()
+        favoritesToken = token
+        Task {
+            do {
+                let items = try await AgentViewModels.favoritesAPI()
+                await MainActor.run {
+                    guard self.favoritesToken == token else { return }
+                    AgentStore.shared.setFavorites(items)
+                    if self.section == .compare {
+                        self.favorites = AgentStore.shared.favoriteProperties()
+                        self.candidates = Self.mergeKeepingOrder(
+                            current: self.candidates,
+                            incoming: AgentStore.shared.compareCandidates()
+                        )
+                        if self.candidates.isEmpty {
+                            self.candidates = AgentStore.shared.compareCandidates()
+                        }
+                        self.emptyLabel.isHidden = !self.candidates.isEmpty
+                        self.refreshCompareControls()
+                        UIView.performWithoutAnimation {
+                            self.tableView.reloadData()
+                        }
+                    } else {
+                        self.reloadContent()
+                    }
+                }
+            } catch {
+                await MainActor.run {
+                    guard self.favoritesToken == token else { return }
+                    AgentStore.shared.setFavorites([])
+                    if self.section == .properties || self.section == .compare {
+                        self.reloadContent()
+                    }
+                }
+            }
         }
     }
 
     @IBAction func segmentChanged(_ sender: UISegmentedControl) {
         section = Section(rawValue: sender.selectedSegmentIndex) ?? .properties
+        if section == .compare {
+            candidates = AgentStore.shared.compareCandidates()
+            AgentStore.shared.pruneCompareIDs(keeping: candidates.map(\.id))
+        }
         reloadContent()
+        if section == .searches {
+            loadSearchHistory()
+        } else if section == .properties || section == .compare {
+            loadFavorites()
+        }
     }
 
-    @IBAction func addClientTapped(_ sender: Any) {
-        let alert = UIAlertController(title: "Client search", message: nil, preferredStyle: .alert)
-        alert.addTextField { $0.placeholder = "Client name" }
-        alert.addTextField { $0.placeholder = "What they are looking for" }
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        alert.addAction(UIAlertAction(title: "Save", style: .default) { [weak self] _ in
-            let name = alert.textFields?[0].text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-            let query = alert.textFields?[1].text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-            guard !name.isEmpty, !query.isEmpty else { return }
-            AgentStore.shared.addClientSearch(client: name, query: query)
-            self?.reloadContent()
-        })
-        present(alert, animated: true)
-    }
+    @IBAction func addClientTapped(_ sender: Any) {}
 
     @IBAction func openComparison(_ sender: Any) {
         let selected = AgentStore.shared.comparedProperties()
@@ -125,84 +389,102 @@ final class AgentSavedVC: UIViewController {
         vc.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(vc, animated: true)
     }
+    
 }
 
 extension AgentSavedVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int { favorites.count }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PropertyCardCell.identifier, for: indexPath) as? PropertyCardCell else {
+        guard indexPath.item < favorites.count,
+              let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PropertyCardCell.identifier, for: indexPath) as? PropertyCardCell else {
             return UICollectionViewCell()
         }
         let property = favorites[indexPath.item]
         cell.configure(with: property, isFavorite: true, showsSource: true)
         cell.onFavorite = { [weak self] in
-            AgentStore.shared.toggleFavorite(property.id)
-            self?.reloadContent()
+            self?.toggleAgentWorkingSet(property) { self?.reloadContent() }
+        }
+        cell.onTap = { [weak self] in
+            self?.openPropertyDetails(property)
         }
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard indexPath.item < favorites.count else { return }
         openPropertyDetails(favorites[indexPath.item])
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: collectionView.bounds.width - 32, height: 268)
+        let width = max(collectionView.bounds.width - 32, 1)
+        return CGSize(
+            width: width,
+            height: PropertyCardCell.height(forTitle: favorites[indexPath.item].title, width: width)
+        )
     }
 }
 
 extension AgentSavedVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.section == .clients ? AgentStore.shared.clientSearches.count : candidates.count
+        tableView == searchesTableView ? searchItems.count : candidates.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if section == .clients {
-            let item = AgentStore.shared.clientSearches[indexPath.row]
-            let cell = tableView.dequeueReusableCell(withIdentifier: "client", for: indexPath)
-            var config = cell.defaultContentConfiguration()
-            config.text = item.client
-            config.secondaryText = item.query
-            config.textProperties.font = .systemFont(ofSize: 16, weight: .semibold)
-            config.secondaryTextProperties.color = UIColor(red: 108/255, green: 117/255, blue: 125/255, alpha: 1)
-            cell.contentConfiguration = config
-            cell.backgroundColor = .clear
-            cell.accessoryType = .disclosureIndicator
+        if tableView == searchesTableView {
+            guard indexPath.row < searchItems.count,
+                  let cell = tableView.dequeueReusableCell(
+                withIdentifier: AISearchQueryCell.identifier,
+                for: indexPath
+            ) as? AISearchQueryCell else {
+                return UITableViewCell()
+            }
+            let item = searchItems[indexPath.row]
+            cell.configure(query: item.query)
+            cell.onDelete = { [weak self] in
+                self?.confirmDeleteSearch(item)
+            }
             return cell
         }
-        let cell = tableView.dequeueReusableCell(withIdentifier: CompareSelectCell.identifier, for: indexPath) as? CompareSelectCell ?? CompareSelectCell()
+        guard indexPath.row < candidates.count,
+              let cell = tableView.dequeueReusableCell(withIdentifier: CompareSelectCell.identifier, for: indexPath) as? CompareSelectCell else {
+            return UITableViewCell()
+        }
         let property = candidates[indexPath.row]
         cell.configure(property, selected: AgentStore.shared.isCompared(property.id))
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if section == .clients {
-            openAISearch(prefilled: AgentStore.shared.clientSearches[indexPath.row].query)
+        tableView.deselectRow(at: indexPath, animated: true)
+        if tableView == searchesTableView {
+            guard indexPath.row < searchItems.count else { return }
+            let item = searchItems[indexPath.row]
+            openAISearch(prefilled: item.query, chatId: item.historyId)
             return
         }
-            let property = candidates[indexPath.row]
-            _ = AgentStore.shared.toggleCompare(property.id)
-            reloadContent()
-    }
-
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard section == .clients else { return nil }
-        let delete = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, done in
-            let store = AgentStore.shared
-            guard store.clientSearches.indices.contains(indexPath.row) else {
-                done(false)
-                return
-            }
-            store.deleteClientSearch(id: store.clientSearches[indexPath.row].id)
-            self?.reloadContent()
-            done(true)
+        guard indexPath.row < candidates.count else { return }
+        let property = candidates[indexPath.row]
+        if !AgentStore.shared.isCompared(property.id), AgentStore.shared.compareIDs.count >= 3 {
+            let alert = UIAlertController(
+                title: "Compare".localized,
+                message: "You can compare up to 3 properties.".localized,
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: "OK".localized, style: .default))
+            present(alert, animated: true)
+            return
         }
-        return UISwipeActionsConfiguration(actions: [delete])
+        _ = AgentStore.shared.toggleCompare(property.id)
+        refreshCompareControls()
+        if let cell = tableView.cellForRow(at: indexPath) as? CompareSelectCell {
+            cell.configure(property, selected: AgentStore.shared.isCompared(property.id))
+        } else {
+            tableView.reloadRows(at: [indexPath], with: .none)
+        }
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        section == .compare ? 76 : 72
+        tableView == searchesTableView ? AISearchQueryCell.rowHeight : CompareSelectCell.rowHeight
     }
 }

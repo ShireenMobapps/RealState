@@ -1,0 +1,243 @@
+
+/* Class = "UIButton"; normalTitle = "Send Enquiry"; ObjectID = "btn-ca-send"; */
+"btn-ca-send.normalTitle" = "Send Enquiry";
+
+/* Class = "UIButton"; normalTitle = "Compare"; ObjectID = "btn-cmp"; */
+"btn-cmp.normalTitle" = "Compare";
+
+/* Class = "UIButton"; normalTitle = "Contact Agent"; ObjectID = "btn-contact"; */
+"btn-contact.normalTitle" = "Contact Agent";
+
+/* Class = "UIButton"; normalTitle = "Buy"; ObjectID = "btn-s-buy"; */
+"btn-s-buy.normalTitle" = "Buy";
+
+/* Class = "UIButton"; normalTitle = "Filters"; ObjectID = "btn-s-filters"; */
+"btn-s-filters.normalTitle" = "Filters";
+
+/* Class = "UIButton"; normalTitle = "Rent"; ObjectID = "btn-s-rent"; */
+"btn-s-rent.normalTitle" = "Rent";
+
+/* Class = "UIButton"; normalTitle = "Save search"; ObjectID = "btn-s-save"; */
+"btn-s-save.normalTitle" = "Save search";
+
+/* Class = "UIButton"; normalTitle = "Sort"; ObjectID = "btn-s-sort"; */
+"btn-s-sort.normalTitle" = "Sort";
+
+/* Class = "UIButton"; normalTitle = "Compare"; ObjectID = "btn-saved-cmp"; */
+"btn-saved-cmp.normalTitle" = "Compare";
+
+/* Class = "UIButton"; normalTitle = "Send"; ObjectID = "btn-send"; */
+"btn-send.normalTitle" = "Send";
+
+/* Class = "UIButton"; normalTitle = "Save"; ObjectID = "btn-tedit-save"; */
+"btn-tedit-save.normalTitle" = "Save";
+
+/* Class = "UIButton"; normalTitle = "Apartment"; ObjectID = "chip-apt"; */
+"chip-apt.normalTitle" = "Apartment";
+
+/* Class = "UIButton"; normalTitle = "Buy"; ObjectID = "chip-buy"; */
+"chip-buy.normalTitle" = "Buy";
+
+/* Class = "UIButton"; normalTitle = "House"; ObjectID = "chip-house"; */
+"chip-house.normalTitle" = "House";
+
+/* Class = "UIButton"; normalTitle = "Rent"; ObjectID = "chip-rent"; */
+"chip-rent.normalTitle" = "Rent";
+
+/* Class = "UIButton"; normalTitle = "Villa"; ObjectID = "chip-villa"; */
+"chip-villa.normalTitle" = "Villa";
+
+/* Class = "UILabel"; text = "Caribbean Homes"; ObjectID = "lb-agency"; */
+"lb-agency.text" = "Caribbean Homes";
+
+/* Class = "UILabel"; text = "Maria Santos"; ObjectID = "lb-agent"; */
+"lb-agent.text" = "Maria Santos";
+
+/* Class = "UILabel"; text = "Tell me what you're looking for..."; ObjectID = "lb-ai"; */
+"lb-ai.text" = "Tell me what you're looking for...";
+
+/* Class = "UILabel"; text = "Top 3 Recommendations"; ObjectID = "lb-ai-rec"; */
+"lb-ai-rec.text" = "Top 3 Recommendations";
+
+/* Class = "UILabel"; text = "Pool  ·  Parking  ·  Furnished"; ObjectID = "lb-am"; */
+"lb-am.text" = "Pool  ·  Parking  ·  Furnished";
+
+/* Class = "UILabel"; text = "Amenities"; ObjectID = "lb-am-title"; */
+"lb-am-title.text" = "Amenities";
+
+/* Class = "UILabel"; text = "  Buy · Villa  "; ObjectID = "lb-badge"; */
+"lb-badge.text" = "  Buy · Villa  ";
+
+/* Class = "UILabel"; text = "Maria Santos"; ObjectID = "lb-ca-agent"; */
+"lb-ca-agent.text" = "Maria Santos";
+
+/* Class = "UILabel"; text = "Agent · Caribbean Homes"; ObjectID = "lb-ca-prop"; */
+"lb-ca-prop.text" = "Agent · Caribbean Homes";
+
+/* Class = "UILabel"; text = ""; ObjectID = "lb-home-address"; */
+"lb-home-address.text" = "";
+
+/* Class = "UILabel"; text = ""; ObjectID = "lb-home-name"; */
+"lb-home-name.text" = "";
+
+/* Class = "UILabel"; text = "A bright beachside villa with an open living area, private pool, and walking distance to the sand."; ObjectID = "lb-pd-desc"; */
+"lb-pd-desc.text" = "A bright beachside villa with an open living area, private pool, and walking distance to the sand.";
+
+/* Class = "UILabel"; text = "Punta Cana"; ObjectID = "lb-pd-loc"; */
+"lb-pd-loc.text" = "Punta Cana";
+
+/* Class = "UILabel"; text = "4 bd  ·  3 ba  ·  320 m²"; ObjectID = "lb-pd-specs"; */
+"lb-pd-specs.text" = "4 bd  ·  3 ba  ·  320 m²";
+
+/* Class = "UILabel"; text = "Oceanview Villa"; ObjectID = "lb-pd-title"; */
+"lb-pd-title.text" = "Oceanview Villa";
+
+/* Class = "UILabel"; text = "$485,000"; ObjectID = "lb-price"; */
+"lb-price.text" = "$485,000";
+
+/* Class = "UILabel"; text = "Quick Search"; ObjectID = "lb-qs"; */
+"lb-qs.text" = "Quick Search";
+
+/* Class = "UILabel"; text = "Recommended Properties"; ObjectID = "lb-rec"; */
+"lb-rec.text" = "Recommended Properties";
+
+/* Class = "UILabel"; text = "Recently Viewed"; ObjectID = "lb-recent"; */
+"lb-recent.text" = "Recently Viewed";
+
+/* Class = "UILabel"; text = "0 properties"; ObjectID = "lb-s-count"; */
+"lb-s-count.text" = "0 properties";
+
+/* Class = "UILabel"; text = "No properties match your search."; ObjectID = "lb-s-empty"; */
+"lb-s-empty.text" = "No properties match your search.";
+
+/* Class = "UILabel"; text = "Saved"; ObjectID = "lb-saved"; */
+"lb-saved.text" = "Saved";
+
+/* Class = "UILabel"; text = "Search"; ObjectID = "lb-search"; */
+"lb-search.text" = "Search";
+
+/* Class = "UILabel"; text = "You haven't contacted an agent yet."; ObjectID = "lb-tenq-empty"; */
+"lb-tenq-empty.text" = "You haven't contacted an agent yet.";
+
+/* Class = "UILabel"; text = "Profile"; ObjectID = "lb-tp"; */
+"lb-tp.text" = "Profile";
+
+/* Class = "UILabel"; text = ""; ObjectID = "lb-tp-addr"; */
+"lb-tp-addr.text" = "";
+
+/* Class = "UILabel"; text = "Edit"; ObjectID = "lb-tp-edit"; */
+"lb-tp-edit.text" = "Edit";
+
+/* Class = "UILabel"; text = ""; ObjectID = "lb-tp-name"; */
+"lb-tp-name.text" = "";
+
+/* Class = "UILabel"; text = "No saved searches yet."; ObjectID = "lb-tps-empty"; */
+"lb-tps-empty.text" = "No saved searches yet.";
+
+/* Class = "UILabel"; text = "Properties you open will appear here."; ObjectID = "lb-trv-empty"; */
+"lb-trv-empty.text" = "Properties you open will appear here.";
+
+/* Class = "UINavigationItem"; title = "Compare"; ObjectID = "ni-tcmp"; */
+"ni-tcmp.title" = "Compare";
+
+/* Class = "UINavigationItem"; title = "Edit Profile"; ObjectID = "ni-tedit"; */
+"ni-tedit.title" = "Edit Profile";
+
+/* Class = "UINavigationItem"; title = "Enquiry History"; ObjectID = "ni-tenq"; */
+"ni-tenq.title" = "Enquiry History";
+
+/* Class = "UINavigationItem"; title = "Filters"; ObjectID = "ni-tfilters"; */
+"ni-tfilters.title" = "Filters";
+
+/* Class = "UINavigationItem"; title = "Home"; ObjectID = "ni-thome"; */
+"ni-thome.title" = "Home";
+
+/* Class = "UINavigationItem"; title = "Notifications"; ObjectID = "ni-tnotif"; */
+"ni-tnotif.title" = "Notifications";
+
+/* Class = "UINavigationItem"; title = "Options"; ObjectID = "ni-tpick"; */
+"ni-tpick.title" = "Options";
+
+/* Class = "UINavigationItem"; title = "My Preferences"; ObjectID = "ni-tpref"; */
+"ni-tpref.title" = "My Preferences";
+
+/* Class = "UINavigationItem"; title = "Profile"; ObjectID = "ni-tprofile"; */
+"ni-tprofile.title" = "Profile";
+
+/* Class = "UINavigationItem"; title = "Saved Searches"; ObjectID = "ni-tps"; */
+"ni-tps.title" = "Saved Searches";
+
+/* Class = "UINavigationItem"; title = "Recently Viewed"; ObjectID = "ni-trv"; */
+"ni-trv.title" = "Recently Viewed";
+
+/* Class = "UINavigationItem"; title = "Saved"; ObjectID = "ni-tsaved"; */
+"ni-tsaved.title" = "Saved";
+
+/* Class = "UINavigationItem"; title = "Search"; ObjectID = "ni-tsearch"; */
+"ni-tsearch.title" = "Search";
+
+/* Class = "UINavigationItem"; title = "Search Preference"; ObjectID = "ni-tss"; */
+"ni-tss.title" = "Search Preference";
+
+/* Class = "UILabel"; text = "Google Map"; ObjectID = "piZ-6F-rut"; */
+"piZ-6F-rut.text" = "Google Map";
+
+/* Class = "UISegmentedControl"; seg-saved.segmentTitles[0] = "Properties"; ObjectID = "seg-saved"; */
+"seg-saved.segmentTitles[0]" = "Properties";
+
+/* Class = "UISegmentedControl"; seg-saved.segmentTitles[1] = "Searches"; ObjectID = "seg-saved"; */
+"seg-saved.segmentTitles[1]" = "Searches";
+
+/* Class = "UISegmentedControl"; seg-saved.segmentTitles[2] = "Compare"; ObjectID = "seg-saved"; */
+"seg-saved.segmentTitles[2]" = "Compare";
+
+/* Class = "UITabBarItem"; title = "Home"; ObjectID = "tbi-home"; */
+"tbi-home.title" = "Home";
+
+/* Class = "UITabBarItem"; title = "Profile"; ObjectID = "tbi-profile"; */
+"tbi-profile.title" = "Profile";
+
+/* Class = "UITabBarItem"; title = "Saved"; ObjectID = "tbi-saved"; */
+"tbi-saved.title" = "Saved";
+
+/* Class = "UITabBarItem"; title = "Search"; ObjectID = "tbi-search"; */
+"tbi-search.title" = "Search";
+
+/* Class = "UITextField"; placeholder = "Describe the home you want..."; ObjectID = "tf-ai"; */
+"tf-ai.placeholder" = "Describe the home you want...";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "tf-ca-email"; */
+"tf-ca-email.placeholder" = "Email";
+
+/* Class = "UITextField"; placeholder = "Message"; ObjectID = "tf-ca-msg"; */
+"tf-ca-msg.placeholder" = "Message";
+
+/* Class = "UITextField"; placeholder = "Your name"; ObjectID = "tf-ca-name"; */
+"tf-ca-name.placeholder" = "Your name";
+
+/* Class = "UITextField"; placeholder = "Phone"; ObjectID = "tf-ca-phone"; */
+"tf-ca-phone.placeholder" = "Phone";
+
+/* Class = "UITextField"; placeholder = "Location or keyword"; ObjectID = "tf-search"; */
+"tf-search.placeholder" = "Location or keyword";
+
+/* Class = "UITextField"; placeholder = "Address"; ObjectID = "tf-tedit-addr"; */
+"tf-tedit-addr.placeholder" = "Address";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "tf-tedit-email"; */
+"tf-tedit-email.placeholder" = "Email";
+
+/* Class = "UITextField"; placeholder = "Full name"; ObjectID = "tf-tedit-name"; */
+"tf-tedit-name.placeholder" = "Full name";
+
+/* Class = "UITextField"; placeholder = "Phone"; ObjectID = "tf-tedit-phone"; */
+"tf-tedit-phone.placeholder" = "Phone";
+
+/* Class = "UILabel"; text = "AI Search"; ObjectID = "ttl-ai"; */
+"ttl-ai.text" = "AI Search";
+
+/* Class = "UILabel"; text = "Contact Agent"; ObjectID = "ttl-ca"; */
+"ttl-ca.text" = "Contact Agent";
+
+/* Class = "UILabel"; text = "Property Details"; ObjectID = "ttl-pd"; */
+"ttl-pd.text" = "Property Details";

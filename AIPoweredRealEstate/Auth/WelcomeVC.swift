@@ -7,9 +7,9 @@
 
 import UIKit
 
-enum UserRole {
-    case tenant
-    case agent
+enum UserRole:String{
+    case tenant = "buyer"
+    case agent = "agent"
 }
 
 class WelcomeVC: UIViewController {
@@ -20,6 +20,7 @@ class WelcomeVC: UIViewController {
     @IBOutlet weak var agentCardView: CustomView!
     @IBOutlet weak var tenantIconView: CustomView!
     @IBOutlet weak var agentIconView: CustomView!
+    @IBOutlet weak var selectLanguageButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +30,7 @@ class WelcomeVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        refreshLocalizedCopy()
     }
 
     override func viewDidLayoutSubviews() {
@@ -46,6 +48,14 @@ class WelcomeVC: UIViewController {
         style(card: agentCardView)
         style(iconView: tenantIconView)
         style(iconView: agentIconView)
+        selectLanguageButton.setTitleColor(.darkThemeColor, for: .normal)
+        selectLanguageButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
+        selectLanguageButton.backgroundColor = .clear
+        refreshLocalizedCopy()
+    }
+
+    private func refreshLocalizedCopy() {
+        selectLanguageButton.setTitle("Select Language".localized, for: .normal)
     }
 
     private func styleLogoContainer() {
@@ -75,6 +85,14 @@ class WelcomeVC: UIViewController {
         iconView.clipsToBounds = true
     }
 
+    @IBAction func selectLanguageTapped(_ sender: UIButton) {
+        let languageVC = UIStoryboard(name: "Main", bundle: nil)
+            .instantiateViewController(withIdentifier: "ChooseLanguageVC")
+        let nav = UINavigationController(rootViewController: languageVC)
+        nav.setNavigationBarHidden(true, animated: false)
+        CommonMethods.setRootViewController(nav)
+    }
+
     @IBAction func tenantTapped(_ sender: UIButton) {
         openLogin(for: .tenant)
     }
@@ -87,8 +105,7 @@ class WelcomeVC: UIViewController {
         guard let loginVC = storyboard?.instantiateViewController(withIdentifier: "LoginVC") as? LoginVC else {
             return
         }
-        loginVC.selectedRole = role
+        loginVC.selectedRole = role.rawValue
         navigationController?.pushViewController(loginVC, animated: true)
     }
-    
 }

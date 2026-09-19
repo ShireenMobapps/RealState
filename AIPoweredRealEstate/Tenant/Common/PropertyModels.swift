@@ -62,24 +62,33 @@ final class TenantAccount {
 
     private let defaults = UserDefaults.standard
 
-    var name: String { didSet { defaults.set(name, forKey: "tenantName") } }
-    var email: String { didSet { defaults.set(email, forKey: "tenantEmail") } }
-    var phone: String { didSet { defaults.set(phone, forKey: "tenantPhone") } }
-    var address: String { didSet { defaults.set(address, forKey: "tenantAddress") } }
+    var name = ""
+    var email = ""
+    var phone = ""
+    var address = ""
     var language: String { didSet { defaults.set(language, forKey: "tenantLanguage") } }
     var currency: String { didSet { defaults.set(currency, forKey: "tenantCurrency") } }
     var imageName: String { "tenantProfile" }
 
     var profileImage: UIImage {
-        if let data = try? Data(contentsOf: Self.profileImageURL), let image = UIImage(data: data) {
-            return image
-        }
-        return UIImage(named: imageName) ?? UIImage()
+        UIImage(named: imageName) ?? UIImage(named: "profile") ?? UIImage()
     }
 
-    func saveProfileImage(_ image: UIImage) {
-        guard let data = image.jpegData(compressionQuality: 0.85) else { return }
-        try? data.write(to: Self.profileImageURL, options: .atomic)
+    func apply(user: User) {
+        name = user.name?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        email = user.email?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        phone = user.phone?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+    }
+
+    func clear() {
+        name = ""
+        email = ""
+        phone = ""
+        address = ""
+        ["tenantName", "tenantEmail", "tenantPhone", "tenantAddress"].forEach {
+            defaults.removeObject(forKey: $0)
+        }
+        try? FileManager.default.removeItem(at: Self.profileImageURL)
     }
 
     private static var profileImageURL: URL {
@@ -112,23 +121,22 @@ final class TenantAccount {
     static let currencies = ["USD", "DOP", "EUR"]
 
     private init() {
-        name = defaults.string(forKey: "tenantName") ?? "Alex Rivera"
-        email = defaults.string(forKey: "tenantEmail") ?? "alex.rivera@email.com"
-        phone = defaults.string(forKey: "tenantPhone") ?? "+1 809 555 0142"
-        address = defaults.string(forKey: "tenantAddress") ?? "Punta Cana, Dominican Republic"
         language = defaults.string(forKey: "tenantLanguage") ?? "English"
         currency = defaults.string(forKey: "tenantCurrency") ?? "USD"
         notifyMatching = defaults.object(forKey: "notifyMatching") as? Bool ?? true
         notifySavedUpdates = defaults.object(forKey: "notifySavedUpdates") as? Bool ?? true
         notifySearchAlerts = defaults.object(forKey: "notifySearchAlerts") as? Bool ?? true
         notifyEnquiries = defaults.object(forKey: "notifyEnquiries") as? Bool ?? true
-        preferredTypes = Set(defaults.stringArray(forKey: "prefTypes") ?? ["Villa"])
-        preferredLocations = Set(defaults.stringArray(forKey: "prefLocations") ?? ["Punta Cana"])
+        preferredTypes = Set(defaults.stringArray(forKey: "prefTypes") ?? [])
+        preferredLocations = Set(defaults.stringArray(forKey: "prefLocations") ?? [])
         let storedBudget = defaults.object(forKey: "prefBudget") as? Int
-        budgetMax = storedBudget == 0 ? nil : (storedBudget ?? 500_000)
+        budgetMax = storedBudget == 0 ? nil : storedBudget
         let storedBeds = defaults.object(forKey: "prefBeds") as? Int
-        minBedrooms = storedBeds == 0 ? nil : (storedBeds ?? 3)
-        preferredAmenities = Set(defaults.stringArray(forKey: "prefAmenities") ?? ["Pool"])
+        minBedrooms = storedBeds == 0 ? nil : storedBeds
+        preferredAmenities = Set(defaults.stringArray(forKey: "prefAmenities") ?? [])
+        ["tenantName", "tenantEmail", "tenantPhone", "tenantAddress"].forEach {
+            defaults.removeObject(forKey: $0)
+        }
     }
 }
 
@@ -137,11 +145,15 @@ struct EnquiryItem {
     let propertyId: String
     let propertyTitle: String
     let agentName: String
+    let listingAgentName: String
+    let source: String
     let message: String
     let contactName: String
     let email: String
     let phone: String
     let date: Date
+    let kind: AgentLeadKind
+    let requestId: String?
 }
 
 struct PropertyItem {
@@ -159,6 +171,7 @@ struct PropertyItem {
     let summary: String
     let amenities: [String]
     let isFurnished: Bool
+    var furnishedStatus: String = ""
     let source: String
     let listedDate: Date
     let galleryIcons: [String]
@@ -166,13 +179,35 @@ struct PropertyItem {
     let agentAgency: String
     let iconName: String
     let imageName: String
+    var remoteGallery: [String] = []
+    var isFav: Bool = false
+    var recentlyViewedId: String = ""
+
+    var galleryImageNames: [String] {
+        if !remoteGallery.isEmpty { return remoteGallery }
+        if imageName.lowercased().hasPrefix("http") { return [imageName] }
+        let pool = [
+            "propertyOceanVilla",
+            "propertyLuxuryVilla",
+            "propertyBeachCondo",
+            "propertyFamilyHouse",
+            "propertyGardenTownhouse",
+            "propertyCityApartment",
+            "propertyGolfApartment",
+            "propertyDowntownStudio"
+        ]
+        guard let index = pool.firstIndex(of: imageName) else {
+            return [imageName]
+        }
+        return (0..<3).map { pool[(index + $0) % pool.count] }
+    }
 
     var specsText: String {
-        "\(bedrooms) bd  ·  \(bathrooms) ba  ·  \(area)"
+        "%d bd  ·  %d ba  ·  %@".localized(bedrooms, bathrooms, area)
     }
 
     var detailSpecsText: String {
-        "\(propertyType)  ·  \(bedrooms) Bedrooms  ·  \(bathrooms) Bathrooms  ·  \(area)"
+        "%@  ·  %d Bedrooms  ·  %d Bathrooms  ·  %@".localized(propertyType.localized, bedrooms, bathrooms, area)
     }
 
     var costPerSquareMeter: Int {
@@ -184,15 +219,38 @@ struct PropertyItem {
     }
 
     func hasAmenity(_ name: String) -> Bool {
-        amenities.contains { $0.caseInsensitiveCompare(name) == .orderedSame }
+        let aliases: [String: [String]] = [
+            "A/C": ["A/C", "AC", "Air Conditioning", "Air Conditioner", "Air-Conditioning"],
+            "Power Backup": ["Power Backup", "Backup", "Generator", "Powerbackup"],
+            "Pool": ["Pool", "Swimming Pool"],
+            "Gym": ["Gym", "Fitness Center", "Fitness Centre"],
+            "Security": ["Security", "Gated Security", "24x7 Security"]
+        ]
+        let targets = aliases[name] ?? [name]
+        return amenities.contains { amenity in
+            targets.contains { target in amenity.caseInsensitiveCompare(target) == .orderedSame }
+        }
     }
 
     func matches(filter: String) -> Bool {
-        switch filter.lowercased() {
-        case "buy", "rent":
-            return listingType.lowercased() == filter.lowercased()
-        default:
-            return propertyType.lowercased() == filter.lowercased()
+        matches(chip: DashboardFilterChip(kind: .listingType, value: filter, label: filter))
+            || matches(chip: DashboardFilterChip(kind: .propertyType, value: filter, label: filter))
+            || matches(chip: DashboardFilterChip(kind: .furnished, value: filter, label: filter))
+            || matches(chip: DashboardFilterChip(kind: .amenity, value: filter, label: filter))
+    }
+
+    func matches(chip: DashboardFilterChip) -> Bool {
+        switch chip.kind {
+        case .listingType:
+            return listingType.apiListingType == chip.value.apiListingType
+        case .propertyType:
+            return propertyType.apiPropertyType == chip.value.apiPropertyType
+        case .furnished:
+            let status = chip.value.apiFurnishedStatus
+            if status == "UNFURNISHED" { return !isFurnished }
+            return isFurnished
+        case .amenity:
+            return hasAmenity(chip.value) || hasAmenity(chip.label)
         }
     }
 
@@ -237,15 +295,60 @@ struct PropertyItem {
             }
         }
 
-        let keyword = criteria.keyword.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-        guard !keyword.isEmpty else { return true }
-        return title.lowercased().contains(keyword)
-            || location.lowercased().contains(keyword)
-            || propertyType.lowercased().contains(keyword)
-            || listingType.lowercased().contains(keyword)
-            || summary.lowercased().contains(keyword)
-            || amenities.joined(separator: " ").lowercased().contains(keyword)
-            || source.lowercased().contains(keyword)
+        return matchesKeyword(criteria.keyword)
+    }
+
+    func matchesKeyword(_ raw: String) -> Bool {
+        let query = raw.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !query.isEmpty else { return true }
+        let haystack = keywordHaystack
+        let tokens = query.lowercased().split {
+            $0.isWhitespace || $0 == "," || $0 == "·" || $0 == "/"
+        }.map(String.init).filter { !$0.isEmpty }
+        return tokens.allSatisfy { token in
+            haystack.contains(token) || matchesKeywordDigits(token, in: haystack)
+        }
+    }
+
+    private var keywordHaystack: String {
+        let texts = [
+            title,
+            location,
+            source,
+            listingType,
+            listingType.localized,
+            propertyType,
+            propertyType.localized,
+            "\(listingType) · \(propertyType)",
+            priceText,
+            "\(priceValue)",
+            specsText,
+            area,
+            "\(areaValue)",
+            "\(bedrooms) bd",
+            "\(bedrooms) bed",
+            "\(bedrooms) beds",
+            "\(bedrooms) bhk",
+            "\(bathrooms) ba",
+            "\(bathrooms) bath",
+            "\(bathrooms) baths",
+            summary,
+            amenities.joined(separator: " "),
+            agentName,
+            agentAgency,
+            isFurnished ? "furnished" : "unfurnished"
+        ]
+        return texts
+            .joined(separator: " ")
+            .lowercased()
+            .replacingOccurrences(of: ",", with: "")
+    }
+
+    private func matchesKeywordDigits(_ token: String, in haystack: String) -> Bool {
+        let digits = token.filter(\.isNumber)
+        guard digits.count >= 2 else { return false }
+        let haystackDigits = haystack.filter { $0.isNumber || $0.isWhitespace }
+        return haystack.contains(digits) || haystackDigits.contains(digits)
     }
 
     static let samples: [PropertyItem] = [
@@ -432,6 +535,144 @@ struct PropertyItem {
             agentAgency: "Cap Cana Residences",
             iconName: "building.2.fill",
             imageName: "propertyGolfApartment"
+        ),
+        PropertyItem(
+            id: "p9",
+            title: "Colonial Courtyard Apartment",
+            location: "Santo Domingo",
+            priceText: "$980/mo",
+            priceValue: 980,
+            listingType: "Rent",
+            propertyType: "Apartment",
+            bedrooms: 2,
+            bathrooms: 1,
+            area: "78 m²",
+            areaValue: 78,
+            summary: "A renovated apartment in the colonial zone with a shared courtyard, high ceilings, and walkable cafes.",
+            amenities: ["A/C", "Security", "Furnished"],
+            isFurnished: true,
+            source: "Corotos",
+            listedDate: Date().addingTimeInterval(-4 * 86_400),
+            galleryIcons: ["building.fill", "leaf.fill", "lamp.desk.fill"],
+            agentName: "Luis Perez",
+            agentAgency: "Capital Realty",
+            iconName: "building.fill",
+            imageName: "propertyDowntownStudio"
+        ),
+        PropertyItem(
+            id: "p10",
+            title: "Palm Grove Villa",
+            location: "Punta Cana",
+            priceText: "$560,000",
+            priceValue: 560_000,
+            listingType: "Buy",
+            propertyType: "Villa",
+            bedrooms: 4,
+            bathrooms: 4,
+            area: "350 m²",
+            areaValue: 350,
+            summary: "A gated villa with a private pool, guest suite, and short drive to Bavaro beach.",
+            amenities: ["Pool", "Parking", "Garden", "A/C", "Security"],
+            isFurnished: false,
+            source: "SuperCasas",
+            listedDate: Date().addingTimeInterval(-9 * 86_400),
+            galleryIcons: ["house.lodge.fill", "drop.fill", "sun.max.fill"],
+            agentName: "Maria Santos",
+            agentAgency: "Caribbean Homes",
+            iconName: "house.lodge.fill",
+            imageName: "propertyOceanVilla"
+        ),
+        PropertyItem(
+            id: "p11",
+            title: "Harbor View House",
+            location: "Puerto Plata",
+            priceText: "$198,000",
+            priceValue: 198_000,
+            listingType: "Buy",
+            propertyType: "House",
+            bedrooms: 3,
+            bathrooms: 2,
+            area: "155 m²",
+            areaValue: 155,
+            summary: "A hillside family house with harbor views, covered parking, and a small garden terrace.",
+            amenities: ["Garden", "Parking", "Ocean View"],
+            isFurnished: false,
+            source: "Realtor DR",
+            listedDate: Date().addingTimeInterval(-11 * 86_400),
+            galleryIcons: ["house.fill", "water.waves", "car.fill"],
+            agentName: "Diego Alvarez",
+            agentAgency: "Coastline Living",
+            iconName: "house.fill",
+            imageName: "propertyFamilyHouse"
+        ),
+        PropertyItem(
+            id: "p12",
+            title: "Marina Residences Condo",
+            location: "Cap Cana",
+            priceText: "$3,200/mo",
+            priceValue: 3_200,
+            listingType: "Rent",
+            propertyType: "Apartment",
+            bedrooms: 3,
+            bathrooms: 3,
+            area: "165 m²",
+            areaValue: 165,
+            summary: "A furnished marina condo with resort access, two parking spaces, and a private balcony.",
+            amenities: ["Pool", "Gym", "Security", "Furnished", "Golf Access"],
+            isFurnished: true,
+            source: "Encuentra24",
+            listedDate: Date().addingTimeInterval(-7 * 86_400),
+            galleryIcons: ["building.2.fill", "water.waves", "figure.run"],
+            agentName: "Camila Reyes",
+            agentAgency: "Cap Cana Residences",
+            iconName: "building.2.fill",
+            imageName: "propertyBeachCondo"
+        ),
+        PropertyItem(
+            id: "p13",
+            title: "Fairway Club Suite",
+            location: "Cap Cana",
+            priceText: "$245,000",
+            priceValue: 245_000,
+            listingType: "Buy",
+            propertyType: "Apartment",
+            bedrooms: 1,
+            bathrooms: 1,
+            area: "68 m²",
+            areaValue: 68,
+            summary: "A lock-and-leave suite overlooking the fairway, ideal as a second home or rental investment.",
+            amenities: ["Golf Access", "Pool", "Security", "Gym"],
+            isFurnished: false,
+            source: "Cap Cana Listings",
+            listedDate: Date().addingTimeInterval(-15 * 86_400),
+            galleryIcons: ["flag.fill", "building.2.fill", "sparkles"],
+            agentName: "Camila Reyes",
+            agentAgency: "Cap Cana Residences",
+            iconName: "sparkles",
+            imageName: "propertyLuxuryVilla"
+        ),
+        PropertyItem(
+            id: "p14",
+            title: "Garden Family House",
+            location: "Santiago",
+            priceText: "$1,450/mo",
+            priceValue: 1_450,
+            listingType: "Rent",
+            propertyType: "House",
+            bedrooms: 3,
+            bathrooms: 2,
+            area: "170 m²",
+            areaValue: 170,
+            summary: "A quiet rental house with a backyard, two parking spaces, and easy access to schools.",
+            amenities: ["Garden", "Parking", "Power Backup", "A/C"],
+            isFurnished: false,
+            source: "Corotos",
+            listedDate: Date().addingTimeInterval(-10 * 86_400),
+            galleryIcons: ["house.fill", "tree.fill", "car.fill"],
+            agentName: "Ana Rodriguez",
+            agentAgency: "Northern Estates",
+            iconName: "house.fill",
+            imageName: "propertyGardenTownhouse"
         )
     ]
 }
@@ -448,9 +689,9 @@ struct SavedSearch {
 
     var title: String {
         var parts: [String] = []
-        if let listingType { parts.append(listingType) }
+        if let listingType { parts.append(listingType.localized) }
         if let location { parts.append(location) }
-        return parts.isEmpty ? "Saved Search" : parts.joined(separator: " · ")
+        return parts.isEmpty ? "Saved Search".localized : parts.joined(separator: " · ")
     }
 
     var subtitle: String {
@@ -460,9 +701,9 @@ struct SavedSearch {
         } else if let minPrice {
             parts.append("$\(minPrice / 1_000)k+")
         }
-        if let minBedrooms { parts.append("\(minBedrooms)+ beds") }
-        if !amenities.isEmpty { parts.append(amenities.sorted().joined(separator: ", ")) }
-        return parts.isEmpty ? "Any price · Any bedrooms" : parts.joined(separator: "  ·  ")
+        if let minBedrooms { parts.append("%@+ beds".localized("\(minBedrooms)")) }
+        if !amenities.isEmpty { parts.append(amenities.sorted().map { $0.localized }.joined(separator: ", ")) }
+        return parts.isEmpty ? "Any price · Any bedrooms".localized : parts.joined(separator: "  ·  ")
     }
 
     func asCriteria() -> PropertySearchCriteria {
@@ -493,53 +734,31 @@ struct SavedSearch {
 final class PropertyStore {
     static let shared = PropertyStore()
 
-    private(set) var all: [PropertyItem] = PropertyItem.samples
+    private(set) var all: [PropertyItem] = []
     private(set) var favoriteIDs: Set<String> = []
+    private(set) var favoriteItems: [PropertyItem] = []
     private(set) var compareIDs: [String] = []
-    private(set) var recentlyViewed: [PropertyItem] = Array(PropertyItem.samples.prefix(2))
-    private(set) var savedSearches: [SavedSearch] = [
-        SavedSearch(
-            id: "s1",
-            location: "Punta Cana",
-            listingType: "Buy",
-            minPrice: nil,
-            maxPrice: 500_000,
-            minBedrooms: 3,
-            amenities: ["Pool"],
-            alertOn: true
-        ),
-        SavedSearch(
-            id: "s2",
-            location: "Santo Domingo",
-            listingType: "Rent",
-            minPrice: nil,
-            maxPrice: 1_500,
-            minBedrooms: 2,
-            amenities: ["A/C", "Security"],
-            alertOn: false
-        )
-    ]
+    private(set) var recentlyViewed: [PropertyItem] = []
+    private(set) var savedSearches: [SavedSearch] = []
     private(set) var pendingCriteria: PropertySearchCriteria?
-    private(set) var enquiries: [EnquiryItem] = [
-        EnquiryItem(
-            id: "e1",
-            propertyId: "p1",
-            propertyTitle: "Oceanview Villa",
-            agentName: "Maria Santos",
-            message: "I'm interested in Oceanview Villa in Punta Cana.",
-            contactName: "Alex Rivera",
-            email: "alex.rivera@email.com",
-            phone: "+1 809 555 0142",
-            date: Date().addingTimeInterval(-2 * 86_400)
-        )
-    ]
+    private(set) var enquiries: [EnquiryItem] = []
 
     static let locations = ["Punta Cana", "Santo Domingo", "Santiago", "Puerto Plata", "Cap Cana"]
     static let propertyTypes = ["Apartment", "House", "Villa"]
-    static var sources: [String] {
-        Array(Set(PropertyItem.samples.map(\.source))).sorted()
+    static var sources: [String] { shared.portalSources }
+    var portalSources: [String] {
+        Array(Set(all.map(\.source))).sorted()
     }
     static let amenityOptions = ["Pool", "Parking", "Furnished", "Garden", "A/C", "Elevator", "Security", "Ocean View", "Gym", "Smart Home", "Golf Access", "Power Backup"]
+
+    func listings(inSource source: String?) -> [PropertyItem] {
+        guard let source, !source.isEmpty else { return all }
+        return all.filter { $0.source.caseInsensitiveCompare(source) == .orderedSame }
+    }
+
+    func sourceCount(_ source: String?) -> Int {
+        listings(inSource: source).count
+    }
 
     private init() {}
 
@@ -547,28 +766,71 @@ final class PropertyStore {
         favoriteIDs.contains(id)
     }
 
-    func toggleFavorite(_ id: String) {
-        if favoriteIDs.contains(id) {
-            favoriteIDs.remove(id)
-        } else {
+    func setFavorite(_ id: String, isOn: Bool) {
+        if isOn {
             favoriteIDs.insert(id)
+            if !favoriteItems.contains(where: { $0.id == id }),
+               let item = all.first(where: { $0.id == id }) ?? recentlyViewed.first(where: { $0.id == id }) {
+                var fav = item
+                fav.isFav = true
+                favoriteItems.insert(fav, at: 0)
+            }
+        } else {
+            favoriteIDs.remove(id)
+            favoriteItems.removeAll { $0.id == id }
+            compareIDs.removeAll { $0 == id }
+        }
+        if let index = all.firstIndex(where: { $0.id == id }) {
+            all[index].isFav = isOn
+        }
+        if let index = recentlyViewed.firstIndex(where: { $0.id == id }) {
+            recentlyViewed[index].isFav = isOn
+        }
+        if let index = favoriteItems.firstIndex(where: { $0.id == id }) {
+            favoriteItems[index].isFav = isOn
+        }
+    }
+
+    func setFavorites(_ items: [PropertyItem]) {
+        var seen = Set<String>()
+        favoriteItems = items.compactMap { item in
+            let key = item.id.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard key.isEmpty == false, seen.insert(key).inserted else { return nil }
+            var copy = item
+            copy.isFav = true
+            return copy
+        }
+        favoriteIDs = Set(favoriteItems.map(\.id))
+        compareIDs = compareIDs.filter { favoriteIDs.contains($0) }
+        for item in favoriteItems {
+            if let index = all.firstIndex(where: { $0.id == item.id }) {
+                all[index].isFav = true
+            }
+        }
+    }
+
+    func toggleFavorite(_ id: String) {
+        setFavorite(id, isOn: !isFavorite(id))
+    }
+
+    func favoriteProperties() -> [PropertyItem] {
+        favoriteItems.map { cached in
+            var item = all.first { $0.id == cached.id } ?? cached
+            item.isFav = true
+            return item
         }
     }
 
     @discardableResult
     func addToCompare(_ id: String) -> String {
         if compareIDs.contains(id) {
-            return "Already added to compare."
+            return "Already added to compare.".localized
         }
         guard compareIDs.count < 3 else {
-            return "You can compare up to 3 properties."
+            return "You can compare up to 3 properties.".localized
         }
         compareIDs.append(id)
-        return "Added to compare (\(compareIDs.count)/3)."
-    }
-
-    func favoriteProperties() -> [PropertyItem] {
-        all.filter { favoriteIDs.contains($0.id) }
+        return "Added to compare (%d/3).".localized(compareIDs.count)
     }
 
     func isCompared(_ id: String) -> Bool {
@@ -579,25 +841,23 @@ final class PropertyStore {
     func toggleCompare(_ id: String) -> String {
         if let index = compareIDs.firstIndex(of: id) {
             compareIDs.remove(at: index)
-            return "Removed from compare."
+            return "Removed from compare.".localized
         }
         guard compareIDs.count < 3 else {
-            return "You can compare up to 3 properties."
+            return "You can compare up to 3 properties.".localized
         }
         compareIDs.append(id)
-        return "Added to compare (\(compareIDs.count)/3)."
+        return "Added to compare (%d/3).".localized(compareIDs.count)
     }
 
     func comparedProperties() -> [PropertyItem] {
-        compareIDs.compactMap { id in all.first { $0.id == id } }
+        compareIDs.compactMap { id in
+            all.first { $0.id == id } ?? favoriteItems.first { $0.id == id }
+        }
     }
 
     func compareCandidates() -> [PropertyItem] {
-        let compared = comparedProperties()
-        let remaining = all.filter { !compareIDs.contains($0.id) }
-        let favorites = remaining.filter { favoriteIDs.contains($0.id) }
-        let others = remaining.filter { !favoriteIDs.contains($0.id) }
-        return compared + favorites + others
+        favoriteProperties()
     }
 
     func saveSearch(from criteria: PropertySearchCriteria, alertOn: Bool = true) {
@@ -631,27 +891,50 @@ final class PropertyStore {
         return value
     }
 
-    func addEnquiry(property: PropertyItem, name: String, email: String, phone: String, message: String) {
+    func addEnquiry(
+        property: PropertyItem,
+        name: String,
+        email: String,
+        phone: String,
+        message: String,
+        kind: AgentLeadKind = .propertyEnquiry,
+        requestId: String? = nil
+    ) {
+        let platform = RealtorDesk.shared.buyerAssignedRealtor()
         let item = EnquiryItem(
             id: UUID().uuidString,
             propertyId: property.id,
             propertyTitle: property.title,
-            agentName: property.agentName,
+            agentName: platform?.name ?? "SpeddyProp",
+            listingAgentName: property.agentName,
+            source: property.source,
             message: message,
             contactName: name,
             email: email,
             phone: phone,
-            date: Date()
+            date: Date(),
+            kind: kind,
+            requestId: requestId ?? RealtorDesk.shared.buyerActiveRequest?.id
         )
         enquiries.insert(item, at: 0)
         AgentStore.shared.recordLead(from: item)
     }
 
     func comparisonSummary(for properties: [PropertyItem]) -> String {
-        guard let best = properties.max(by: { comparisonScore($0) < comparisonScore($1) }) else {
-            return "Select properties to see an AI summary."
+        guard !properties.isEmpty else {
+            return "Select properties to see an AI summary.".localized
         }
-        return "\(best.title) is the best match for your budget and requirements."
+        let overall = properties.max(by: { comparisonScore($0) < comparisonScore($1) })
+        let cheapest = properties.min(by: { $0.priceValue < $1.priceValue })
+        let largest = properties.max(by: { $0.areaValue < $1.areaValue })
+        return properties.map { property in
+            var tags: [String] = []
+            if property.id == overall?.id { tags.append("Best overall match".localized) }
+            if property.id == cheapest?.id { tags.append("Best price".localized) }
+            if property.id == largest?.id { tags.append("Largest area".localized) }
+            if tags.isEmpty { tags.append(property.summary) }
+            return "\(property.title):\n\(tags.joined(separator: " · "))"
+        }.joined(separator: "\n\n")
     }
 
     private func comparisonScore(_ property: PropertyItem) -> Int {
@@ -670,10 +953,31 @@ final class PropertyStore {
         }
     }
 
+    func setRecentlyViewed(_ items: [PropertyItem]) {
+        recentlyViewed = items
+        for item in items where item.isFav {
+            favoriteIDs.insert(item.id)
+        }
+    }
+
+    func recommended(filter: DashboardFilterChip?) -> [PropertyItem] {
+        guard let filter else { return all }
+        return all.filter { $0.matches(chip: filter) }
+    }
+
+    func mergeRemote(_ items: [PropertyItem]?) {
+        all = (items ?? []).map { item in
+            var copy = item
+            if favoriteIDs.contains(item.id) {
+                copy.isFav = true
+            }
+            return copy
+        }
+    }
+
     func recommended(filter: String?) -> [PropertyItem] {
         guard let filter, !filter.isEmpty else { return all }
-        let filtered = all.filter { $0.matches(filter: filter) }
-        return filtered.isEmpty ? all : filtered
+        return all.filter { $0.matches(filter: filter) }
     }
 
     func search(_ criteria: PropertySearchCriteria) -> [PropertyItem] {
@@ -705,6 +1009,7 @@ final class PropertyStore {
             }
             if text.contains("\(property.bedrooms)") { score += 2 }
             if text.contains("furnished") && property.isFurnished { score += 2 }
+            if text.contains(property.source.lowercased()) { score += 3 }
             return (property, score)
         }
         scored.sort { $0.1 > $1.1 }
@@ -722,6 +1027,19 @@ final class PropertyStore {
     }
 }
 
+private enum PropertyDetailsRouter {
+    private static var lastID: String?
+    private static var lastAt: TimeInterval = 0
+
+    static func shouldOpen(_ id: String) -> Bool {
+        let now = CACurrentMediaTime()
+        if lastID == id, now - lastAt < 0.5 { return false }
+        lastID = id
+        lastAt = now
+        return true
+    }
+}
+
 extension UIViewController {
 
     var isAgentFlow: Bool {
@@ -734,42 +1052,71 @@ extension UIViewController {
     }
 
     func openPropertyDetails(_ property: PropertyItem) {
+        guard PropertyDetailsRouter.shouldOpen(property.id) else { return }
         PropertyStore.shared.markViewed(property)
-        if isAgentFlow {
-            let details: AgentPropertyDetailsVC = AgentStoryboard.load("AgentPropertyDetailsVC")
-            details.property = property
-            details.hidesBottomBarWhenPushed = true
-            navigationController?.pushViewController(details, animated: true)
-            return
-        }
-        guard let details = UIStoryboard(name: "TenantSB", bundle: nil)
-            .instantiateViewController(withIdentifier: "TenantPropertyDetailsVC") as? TenantPropertyDetailsVC else {
-            return
-        }
+        let details: TenantPropertyDetailsVC = TenantStoryboard.load("TenantPropertyDetailsVC")
         details.property = property
         details.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(details, animated: true)
+        let nav = navigationController
+            ?? tabBarController?.selectedViewController as? UINavigationController
+        nav?.pushViewController(details, animated: true)
     }
 
-    func openAISearch(prefilled query: String? = nil) {
-        guard let aiVC = UIStoryboard(name: "TenantSB", bundle: nil)
-            .instantiateViewController(withIdentifier: "TenantAISearchVC") as? TenantAISearchVC else {
+    func toggleFavoriteRemote(
+        propertyId: String,
+        completion: ((Bool) -> Void)? = nil
+    ) {
+        Task {
+            do {
+                let isFav = try await TenantViewModels.toggleFavoriteAPI(propertyId: propertyId)
+                await MainActor.run {
+                    PropertyStore.shared.setFavorite(propertyId, isOn: isFav)
+                    completion?(isFav)
+                }
+            } catch {
+                await MainActor.run {
+                    completion?(PropertyStore.shared.isFavorite(propertyId))
+                }
+            }
+        }
+    }
+
+    func deleteRecentlyViewedRemote(_ property: PropertyItem, completion: ((Bool) -> Void)? = nil) {
+        let viewedId = property.recentlyViewedId.trimmingCharacters(in: .whitespacesAndNewlines)
+        let id = viewedId.isEmpty ? property.id.trimmingCharacters(in: .whitespacesAndNewlines) : viewedId
+        guard id.isEmpty == false else {
+            completion?(false)
             return
         }
+        Task {
+            do {
+                try await TenantViewModels.deleteRecentlyViewedAPI(id: id)
+                await MainActor.run { completion?(true) }
+            } catch {
+                await MainActor.run { completion?(false) }
+            }
+        }
+    }
+
+    func openAISearch(prefilled query: String? = nil, chatId: String? = nil, approveLeadIfNeeded: Bool = false) {
+        let aiVC: TenantAISearchVC = TenantStoryboard.load("TenantAISearchVC")
         aiVC.initialQuery = query
+        let trimmedChatId = chatId?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        aiVC.chatId = trimmedChatId.isEmpty ? nil : trimmedChatId
+        aiVC.approveLeadIfNeeded = approveLeadIfNeeded
         aiVC.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(aiVC, animated: true)
     }
 
     func openCompare(_ properties: [PropertyItem]) {
-        let compareVC = TenantCompareVC()
+        let compareVC: TenantCompareVC = TenantStoryboard.load("TenantCompareVC")
         compareVC.properties = properties
         compareVC.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(compareVC, animated: true)
     }
 
     func openSavedSearch(_ search: SavedSearch?) {
-        let editor = TenantSavedSearchVC()
+        let editor: TenantSavedSearchVC = TenantStoryboard.load("TenantSavedSearchVC")
         editor.search = search ?? SavedSearch(
             id: UUID().uuidString,
             location: nil,
@@ -783,5 +1130,42 @@ extension UIViewController {
         editor.isNew = search == nil
         editor.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(editor, animated: true)
+    }
+
+    func openContactAgent(property: PropertyItem? = nil) {
+        let listVC: TenantAgentListVC = TenantStoryboard.load("TenantAgentListVC")
+        listVC.property = property
+        listVC.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(listVC, animated: true)
+    }
+
+    func openBuyerLeads() {
+        let vc: TenantLeadsVC = TenantStoryboard.load("TenantLeadsVC")
+        vc.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(vc, animated: true)
+    }
+
+    func openBuyerLead(id: String) {
+        let vc: TenantLeadDetailVC = TenantStoryboard.load("TenantLeadDetailVC")
+        vc.leadId = id
+        vc.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(vc, animated: true)
+    }
+
+    func openRealtorHelp(requirement: ClientRequirement? = nil, query: String? = nil) {
+        let help: TenantRealtorHelpVC = TenantStoryboard.load("TenantRealtorHelpVC")
+        if let requirement {
+            help.requirement = requirement
+        } else if let query, !query.isEmpty {
+            help.requirement = .from(query: query)
+        }
+        help.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(help, animated: true)
+    }
+
+    func openBuyerRecommendations() {
+        let vc: TenantRealtorRecommendationsVC = TenantStoryboard.load("TenantRealtorRecommendationsVC")
+        vc.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

@@ -19,61 +19,81 @@ struct AIChatMessage {
 final class AIChatCell: UITableViewCell {
 
     static let identifier = "AIChatCell"
+    static var nib: UINib { UINib(nibName: identifier, bundle: nil) }
 
-    private let bubbleLabel = UILabel()
-    private let bubbleView = UIView()
-    private var leadingConstraint: NSLayoutConstraint?
-    private var trailingConstraint: NSLayoutConstraint?
+    @IBOutlet weak var bubbleLabel: UILabel!
+    @IBOutlet weak var bubbleView: UIView!
+    @IBOutlet weak var leadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var trailingConstraint: NSLayoutConstraint!
 
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupUI()
-    }
-
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setupUI()
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        backgroundColor = .clear
+        selectionStyle = .none
+        contentView.backgroundColor = .clear
+        bubbleView.layer.cornerRadius = 16
+        bubbleLabel.font = .systemFont(ofSize: 15, weight: .regular)
+        bubbleLabel.numberOfLines = 0
+        bubbleView.isUserInteractionEnabled = true
+        bubbleView.addInteraction(UIContextMenuInteraction(delegate: self))
     }
 
     func configure(_ message: AIChatMessage) {
         bubbleLabel.text = message.text
         let isUser = message.sender == .user
-        bubbleView.backgroundColor = isUser ? .darkThemeColor : .white
-        bubbleLabel.textColor = isUser ? .white : UIColor(red: 33/255, green: 37/255, blue: 41/255, alpha: 1)
-        bubbleView.layer.borderWidth = isUser ? 0 : 1
+        if isUser {
+            bubbleView.backgroundColor = .darkThemeColor
+            bubbleLabel.textColor = .white
+            bubbleView.layer.borderWidth = 0
+        } else if message.isParameters {
+            bubbleView.backgroundColor = UIColor(red: 241/255, green: 245/255, blue: 249/255, alpha: 1)
+            bubbleLabel.textColor = UIColor(red: 33/255, green: 37/255, blue: 41/255, alpha: 1)
+            bubbleView.layer.borderWidth = 1
+        } else {
+            bubbleView.backgroundColor = .white
+            bubbleLabel.textColor = UIColor(red: 33/255, green: 37/255, blue: 41/255, alpha: 1)
+            bubbleView.layer.borderWidth = 1
+        }
         bubbleView.layer.borderColor = UIColor.cardBorderColor.cgColor
-        leadingConstraint?.constant = isUser ? 72 : 16
-        trailingConstraint?.constant = isUser ? -16 : -72
+        leadingConstraint.constant = isUser ? 72 : 16
+        trailingConstraint.constant = isUser ? -16 : -72
+    }
+}
+
+extension AIChatCell: UIContextMenuInteractionDelegate {
+
+    func contextMenuInteraction(
+        _ interaction: UIContextMenuInteraction,
+        configurationForMenuAtLocation location: CGPoint
+    ) -> UIContextMenuConfiguration? {
+        let text = bubbleLabel.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        guard text.isEmpty == false else { return nil }
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
+            let copy = UIAction(title: "Copy".localized, image: UIImage(systemName: "doc.on.doc")) { _ in
+                UIPasteboard.general.string = text
+            }
+            return UIMenu(title: "", children: [copy])
+        }
     }
 
-    private func setupUI() {
-        backgroundColor = .clear
-        selectionStyle = .none
-        contentView.backgroundColor = .clear
+    func contextMenuInteraction(
+        _ interaction: UIContextMenuInteraction,
+        previewForHighlightingMenuWithConfiguration configuration: UIContextMenuConfiguration
+    ) -> UITargetedPreview? {
+        preview(for: bubbleView)
+    }
 
-        bubbleView.translatesAutoresizingMaskIntoConstraints = false
-        bubbleView.layer.cornerRadius = 16
+    func contextMenuInteraction(
+        _ interaction: UIContextMenuInteraction,
+        previewForDismissingMenuWithConfiguration configuration: UIContextMenuConfiguration
+    ) -> UITargetedPreview? {
+        preview(for: bubbleView)
+    }
 
-        bubbleLabel.translatesAutoresizingMaskIntoConstraints = false
-        bubbleLabel.font = .systemFont(ofSize: 15, weight: .regular)
-        bubbleLabel.numberOfLines = 0
-
-        contentView.addSubview(bubbleView)
-        bubbleView.addSubview(bubbleLabel)
-
-        leadingConstraint = bubbleView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16)
-        trailingConstraint = bubbleView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
-
-        NSLayoutConstraint.activate([
-            bubbleView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 6),
-            bubbleView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -6),
-            leadingConstraint!,
-            trailingConstraint!,
-
-            bubbleLabel.topAnchor.constraint(equalTo: bubbleView.topAnchor, constant: 12),
-            bubbleLabel.leadingAnchor.constraint(equalTo: bubbleView.leadingAnchor, constant: 14),
-            bubbleLabel.trailingAnchor.constraint(equalTo: bubbleView.trailingAnchor, constant: -14),
-            bubbleLabel.bottomAnchor.constraint(equalTo: bubbleView.bottomAnchor, constant: -12)
-        ])
+    private func preview(for view: UIView) -> UITargetedPreview {
+        let parameters = UIPreviewParameters()
+        parameters.backgroundColor = .clear
+        parameters.visiblePath = UIBezierPath(roundedRect: view.bounds, cornerRadius: view.layer.cornerRadius)
+        return UITargetedPreview(view: view, parameters: parameters)
     }
 }

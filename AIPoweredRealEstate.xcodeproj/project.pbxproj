@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		A7F3C1D2303428E6003CF718 /* GoogleMaps in Frameworks */ = {isa = PBXBuildFile; productRef = A7F3C1D3303428E6003CF718 /* GoogleMaps */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		703BBA65303428E6003CF718 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -40,6 +44,11 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		7014F37B303EBECF003857D9 /* Vendor/SDWebImage */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Vendor/SDWebImage;
+			sourceTree = "<group>";
+		};
 		703BBA50303428E4003CF718 /* AIPoweredRealEstate */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -65,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7F3C1D2303428E6003CF718 /* GoogleMaps in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				703BBA50303428E4003CF718 /* AIPoweredRealEstate */,
+				7014F37B303EBECF003857D9 /* Vendor/SDWebImage */,
 				703BBA67303428E6003CF718 /* AIPoweredRealEstateTests */,
 				703BBA71303428E6003CF718 /* AIPoweredRealEstateUITests */,
 				703BBA4F303428E4003CF718 /* Products */,
@@ -121,10 +132,12 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				7014F37B303EBECF003857D9 /* Vendor/SDWebImage */,
 				703BBA50303428E4003CF718 /* AIPoweredRealEstate */,
 			);
 			name = AIPoweredRealEstate;
 			packageProductDependencies = (
+				A7F3C1D3303428E6003CF718 /* GoogleMaps */,
 			);
 			productName = AIPoweredRealEstate;
 			productReference = 703BBA4E303428E4003CF718 /* AIPoweredRealEstate.app */;
@@ -205,9 +218,13 @@
 			knownRegions = (
 				en,
 				Base,
+				es,
 			);
 			mainGroup = 703BBA45303428E4003CF718;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				A7F3C1D4303428E6003CF718 /* XCLocalSwiftPackageReference "Packages/GoogleMaps" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 703BBA4F303428E4003CF718 /* Products */;
 			projectDirPath = "";
@@ -288,13 +305,19 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = F65D9CD6HQ;
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/Vendor/SDWebImage/include",
+					"$(SRCROOT)/Vendor/SDWebImage/Core",
+					"$(SRCROOT)/Vendor/SDWebImage/Private",
+				);
 				INFOPLIST_FILE = AIPoweredRealEstate/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SpeddyProp;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UILaunchStoryboardName = SpeedyPopLaunch;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -305,6 +328,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobapps.com.AIPoweredRealEstate;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "AIPoweredRealEstate/AIPoweredRealEstate-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -316,13 +340,19 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = F65D9CD6HQ;
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/Vendor/SDWebImage/include",
+					"$(SRCROOT)/Vendor/SDWebImage/Core",
+					"$(SRCROOT)/Vendor/SDWebImage/Private",
+				);
 				INFOPLIST_FILE = AIPoweredRealEstate/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SpeddyProp;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UILaunchStoryboardName = SpeedyPopLaunch;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -333,6 +363,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobapps.com.AIPoweredRealEstate;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "AIPoweredRealEstate/AIPoweredRealEstate-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -343,6 +374,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -406,6 +438,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -569,6 +602,21 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		A7F3C1D4303428E6003CF718 /* XCLocalSwiftPackageReference "Packages/GoogleMaps" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/GoogleMaps;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A7F3C1D3303428E6003CF718 /* GoogleMaps */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A7F3C1D4303428E6003CF718 /* XCLocalSwiftPackageReference "Packages/GoogleMaps" */;
+			productName = GoogleMaps;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 703BBA46303428E4003CF718 /* Project object */;
 }

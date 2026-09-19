@@ -111,7 +111,7 @@ class OnboardingVC: UIViewController {
 
     private func updateActionTitle() {
         let isLast = currentIndex == items.count - 1
-        getStartedButton.setTitle(isLast ? "Get Started" : "Next", for: .normal)
+        getStartedButton.setTitle((isLast ? "Get Started" : "Next").localized, for: .normal)
     }
 
     @IBAction func skipTapped(_ sender: UIButton) {
@@ -130,10 +130,10 @@ class OnboardingVC: UIViewController {
 
     private func goToWelcome() {
         stopAutoScroll()
-        guard let welcomeVC = storyboard?.instantiateViewController(withIdentifier: "WelcomeVC") as? WelcomeVC else {
+        guard let languageVC = storyboard?.instantiateViewController(withIdentifier: "ChooseLanguageVC") as? ChooseLanguageVC else {
             return
         }
-        navigationController?.setViewControllers([welcomeVC], animated: true)
+        navigationController?.setViewControllers([languageVC], animated: true)
     }
 }
 

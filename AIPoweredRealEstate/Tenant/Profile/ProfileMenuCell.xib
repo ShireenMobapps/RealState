@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ProfileMenuCell" rowHeight="54" id="pmc-cell" customClass="ProfileMenuCell" customModule="AIPoweredRealEstate" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="54"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pmc-cell" id="pmc-content">
+                <rect key="frame" x="0.0" y="0.0" width="393" height="54"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="pmc-row">
+                        <rect key="frame" x="20" y="10" width="353" height="34"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="pmc-icon">
+                                <rect key="frame" x="0.0" y="6" width="22" height="22"/>
+                                <color key="tintColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="pmc-icon-h"/>
+                                    <constraint firstAttribute="width" constant="22" id="pmc-icon-w"/>
+                                </constraints>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="pmc-text">
+                                <rect key="frame" x="34" y="0.0" width="295" height="34"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" text="Title" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pmc-title">
+                                        <rect key="frame" x="0.0" y="0.0" width="295" height="19.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                        <color key="textColor" red="0.12941176470588237" green="0.14509803921568629" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pmc-subtitle">
+                                        <rect key="frame" x="0.0" y="21.333333333333336" width="295" height="12.666666666666664"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" red="0.42352941176470588" green="0.45882352941176469" blue="0.49019607843137253" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="pmc-chevron">
+                                <rect key="frame" x="341" y="9" width="12" height="16"/>
+                                <color key="tintColor" white="0.72" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="16" id="pmc-chevron-h"/>
+                                    <constraint firstAttribute="width" constant="12" id="pmc-chevron-w"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="pmc-row" firstAttribute="leading" secondItem="pmc-content" secondAttribute="leading" constant="20" id="pmc-row-l"/>
+                    <constraint firstAttribute="trailing" secondItem="pmc-row" secondAttribute="trailing" constant="20" id="pmc-row-r"/>
+                    <constraint firstItem="pmc-row" firstAttribute="top" secondItem="pmc-content" secondAttribute="top" constant="10" id="pmc-row-t"/>
+                    <constraint firstAttribute="bottom" secondItem="pmc-row" secondAttribute="bottom" constant="10" id="pmc-row-b"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="chevronView" destination="pmc-chevron" id="out-pmc-chevron"/>
+                <outlet property="iconView" destination="pmc-icon" id="out-pmc-icon"/>
+                <outlet property="subtitleLabel" destination="pmc-subtitle" id="out-pmc-subtitle"/>
+                <outlet property="titleLabel" destination="pmc-title" id="out-pmc-title"/>
+            </connections>
+            <point key="canvasLocation" x="131" y="21"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="chevron.right" catalog="system" width="97" height="128"/>
+    </resources>
+</document>

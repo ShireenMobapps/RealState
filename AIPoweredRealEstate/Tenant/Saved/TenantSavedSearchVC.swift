@@ -19,42 +19,23 @@ final class TenantSavedSearchVC: UIViewController {
     )
     var isNew = true
 
-    private let scrollView = UIScrollView()
-    private let contentStack = UIStackView()
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var contentStack: UIStackView!
+
     private let alertSwitch = UISwitch()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .screenBackgroundColor
-        title = "Search Preference"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(saveTapped))
+        title = "Search Preference".localized
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save".localized, style: .done, target: self, action: #selector(saveTapped))
         navigationController?.navigationBar.tintColor = .darkThemeColor
-        buildLayout()
         reloadChips()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
-    }
-
-    private func buildLayout() {
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        contentStack.translatesAutoresizingMaskIntoConstraints = false
-        contentStack.axis = .vertical
-        contentStack.spacing = 22
-        view.addSubview(scrollView)
-        scrollView.addSubview(contentStack)
-        NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            contentStack.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 20),
-            contentStack.leadingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.leadingAnchor, constant: 20),
-            contentStack.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor, constant: -20),
-            contentStack.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -28)
-        ])
     }
 
     private func reloadChips() {
@@ -70,7 +51,7 @@ final class TenantSavedSearchVC: UIViewController {
 
     private func addSection(_ title: String, options: [String], selected: String?, action: Selector, multi: Bool = false) {
         let label = UILabel()
-        label.text = title
+        label.text = title.localized
         label.font = .systemFont(ofSize: 16, weight: .bold)
         label.textColor = UIColor(red: 33/255, green: 37/255, blue: 41/255, alpha: 1)
 
@@ -105,11 +86,11 @@ final class TenantSavedSearchVC: UIViewController {
 
     private func addAlertRow() {
         let label = UILabel()
-        label.text = "Alert"
+        label.text = "Alert".localized
         label.font = .systemFont(ofSize: 16, weight: .bold)
         label.textColor = UIColor(red: 33/255, green: 37/255, blue: 41/255, alpha: 1)
         let detail = UILabel()
-        detail.text = "Notify me about new matching properties"
+        detail.text = "Notify me about new matching properties".localized
         detail.font = .systemFont(ofSize: 13, weight: .regular)
         detail.textColor = UIColor(red: 108/255, green: 117/255, blue: 125/255, alpha: 1)
         detail.numberOfLines = 0
@@ -129,7 +110,7 @@ final class TenantSavedSearchVC: UIViewController {
 
     private func addActionButtons() {
         let results = UIButton(type: .system)
-        results.setTitle("View Results", for: .normal)
+        results.setTitle("View Results".localized, for: .normal)
         results.setTitleColor(.darkThemeColor, for: .normal)
         results.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
         results.layer.cornerRadius = 14
@@ -140,7 +121,7 @@ final class TenantSavedSearchVC: UIViewController {
         results.addTarget(self, action: #selector(viewResultsTapped), for: .touchUpInside)
 
         let save = UIButton(type: .system)
-        save.setTitle("Save Preference", for: .normal)
+        save.setTitle("Save Preference".localized, for: .normal)
         save.setTitleColor(.white, for: .normal)
         save.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
         CommonMethods.stylePrimaryButton(save)
@@ -152,19 +133,19 @@ final class TenantSavedSearchVC: UIViewController {
     }
 
     @objc private func locationTapped(_ sender: UIButton) {
-        let title = sender.configuration?.title ?? ""
+        let title = sender.chipValue
         search.location = title == "Any" ? nil : title
         reloadChips()
     }
 
     @objc private func listingTapped(_ sender: UIButton) {
-        let title = sender.configuration?.title ?? ""
+        let title = sender.chipValue
         search.listingType = title == "Any" ? nil : title
         reloadChips()
     }
 
     @objc private func priceTapped(_ sender: UIButton) {
-        switch sender.configuration?.title {
+        switch sender.chipValue {
         case "Up to $1,500": search.minPrice = nil; search.maxPrice = 1_500
         case "Up to $5,000": search.minPrice = nil; search.maxPrice = 5_000
         case "Up to $300k": search.minPrice = nil; search.maxPrice = 300_000
@@ -176,13 +157,13 @@ final class TenantSavedSearchVC: UIViewController {
     }
 
     @objc private func bedsTapped(_ sender: UIButton) {
-        let title = sender.configuration?.title ?? ""
+        let title = sender.chipValue
         search.minBedrooms = title == "Any" ? nil : Int(title.replacingOccurrences(of: "+", with: ""))
         reloadChips()
     }
 
     @objc private func amenityTapped(_ sender: UIButton) {
-        let title = sender.configuration?.title ?? ""
+        let title = sender.chipValue
         if search.amenities.contains(title) {
             search.amenities.remove(title)
         } else {

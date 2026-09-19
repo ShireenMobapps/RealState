@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="NO" selectionStyle="none" indentationWidth="10" reuseIdentifier="NotificationCell" rowHeight="108" id="ntf-cell" customClass="NotificationCell" customModule="AIPoweredRealEstate" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="108"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="NO" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="NO" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ntf-cell" id="ntf-content">
+                <rect key="frame" x="0.0" y="0.0" width="393" height="108"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ntf-card">
+                        <rect key="frame" x="16" y="6" width="361" height="96"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ntf-row">
+                                <rect key="frame" x="16" y="14" width="333" height="68"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="ntf-text">
+                                        <rect key="frame" x="0.0" y="0.0" width="297" height="68"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Lead assigned" lineBreakMode="tailTruncation" numberOfLines="2" translatesAutoresizingMaskIntoConstraints="NO" id="ntf-title">
+                                                <rect key="frame" x="0.0" y="0.0" width="297" height="19.333333333333332"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                                <color key="textColor" red="0.12941176470588237" green="0.14509803921568629" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Your realtor was assigned" lineBreakMode="wordWrap" numberOfLines="3" translatesAutoresizingMaskIntoConstraints="NO" id="ntf-body">
+                                                <rect key="frame" x="0.0" y="23.333333333333336" width="297" height="16.666666666666671"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.42352941176470588" green="0.45882352941176469" blue="0.49019607843137253" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Aug 27, 2026 at 6:22 PM" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ntf-date">
+                                                <rect key="frame" x="0.0" y="44" width="297" height="14.333333333333336"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <color key="textColor" red="0.42352941176470588" green="0.45882352941176469" blue="0.49019607843137253" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ntf-close">
+                                        <rect key="frame" x="305" y="0.0" width="28" height="28"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="28" id="ntf-close-h"/>
+                                            <constraint firstAttribute="width" constant="28" id="ntf-close-w"/>
+                                        </constraints>
+                                        <color key="tintColor" white="0.55" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" image="xmark" catalog="system"/>
+                                        <connections>
+                                            <action selector="closeTapped:" destination="ntf-cell" eventType="touchUpInside" id="act-ntf-close"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ntf-row" firstAttribute="top" secondItem="ntf-card" secondAttribute="top" constant="14" id="ntf-row-t"/>
+                            <constraint firstItem="ntf-row" firstAttribute="leading" secondItem="ntf-card" secondAttribute="leading" constant="16" id="ntf-row-l"/>
+                            <constraint firstAttribute="trailing" secondItem="ntf-row" secondAttribute="trailing" constant="12" id="ntf-row-r"/>
+                            <constraint firstAttribute="bottom" secondItem="ntf-row" secondAttribute="bottom" constant="14" id="ntf-row-b"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="ntf-card" firstAttribute="top" secondItem="ntf-content" secondAttribute="top" constant="6" id="ntf-card-t"/>
+                    <constraint firstItem="ntf-card" firstAttribute="leading" secondItem="ntf-content" secondAttribute="leading" constant="16" id="ntf-card-l"/>
+                    <constraint firstAttribute="trailing" secondItem="ntf-card" secondAttribute="trailing" constant="16" id="ntf-card-r"/>
+                    <constraint firstAttribute="bottom" secondItem="ntf-card" secondAttribute="bottom" constant="6" id="ntf-card-b"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="bodyLabel" destination="ntf-body" id="out-ntf-body"/>
+                <outlet property="cardView" destination="ntf-card" id="out-ntf-card"/>
+                <outlet property="closeButton" destination="ntf-close" id="out-ntf-close"/>
+                <outlet property="dateLabel" destination="ntf-date" id="out-ntf-date"/>
+                <outlet property="titleLabel" destination="ntf-title" id="out-ntf-title"/>
+            </connections>
+            <point key="canvasLocation" x="131" y="21"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="xmark" catalog="system" width="128" height="113"/>
+    </resources>
+</document>

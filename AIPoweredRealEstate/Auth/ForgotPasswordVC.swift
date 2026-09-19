@@ -16,7 +16,7 @@ class ForgotPasswordVC: UIViewController {
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var sendButton: CustomButton!
 
-    var selectedRole: UserRole = .tenant
+    var selectedRole: String = "buyer"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,9 +42,16 @@ class ForgotPasswordVC: UIViewController {
         CommonMethods.styleTextField(emailTextField)
         CommonMethods.stylePrimaryButton(sendButton)
 
-        titleLabel.text = "Forgot Password"
-        subtitleLabel.text = "Enter your email to receive a reset link"
+        titleLabel.text = "Forgot Password".localized
+        subtitleLabel.text = "Enter your email to receive a reset link".localized
+        sendButton.setTitle("Send OTP".localized, for: .normal)
         errorLabel.text = nil
+        if let loginButton = formCardView.subviews.compactMap({ $0 as? UIButton }).first(where: {
+            ($0.currentTitle ?? "").localizedCaseInsensitiveContains("login")
+        }) {
+            loginButton.setImage(nil, for: .normal)
+            loginButton.configuration?.image = nil
+        }
     }
 
     @IBAction func backTapped(_ sender: UIButton) {
@@ -55,11 +62,37 @@ class ForgotPasswordVC: UIViewController {
         errorLabel.text = nil
         let email = emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         guard !email.isEmpty else {
-            errorLabel.text = "Please enter your email address."
+            errorLabel.text = "Please enter your email address.".localized
             return
         }
 
-        openOTP(email: email)
+        sendButton.isEnabled = false
+        Task {
+            do {
+                let response = try await AuthViewModel.forgotPasswordSendOTPAPI(param: [
+                    "email": email,
+                    "language": LanguageManager.shared.currentLanguage
+                ])
+                await MainActor.run {
+                    let message = response.message?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+                    CommonMethods.showAlert(
+                        message: message.isEmpty ? "OTP sent successfully.".localized : message,
+                        from: self
+                    ) {
+                        self.sendButton.isEnabled = true
+                        self.openOTP(email: email)
+                    }
+                }
+            } catch {
+                await MainActor.run {
+                    self.sendButton.isEnabled = true
+                    let message = error.localizedDescription.trimmingCharacters(in: .whitespacesAndNewlines)
+                    self.errorLabel.text = message.isEmpty
+                        ? "Unable to send OTP. Please try again.".localized
+                        : message
+                }
+            }
+        }
     }
 
     private func openOTP(email: String) {
@@ -75,4 +108,10 @@ class ForgotPasswordVC: UIViewController {
     @IBAction func backToLoginTapped(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
     }
+    
+    
+    
+    
+    
+    
 }

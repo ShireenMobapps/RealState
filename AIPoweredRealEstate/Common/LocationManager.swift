@@ -24,7 +24,9 @@ class LocationManager:NSObject, CLLocationManagerDelegate{
     }
     
     func checkAuthorizationSts(){
+       
         let sts = locationManager.authorizationStatus
+       
         switch sts{
             
         case .notDetermined:
@@ -39,6 +41,7 @@ class LocationManager:NSObject, CLLocationManagerDelegate{
         @unknown default: break
             
         }
+        
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -58,6 +61,7 @@ class LocationManager:NSObject, CLLocationManagerDelegate{
     }
     
     func getFullAddress(location:CLLocation,completion:@escaping (String)->()){
+        
         let geocoder = CLGeocoder()
         
         geocoder.reverseGeocodeLocation(location) { placemarker, error in
@@ -76,7 +80,7 @@ class LocationManager:NSObject, CLLocationManagerDelegate{
             
             completion(address)
         }
-        
     }
+    
     
 }

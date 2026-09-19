@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AIChatCell" rowHeight="72" id="aic-cell" customClass="AIChatCell" customModule="AIPoweredRealEstate" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="72"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aic-cell" id="aic-content">
+                <rect key="frame" x="0.0" y="0.0" width="393" height="72"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aic-bubble">
+                        <rect key="frame" x="16" y="6" width="305" height="60"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Message" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="aic-label">
+                                <rect key="frame" x="14" y="12" width="277" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="0.12941176470588237" green="0.14509803921568629" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="aic-label" firstAttribute="top" secondItem="aic-bubble" secondAttribute="top" constant="12" id="aic-l-t"/>
+                            <constraint firstItem="aic-label" firstAttribute="leading" secondItem="aic-bubble" secondAttribute="leading" constant="14" id="aic-l-l"/>
+                            <constraint firstAttribute="trailing" secondItem="aic-label" secondAttribute="trailing" constant="14" id="aic-l-r"/>
+                            <constraint firstAttribute="bottom" secondItem="aic-label" secondAttribute="bottom" constant="12" id="aic-l-b"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <real key="value" value="16"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="aic-bubble" firstAttribute="top" secondItem="aic-content" secondAttribute="top" constant="6" id="aic-b-t"/>
+                    <constraint firstAttribute="bottom" secondItem="aic-bubble" secondAttribute="bottom" constant="6" id="aic-b-b"/>
+                    <constraint firstItem="aic-bubble" firstAttribute="leading" secondItem="aic-content" secondAttribute="leading" constant="16" id="aic-b-l"/>
+                    <constraint firstItem="aic-bubble" firstAttribute="trailing" secondItem="aic-content" secondAttribute="trailing" constant="-72" id="aic-b-r"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="bubbleLabel" destination="aic-label" id="out-aic-label"/>
+                <outlet property="bubbleView" destination="aic-bubble" id="out-aic-bubble"/>
+                <outlet property="leadingConstraint" destination="aic-b-l" id="out-aic-lead"/>
+                <outlet property="trailingConstraint" destination="aic-b-r" id="out-aic-trail"/>
+            </connections>
+            <point key="canvasLocation" x="131" y="21"/>
+        </tableViewCell>
+    </objects>
+</document>

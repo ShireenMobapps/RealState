@@ -35,20 +35,20 @@
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="160"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ob-logo-box" customClass="CustomView" customModule="AIPoweredRealEstate" customModuleProvider="target">
-                                        <rect key="frame" x="166.66666666666666" y="68" width="60" height="60"/>
+                                        <rect key="frame" x="148.66666666666666" y="68" width="96" height="64"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="appLogo" translatesAutoresizingMaskIntoConstraints="NO" id="ob-logo">
-                                                <rect key="frame" x="6" y="6" width="48" height="48"/>
+                                                <rect key="frame" x="6" y="6" width="84" height="52"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="ob-logo" secondAttribute="bottom" constant="6" id="ob-logo-b"/>
-                                            <constraint firstAttribute="height" constant="60" id="ob-logo-h"/>
+                                            <constraint firstAttribute="height" constant="64" id="ob-logo-h"/>
                                             <constraint firstItem="ob-logo" firstAttribute="leading" secondItem="ob-logo-box" secondAttribute="leading" constant="6" id="ob-logo-l"/>
                                             <constraint firstAttribute="trailing" secondItem="ob-logo" secondAttribute="trailing" constant="6" id="ob-logo-r"/>
                                             <constraint firstItem="ob-logo" firstAttribute="top" secondItem="ob-logo-box" secondAttribute="top" constant="6" id="ob-logo-t"/>
-                                            <constraint firstAttribute="width" constant="60" id="ob-logo-w"/>
+                                            <constraint firstAttribute="width" constant="96" id="ob-logo-w"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
@@ -57,7 +57,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ob-skip">
-                                        <rect key="frame" x="334" y="82" width="35" height="32"/>
+                                        <rect key="frame" x="334" y="84" width="35" height="32"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                         <state key="normal" title="Skip">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -67,7 +67,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.55294117647058827" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="160" id="ob-header-h"/>
                                     <constraint firstItem="ob-logo-box" firstAttribute="centerX" secondItem="ob-header" secondAttribute="centerX" id="ob-logo-cx"/>
@@ -89,12 +89,12 @@
                             </collectionView>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="ob-page">
                                 <rect key="frame" x="160" y="700" width="73" height="26"/>
-                                <color key="pageIndicatorTintColor" red="0.92549019607843142" green="0.36078431372549019" blue="0.35686274509803922" alpha="0.34999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="currentPageIndicatorTintColor" red="0.55294117647058827" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="pageIndicatorTintColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="0.34999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="currentPageIndicatorTintColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </pageControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ob-start" customClass="CustomButton" customModule="AIPoweredRealEstate" customModuleProvider="target">
                                 <rect key="frame" x="24" y="746" width="345" height="52"/>
-                                <color key="backgroundColor" red="0.55294117647058827" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="ob-start-h"/>
                                 </constraints>
@@ -113,7 +113,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="safe-onboarding"/>
-                        <color key="backgroundColor" red="0.9882352941176471" green="0.97254901960784312" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.98039215686274506" green="0.97647058823529409" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="ob-collection" firstAttribute="leading" secondItem="view-onboarding" secondAttribute="leading" id="ob-col-l"/>
                             <constraint firstAttribute="trailing" secondItem="ob-collection" secondAttribute="trailing" id="ob-col-r"/>
@@ -141,6 +141,248 @@
             </objects>
             <point key="canvasLocation" x="-491" y="-27"/>
         </scene>
+        <!--Choose LanguageVC-->
+        <scene sceneID="scene-clang">
+            <objects>
+                <viewController storyboardIdentifier="ChooseLanguageVC" id="vc-clang" customClass="ChooseLanguageVC" customModule="AIPoweredRealEstate" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="view-clang">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cl-header">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="210"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cl-logo-box" customClass="CustomView" customModule="AIPoweredRealEstate" customModuleProvider="target">
+                                        <rect key="frame" x="148.66666666666666" y="68" width="96" height="64"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="appLogo" translatesAutoresizingMaskIntoConstraints="NO" id="cl-logo">
+                                                <rect key="frame" x="6" y="6" width="84" height="52"/>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="cl-logo" secondAttribute="bottom" constant="6" id="cl-logo-b"/>
+                                            <constraint firstAttribute="height" constant="64" id="cl-logo-h"/>
+                                            <constraint firstItem="cl-logo" firstAttribute="leading" secondItem="cl-logo-box" secondAttribute="leading" constant="6" id="cl-logo-l"/>
+                                            <constraint firstAttribute="trailing" secondItem="cl-logo" secondAttribute="trailing" constant="6" id="cl-logo-r"/>
+                                            <constraint firstItem="cl-logo" firstAttribute="top" secondItem="cl-logo-box" secondAttribute="top" constant="6" id="cl-logo-t"/>
+                                            <constraint firstAttribute="width" constant="96" id="cl-logo-w"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
+                                                <real key="value" value="16"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Choose Language" textAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cl-hdr-title">
+                                        <rect key="frame" x="24" y="144" width="345" height="26.333333333333343"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Select your preferred language to continue." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" translatesAutoresizingMaskIntoConstraints="NO" id="cl-hdr-sub">
+                                        <rect key="frame" x="32" y="174.33333333333334" width="329" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="210" id="cl-header-h"/>
+                                    <constraint firstItem="cl-hdr-sub" firstAttribute="leading" secondItem="cl-header" secondAttribute="leading" constant="32" id="cl-hs-l"/>
+                                    <constraint firstAttribute="trailing" secondItem="cl-hdr-sub" secondAttribute="trailing" constant="32" id="cl-hs-r"/>
+                                    <constraint firstItem="cl-hdr-sub" firstAttribute="top" secondItem="cl-hdr-title" secondAttribute="bottom" constant="4" id="cl-hs-t"/>
+                                    <constraint firstItem="cl-hdr-title" firstAttribute="leading" secondItem="cl-header" secondAttribute="leading" constant="24" id="cl-ht-l"/>
+                                    <constraint firstAttribute="trailing" secondItem="cl-hdr-title" secondAttribute="trailing" constant="24" id="cl-ht-r"/>
+                                    <constraint firstItem="cl-hdr-title" firstAttribute="top" secondItem="cl-logo-box" secondAttribute="bottom" constant="12" id="cl-ht-t"/>
+                                    <constraint firstItem="cl-logo-box" firstAttribute="centerX" secondItem="cl-header" secondAttribute="centerX" id="cl-logo-cx"/>
+                                    <constraint firstItem="cl-logo-box" firstAttribute="top" secondItem="cl-header" secondAttribute="top" constant="68" id="cl-logo-top"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="cl-stack">
+                                <rect key="frame" x="24" y="238" width="345" height="188"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cl-en-card" customClass="CustomView" customModule="AIPoweredRealEstate" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="345" height="87"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="globe" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="cl-en-icon">
+                                                <rect key="frame" x="18" y="32.33333333333335" width="24" height="22.666666666666664"/>
+                                                <color key="tintColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="24" id="cl-en-icon-h"/>
+                                                    <constraint firstAttribute="width" constant="24" id="cl-en-icon-w"/>
+                                                </constraints>
+                                            </imageView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="cl-en-text">
+                                                <rect key="frame" x="54" y="24.000000000000004" width="239" height="39.333333333333343"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="English" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cl-en-title">
+                                                        <rect key="frame" x="0.0" y="0.0" width="239" height="21.666666666666668"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                        <color key="textColor" red="0.12941176470588237" green="0.14509803921568629" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Default" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cl-en-sub">
+                                                        <rect key="frame" x="0.0" y="23.666666666666686" width="239" height="15.666666666666664"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                        <color key="textColor" red="0.42352941176470588" green="0.45882352941176469" blue="0.49019607843137253" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="checkmark.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="cl-en-check">
+                                                <rect key="frame" x="305" y="32.33333333333335" width="24" height="22.666666666666664"/>
+                                                <color key="tintColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="24" id="cl-en-check-h"/>
+                                                    <constraint firstAttribute="width" constant="24" id="cl-en-check-w"/>
+                                                </constraints>
+                                            </imageView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cl-en-btn">
+                                                <rect key="frame" x="0.0" y="0.0" width="345" height="87"/>
+                                                <connections>
+                                                    <action selector="englishTapped:" destination="vc-clang" eventType="touchUpInside" id="act-cl-en"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="cl-en-btn" firstAttribute="bottom" secondItem="cl-en-card" secondAttribute="bottom" id="cl-en-btn-b"/>
+                                            <constraint firstItem="cl-en-btn" firstAttribute="leading" secondItem="cl-en-card" secondAttribute="leading" id="cl-en-btn-l"/>
+                                            <constraint firstItem="cl-en-btn" firstAttribute="trailing" secondItem="cl-en-card" secondAttribute="trailing" id="cl-en-btn-r"/>
+                                            <constraint firstItem="cl-en-btn" firstAttribute="top" secondItem="cl-en-card" secondAttribute="top" id="cl-en-btn-t"/>
+                                            <constraint firstItem="cl-en-check" firstAttribute="centerY" secondItem="cl-en-card" secondAttribute="centerY" id="cl-en-check-cy"/>
+                                            <constraint firstItem="cl-en-check" firstAttribute="leading" secondItem="cl-en-text" secondAttribute="trailing" constant="12" id="cl-en-check-l"/>
+                                            <constraint firstAttribute="trailing" secondItem="cl-en-check" secondAttribute="trailing" constant="16" id="cl-en-check-r"/>
+                                            <constraint firstAttribute="height" constant="87" id="cl-en-h"/>
+                                            <constraint firstItem="cl-en-icon" firstAttribute="centerY" secondItem="cl-en-card" secondAttribute="centerY" id="cl-en-icon-cy"/>
+                                            <constraint firstItem="cl-en-icon" firstAttribute="leading" secondItem="cl-en-card" secondAttribute="leading" constant="18" id="cl-en-icon-l"/>
+                                            <constraint firstItem="cl-en-text" firstAttribute="centerY" secondItem="cl-en-card" secondAttribute="centerY" id="cl-en-text-cy"/>
+                                            <constraint firstItem="cl-en-text" firstAttribute="leading" secondItem="cl-en-icon" secondAttribute="trailing" constant="12" id="cl-en-text-l"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
+                                                <real key="value" value="18"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cl-es-card" customClass="CustomView" customModule="AIPoweredRealEstate" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="101" width="345" height="87"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="globe" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="cl-es-icon">
+                                                <rect key="frame" x="18" y="32.33333333333335" width="24" height="22.666666666666664"/>
+                                                <color key="tintColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="24" id="cl-es-icon-h"/>
+                                                    <constraint firstAttribute="width" constant="24" id="cl-es-icon-w"/>
+                                                </constraints>
+                                            </imageView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="cl-es-text">
+                                                <rect key="frame" x="54" y="24.000000000000004" width="239" height="39.333333333333343"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Español" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cl-es-title">
+                                                        <rect key="frame" x="0.0" y="0.0" width="239" height="21.666666666666668"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                        <color key="textColor" red="0.12941176470588237" green="0.14509803921568629" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Spanish" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cl-es-sub">
+                                                        <rect key="frame" x="0.0" y="23.666666666666686" width="239" height="15.666666666666664"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                        <color key="textColor" red="0.42352941176470588" green="0.45882352941176469" blue="0.49019607843137253" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="cl-es-check">
+                                                <rect key="frame" x="305" y="32.33333333333335" width="24" height="22.666666666666664"/>
+                                                <color key="tintColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="24" id="cl-es-check-h"/>
+                                                    <constraint firstAttribute="width" constant="24" id="cl-es-check-w"/>
+                                                </constraints>
+                                            </imageView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cl-es-btn">
+                                                <rect key="frame" x="0.0" y="0.0" width="345" height="87"/>
+                                                <connections>
+                                                    <action selector="spanishTapped:" destination="vc-clang" eventType="touchUpInside" id="act-cl-es"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="cl-es-btn" firstAttribute="bottom" secondItem="cl-es-card" secondAttribute="bottom" id="cl-es-btn-b"/>
+                                            <constraint firstItem="cl-es-btn" firstAttribute="leading" secondItem="cl-es-card" secondAttribute="leading" id="cl-es-btn-l"/>
+                                            <constraint firstItem="cl-es-btn" firstAttribute="trailing" secondItem="cl-es-card" secondAttribute="trailing" id="cl-es-btn-r"/>
+                                            <constraint firstItem="cl-es-btn" firstAttribute="top" secondItem="cl-es-card" secondAttribute="top" id="cl-es-btn-t"/>
+                                            <constraint firstItem="cl-es-check" firstAttribute="centerY" secondItem="cl-es-card" secondAttribute="centerY" id="cl-es-check-cy"/>
+                                            <constraint firstItem="cl-es-check" firstAttribute="leading" secondItem="cl-es-text" secondAttribute="trailing" constant="12" id="cl-es-check-l"/>
+                                            <constraint firstAttribute="trailing" secondItem="cl-es-check" secondAttribute="trailing" constant="16" id="cl-es-check-r"/>
+                                            <constraint firstAttribute="height" constant="87" id="cl-es-h"/>
+                                            <constraint firstItem="cl-es-icon" firstAttribute="centerY" secondItem="cl-es-card" secondAttribute="centerY" id="cl-es-icon-cy"/>
+                                            <constraint firstItem="cl-es-icon" firstAttribute="leading" secondItem="cl-es-card" secondAttribute="leading" constant="18" id="cl-es-icon-l"/>
+                                            <constraint firstItem="cl-es-text" firstAttribute="centerY" secondItem="cl-es-card" secondAttribute="centerY" id="cl-es-text-cy"/>
+                                            <constraint firstItem="cl-es-text" firstAttribute="leading" secondItem="cl-es-icon" secondAttribute="trailing" constant="12" id="cl-es-text-l"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
+                                                <real key="value" value="18"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cl-continue" customClass="CustomButton" customModule="AIPoweredRealEstate" customModuleProvider="target">
+                                <rect key="frame" x="24" y="746" width="345" height="52"/>
+                                <color key="backgroundColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="52" id="cl-continue-h"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <state key="normal" title="Continue">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
+                                        <real key="value" value="14"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="continueTapped:" destination="vc-clang" eventType="touchUpInside" id="act-cl-go"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="safe-clang"/>
+                        <color key="backgroundColor" red="0.98039215686274506" green="0.97647058823529409" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="safe-clang" firstAttribute="bottom" secondItem="cl-continue" secondAttribute="bottom" constant="20" id="cl-go-b"/>
+                            <constraint firstItem="cl-continue" firstAttribute="leading" secondItem="safe-clang" secondAttribute="leading" constant="24" id="cl-go-l"/>
+                            <constraint firstItem="safe-clang" firstAttribute="trailing" secondItem="cl-continue" secondAttribute="trailing" constant="24" id="cl-go-r"/>
+                            <constraint firstItem="cl-header" firstAttribute="leading" secondItem="view-clang" secondAttribute="leading" id="cl-h-l"/>
+                            <constraint firstAttribute="trailing" secondItem="cl-header" secondAttribute="trailing" id="cl-h-r"/>
+                            <constraint firstItem="cl-header" firstAttribute="top" secondItem="view-clang" secondAttribute="top" id="cl-h-t"/>
+                            <constraint firstItem="cl-stack" firstAttribute="leading" secondItem="safe-clang" secondAttribute="leading" constant="24" id="cl-st-l"/>
+                            <constraint firstItem="safe-clang" firstAttribute="trailing" secondItem="cl-stack" secondAttribute="trailing" constant="24" id="cl-st-r"/>
+                            <constraint firstItem="cl-stack" firstAttribute="top" secondItem="cl-header" secondAttribute="bottom" constant="28" id="cl-st-t"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="continueButton" destination="cl-continue" id="out-cl-go"/>
+                        <outlet property="englishCardView" destination="cl-en-card" id="out-cl-en"/>
+                        <outlet property="englishCheckView" destination="cl-en-check" id="out-cl-en-ck"/>
+                        <outlet property="headerView" destination="cl-header" id="out-cl-hdr"/>
+                        <outlet property="logoContainerView" destination="cl-logo-box" id="out-cl-logo"/>
+                        <outlet property="spanishCardView" destination="cl-es-card" id="out-cl-es"/>
+                        <outlet property="spanishCheckView" destination="cl-es-check" id="out-cl-es-ck"/>
+                        <outlet property="subtitleLabel" destination="cl-hdr-sub" id="out-cl-sub"/>
+                        <outlet property="titleLabel" destination="cl-hdr-title" id="out-cl-title"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fr-clang" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="224" y="-667"/>
+        </scene>
         <!--WelcomeVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -152,21 +394,30 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hdr-vw-001">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="320"/>
                                 <subviews>
+                                    <button hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="welcome-back">
+                                        <rect key="frame" x="15" y="62" width="36" height="36"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="36" id="welcome-back-h"/>
+                                            <constraint firstAttribute="width" constant="36" id="welcome-back-w"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" image="chevron.left" catalog="system"/>
+                                    </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="logo-box-01" customClass="CustomView" customModule="AIPoweredRealEstate" customModuleProvider="target">
-                                        <rect key="frame" x="156.66666666666666" y="78" width="80" height="80"/>
+                                        <rect key="frame" x="86.666666666666686" y="78" width="220" height="148"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="appLogo" translatesAutoresizingMaskIntoConstraints="NO" id="logo-img-01">
-                                                <rect key="frame" x="8" y="8" width="64" height="64"/>
+                                                <rect key="frame" x="8" y="8" width="204" height="132"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="logo-img-01" secondAttribute="bottom" constant="8" id="logo-bt"/>
-                                            <constraint firstAttribute="height" constant="80" id="logo-h"/>
+                                            <constraint firstAttribute="height" constant="148" id="logo-h"/>
                                             <constraint firstItem="logo-img-01" firstAttribute="leading" secondItem="logo-box-01" secondAttribute="leading" constant="8" id="logo-l"/>
                                             <constraint firstAttribute="trailing" secondItem="logo-img-01" secondAttribute="trailing" constant="8" id="logo-t"/>
                                             <constraint firstItem="logo-img-01" firstAttribute="top" secondItem="logo-box-01" secondAttribute="top" constant="8" id="logo-tp"/>
-                                            <constraint firstAttribute="width" constant="80" id="logo-w"/>
+                                            <constraint firstAttribute="width" constant="220" id="logo-w"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
@@ -174,20 +425,20 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="AI-Powered Real Estate" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" translatesAutoresizingMaskIntoConstraints="NO" id="hdr-title">
-                                        <rect key="frame" x="24" y="174" width="345" height="33.666666666666657"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Speedy Prop" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" translatesAutoresizingMaskIntoConstraints="NO" id="hdr-title">
+                                        <rect key="frame" x="24" y="241.99999999999997" width="345" height="33.666666666666657"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Find the right property with AI." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" translatesAutoresizingMaskIntoConstraints="NO" id="hdr-sub">
-                                        <rect key="frame" x="40" y="213.66666666666666" width="313" height="19.333333333333343"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="FIND • MATCH • MOVE" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" translatesAutoresizingMaskIntoConstraints="NO" id="hdr-sub">
+                                        <rect key="frame" x="40" y="281.66666666666669" width="313" height="19.333333333333314"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.55294117647058827" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="320" id="hdr-h"/>
                                     <constraint firstItem="logo-box-01" firstAttribute="centerX" secondItem="hdr-vw-001" secondAttribute="centerX" id="hdr-logo-cx"/>
@@ -198,6 +449,8 @@
                                     <constraint firstItem="hdr-title" firstAttribute="leading" secondItem="hdr-vw-001" secondAttribute="leading" constant="24" id="hdr-title-l"/>
                                     <constraint firstAttribute="trailing" secondItem="hdr-title" secondAttribute="trailing" constant="24" id="hdr-title-r"/>
                                     <constraint firstItem="hdr-title" firstAttribute="top" secondItem="logo-box-01" secondAttribute="bottom" constant="16" id="hdr-title-top"/>
+                                    <constraint firstItem="welcome-back" firstAttribute="leading" secondItem="hdr-vw-001" secondAttribute="leading" constant="15" id="welcome-back-l"/>
+                                    <constraint firstItem="welcome-back" firstAttribute="top" secondItem="hdr-vw-001" secondAttribute="top" constant="62" id="welcome-back-t"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Choose Your Role" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MGn-g6-gS7">
@@ -230,7 +483,7 @@
                                                         </constraints>
                                                     </imageView>
                                                 </subviews>
-                                                <color key="backgroundColor" red="0.55294117647058827" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="56" id="tn-box-h"/>
                                                     <constraint firstAttribute="width" constant="56" id="tn-box-w"/>
@@ -262,7 +515,7 @@
                                             </stackView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="chevron.forward" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="L7q-oQ-mqV">
                                                 <rect key="frame" x="307" y="52" width="20" height="16.333333333333329"/>
-                                                <color key="tintColor" red="0.55294117647058827" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="tintColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="tn-ch-h"/>
                                                     <constraint firstAttribute="width" constant="20" id="tn-ch-w"/>
@@ -312,7 +565,7 @@
                                                         </constraints>
                                                     </imageView>
                                                 </subviews>
-                                                <color key="backgroundColor" red="0.55294117647058827" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="56" id="ag-box-h"/>
                                                     <constraint firstAttribute="width" constant="56" id="ag-box-w"/>
@@ -344,7 +597,7 @@
                                             </stackView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="chevron.forward" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="h0Y-UK-Uw9">
                                                 <rect key="frame" x="307" y="52" width="20" height="16.333333333333329"/>
-                                                <color key="tintColor" red="0.55294117647058827" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="tintColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="ag-ch-h"/>
                                                     <constraint firstAttribute="width" constant="20" id="ag-ch-w"/>
@@ -381,9 +634,19 @@
                                     </view>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="welcome-lang">
+                                <rect key="frame" x="24" y="770" width="345" height="32"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                <state key="normal" title="Select Language">
+                                    <color key="titleColor" red="0.99215686274509807" green="0.72549019607843135" blue="0.074509803921568626" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="selectLanguageTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="welcome-lang-action"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" red="0.9882352941176471" green="0.97254901960784312" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.98039215686274506" green="0.97647058823529409" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="hdr-vw-001" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="hdr-l"/>
                             <constraint firstAttribute="trailing" secondItem="hdr-vw-001" secondAttribute="trailing" id="hdr-r"/>
@@ -397,6 +660,10 @@
                             <constraint firstItem="2TZ-Ho-4wL" firstAttribute="leading" secondItem="MGn-g6-gS7" secondAttribute="leading" id="stack-l"/>
                             <constraint firstItem="2TZ-Ho-4wL" firstAttribute="trailing" secondItem="MGn-g6-gS7" secondAttribute="trailing" id="stack-r"/>
                             <constraint firstItem="2TZ-Ho-4wL" firstAttribute="top" secondItem="role-sub-01" secondAttribute="bottom" constant="20" id="stack-top"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="welcome-lang" secondAttribute="bottom" constant="16" id="welcome-lang-b"/>
+                            <constraint firstItem="welcome-lang" firstAttribute="leading" secondItem="MGn-g6-gS7" secondAttribute="leading" id="welcome-lang-l"/>
+                            <constraint firstItem="welcome-lang" firstAttribute="trailing" secondItem="MGn-g6-gS7" secondAttribute="trailing" id="welcome-lang-r"/>
+                            <constraint firstItem="welcome-lang" firstAttribute="top" relation="greaterThanOrEqual" secondItem="2TZ-Ho-4wL" secondAttribute="bottom" constant="24" id="welcome-lang-t"/>
                         </constraints>
                     </view>
                     <connections>
@@ -404,13 +671,14 @@
                         <outlet property="agentIconView" destination="ST4-eL-fh8" id="out-agent-icon"/>
                         <outlet property="headerView" destination="hdr-vw-001" id="out-header"/>
                         <outlet property="logoContainerView" destination="logo-box-01" id="out-logo"/>
+                        <outlet property="selectLanguageButton" destination="welcome-lang" id="out-welcome-lang"/>
                         <outlet property="tenantCardView" destination="VNq-Jc-NRw" id="out-tenant-card"/>
                         <outlet property="tenantIconView" destination="5I0-52-XYi" id="out-tenant-icon"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="201" y="-27"/>
+            <point key="canvasLocation" x="934" y="-668"/>
         </scene>
         <!--LoginVC-->
         <scene sceneID="scene-login">
@@ -423,8 +691,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="login-header">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="270"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="login-back">
-                                        <rect key="frame" x="16" y="62" width="36" height="36"/>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="login-back">
+                                        <rect key="frame" x="15" y="62" width="36" height="36"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="36" id="login-back-h"/>
                                             <constraint firstAttribute="width" constant="36" id="login-back-w"/>
@@ -436,20 +704,20 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="login-logo-box" customClass="CustomView" customModule="AIPoweredRealEstate" customModuleProvider="target">
-                                        <rect key="frame" x="164.66666666666666" y="68" width="64" height="64"/>
+                                        <rect key="frame" x="124.66666666666669" y="68" width="144" height="96"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="appLogo" translatesAutoresizingMaskIntoConstraints="NO" id="login-logo">
-                                                <rect key="frame" x="8" y="8" width="48" height="48"/>
+                                                <rect key="frame" x="7.9999999999999858" y="8" width="128" height="80"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="login-logo" secondAttribute="bottom" constant="8" id="login-logo-b"/>
-                                            <constraint firstAttribute="height" constant="64" id="login-logo-h"/>
+                                            <constraint firstAttribute="height" constant="96" id="login-logo-h"/>
                                             <constraint firstItem="login-logo" firstAttribute="leading" secondItem="login-logo-box" secondAttribute="leading" constant="8" id="login-logo-l"/>
                                             <constraint firstAttribute="trailing" secondItem="login-logo" secondAttribute="trailing" constant="8" id="login-logo-r"/>
                                             <constraint firstItem="login-logo" firstAttribute="top" secondItem="login-logo-box" secondAttribute="top" constant="8" id="login-logo-t"/>
-                                            <constraint firstAttribute="width" constant="64" id="login-logo-w"/>
+                                            <constraint firstAttribute="width" constant="144" id="login-logo-w"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
@@ -458,21 +726,21 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Welcome Back" textAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="login-title">
-                                        <rect key="frame" x="24" y="144" width="345" height="33.666666666666657"/>
+                                        <rect key="frame" x="24" y="176" width="345" height="33.666666666666657"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Login to continue" textAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="login-sub">
-                                        <rect key="frame" x="24" y="181.66666666666666" width="345" height="19.333333333333343"/>
+                                        <rect key="frame" x="24" y="213.66666666666666" width="345" height="19.333333333333343"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.55294117647058827" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="login-back" firstAttribute="leading" secondItem="login-header" secondAttribute="leading" constant="16" id="login-back-l"/>
+                                    <constraint firstItem="login-back" firstAttribute="leading" secondItem="login-header" secondAttribute="leading" constant="15" id="login-back-l"/>
                                     <constraint firstItem="login-back" firstAttribute="top" secondItem="login-header" secondAttribute="top" constant="62" id="login-back-t"/>
                                     <constraint firstAttribute="height" constant="270" id="login-header-h"/>
                                     <constraint firstItem="login-logo-box" firstAttribute="centerX" secondItem="login-header" secondAttribute="centerX" id="login-logo-cx"/>
@@ -486,7 +754,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="login-card" customClass="CustomView" customModule="AIPoweredRealEstate" customModuleProvider="target">
-                                <rect key="frame" x="20" y="246" width="353" height="320"/>
+                                <rect key="frame" x="20" y="246" width="353" height="340"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="login-email" customClass="CustomTextField" customModule="AIPoweredRealEstate" customModuleProvider="target">
                                         <rect key="frame" x="18" y="24" width="317" height="52"/>
@@ -532,30 +800,48 @@
                                             <constraint firstAttribute="height" constant="26" id="login-eye-h"/>
                                             <constraint firstAttribute="width" constant="28" id="login-eye-w"/>
                                         </constraints>
-                                        <color key="tintColor" red="0.55294117647058827" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" image="eye" catalog="system"/>
                                         <connections>
                                             <action selector="togglePasswordVisibilityTapped:" destination="vc-login" eventType="touchUpInside" id="login-eye-action"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="login-forgot">
-                                        <rect key="frame" x="18" y="148" width="317" height="30"/>
-                                        <state key="normal" title="Forgot Password?">
-                                            <color key="titleColor" red="0.55294117647058827" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="forgotPasswordTapped:" destination="vc-login" eventType="touchUpInside" id="login-forgot-action"/>
-                                        </connections>
-                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="login-links-row">
+                                        <rect key="frame" x="18" y="148" width="317" height="50"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="login-verify">
+                                                <rect key="frame" x="0.0" y="10" width="81" height="30"/>
+                                                <state key="normal" title="Verify Email">
+                                                    <color key="titleColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="verifyEmailTapped:" destination="vc-login" eventType="touchUpInside" id="login-verify-action"/>
+                                                </connections>
+                                            </button>
+                                            <view contentMode="scaleToFill" horizontalHuggingPriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="login-links-spacer">
+                                                <rect key="frame" x="81" y="0.0" width="113" height="50"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="login-forgot">
+                                                <rect key="frame" x="194" y="10" width="123" height="30"/>
+                                                <state key="normal" title="Forgot Password?">
+                                                    <color key="titleColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="forgotPasswordTapped:" destination="vc-login" eventType="touchUpInside" id="login-forgot-action"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="login-error">
-                                        <rect key="frame" x="18" y="182" width="317" height="0.0"/>
+                                        <rect key="frame" x="18" y="202" width="317" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" red="0.83529411764705885" green="0.2627450980392157" blue="0.25882352941176473" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="login-submit" customClass="CustomButton" customModule="AIPoweredRealEstate" customModuleProvider="target">
-                                        <rect key="frame" x="18" y="198" width="317" height="52"/>
-                                        <color key="backgroundColor" red="0.55294117647058827" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <rect key="frame" x="18" y="218" width="317" height="52"/>
+                                        <color key="backgroundColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="52" id="login-submit-h"/>
                                         </constraints>
@@ -574,18 +860,18 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="login-signup-row">
-                                        <rect key="frame" x="45.333333333333343" y="266" width="262.66666666666663" height="30"/>
+                                        <rect key="frame" x="45.333333333333343" y="286" width="262.66666666666663" height="30"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Don't have an account?" textAlignment="natural" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="login-signup-label">
                                                 <rect key="frame" x="0.0" y="0.0" width="151.66666666666666" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <color key="textColor" red="0.42352941176470588" green="0.45882352941176469" blue="0.49019607843137253" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="textColor" red="0.99215686274509807" green="0.72549019607843135" blue="0.074509803921568626" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="login-signup">
                                                 <rect key="frame" x="155.66666666666669" y="0.0" width="107" height="30"/>
                                                 <state key="normal" title="Create Account">
-                                                    <color key="titleColor" red="0.55294117647058827" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="titleColor" red="0.99215686274509807" green="0.72549019607843135" blue="0.074509803921568626" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="createAccountTapped:" destination="vc-login" eventType="touchUpInside" id="login-signup-action"/>
@@ -601,12 +887,12 @@
                                     <constraint firstItem="login-email" firstAttribute="top" secondItem="login-card" secondAttribute="top" constant="24" id="card-email-t"/>
                                     <constraint firstItem="login-error" firstAttribute="leading" secondItem="login-email" secondAttribute="leading" id="card-error-l"/>
                                     <constraint firstItem="login-error" firstAttribute="trailing" secondItem="login-email" secondAttribute="trailing" id="card-error-r"/>
-                                    <constraint firstItem="login-error" firstAttribute="top" secondItem="login-forgot" secondAttribute="bottom" constant="4" id="card-error-t"/>
+                                    <constraint firstItem="login-error" firstAttribute="top" secondItem="login-links-row" secondAttribute="bottom" constant="4" id="card-error-t"/>
                                     <constraint firstItem="login-eye" firstAttribute="centerY" secondItem="login-password" secondAttribute="centerY" id="card-eye-cy"/>
                                     <constraint firstItem="login-email" firstAttribute="trailing" secondItem="login-eye" secondAttribute="trailing" constant="16" id="card-eye-r"/>
-                                    <constraint firstItem="login-forgot" firstAttribute="leading" secondItem="login-email" secondAttribute="leading" id="card-forgot-l"/>
-                                    <constraint firstItem="login-forgot" firstAttribute="trailing" secondItem="login-email" secondAttribute="trailing" id="card-forgot-r"/>
-                                    <constraint firstItem="login-forgot" firstAttribute="top" secondItem="login-password" secondAttribute="bottom" constant="8" id="card-forgot-t"/>
+                                    <constraint firstItem="login-links-row" firstAttribute="leading" secondItem="login-email" secondAttribute="leading" id="card-forgot-l"/>
+                                    <constraint firstItem="login-links-row" firstAttribute="trailing" secondItem="login-email" secondAttribute="trailing" id="card-forgot-r"/>
+                                    <constraint firstItem="login-links-row" firstAttribute="top" secondItem="login-password" secondAttribute="bottom" constant="8" id="card-forgot-t"/>
                                     <constraint firstItem="login-password" firstAttribute="leading" secondItem="login-email" secondAttribute="leading" id="card-pass-l"/>
                                     <constraint firstItem="login-password" firstAttribute="trailing" secondItem="login-email" secondAttribute="trailing" id="card-pass-r"/>
                                     <constraint firstItem="login-password" firstAttribute="top" secondItem="login-email" secondAttribute="bottom" constant="12" id="card-pass-t"/>
@@ -623,9 +909,22 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="login-welcome">
+                                <rect key="frame" x="20" y="602" width="353" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="login-welcome-h"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                <state key="normal" title="Go to Welcome">
+                                    <color key="titleColor" red="0.99215686274509807" green="0.72549019607843135" blue="0.074509803921568626" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="welcomeTapped:" destination="vc-login" eventType="touchUpInside" id="login-welcome-action"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="safe-login"/>
-                        <color key="backgroundColor" red="0.9882352941176471" green="0.97254901960784312" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.98039215686274506" green="0.97647058823529409" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="login-card" firstAttribute="leading" secondItem="safe-login" secondAttribute="leading" constant="20" id="login-card-l"/>
                             <constraint firstItem="safe-login" firstAttribute="trailing" secondItem="login-card" secondAttribute="trailing" constant="20" id="login-card-r"/>
@@ -633,9 +932,13 @@
                             <constraint firstItem="login-header" firstAttribute="leading" secondItem="view-login" secondAttribute="leading" id="login-h-l"/>
                             <constraint firstAttribute="trailing" secondItem="login-header" secondAttribute="trailing" id="login-h-r"/>
                             <constraint firstItem="login-header" firstAttribute="top" secondItem="view-login" secondAttribute="top" id="login-h-top"/>
+                            <constraint firstItem="login-welcome" firstAttribute="leading" secondItem="login-card" secondAttribute="leading" id="login-welcome-l"/>
+                            <constraint firstItem="login-welcome" firstAttribute="trailing" secondItem="login-card" secondAttribute="trailing" id="login-welcome-r"/>
+                            <constraint firstItem="login-welcome" firstAttribute="top" secondItem="login-card" secondAttribute="bottom" constant="16" id="login-welcome-t"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="createAccountButton" destination="login-signup" id="out-login-signup-btn"/>
                         <outlet property="emailTextField" destination="login-email" id="out-login-email"/>
                         <outlet property="errorLabel" destination="login-error" id="out-login-error"/>
                         <outlet property="formCardView" destination="login-card" id="out-login-card"/>
@@ -644,13 +947,16 @@
                         <outlet property="logoContainerView" destination="login-logo-box" id="out-login-logo"/>
                         <outlet property="passwordTextField" destination="login-password" id="out-login-pass"/>
                         <outlet property="showPasswordButton" destination="login-eye" id="out-login-eye"/>
+                        <outlet property="signupPromptLabel" destination="login-signup-label" id="out-login-signup-label"/>
                         <outlet property="subtitleLabel" destination="login-sub" id="out-login-sub"/>
                         <outlet property="titleLabel" destination="login-title" id="out-login-title"/>
+                        <outlet property="verifyEmailButton" destination="login-verify" id="out-login-verify"/>
+                        <outlet property="welcomeButton" destination="login-welcome" id="out-login-welcome"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fr-login" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="920" y="-27"/>
+            <point key="canvasLocation" x="224" y="-27"/>
         </scene>
         <!--Forgot PasswordVC-->
         <scene sceneID="scene-forgot">
@@ -664,7 +970,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="270"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fp-back">
-                                        <rect key="frame" x="16" y="62" width="36" height="36"/>
+                                        <rect key="frame" x="15" y="62" width="36" height="36"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="36" id="fp-back-h"/>
                                             <constraint firstAttribute="width" constant="36" id="fp-back-w"/>
@@ -676,20 +982,20 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fp-logo-box" customClass="CustomView" customModule="AIPoweredRealEstate" customModuleProvider="target">
-                                        <rect key="frame" x="164.66666666666666" y="68" width="64" height="64"/>
+                                        <rect key="frame" x="124.66666666666669" y="68" width="144" height="96"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="appLogo" translatesAutoresizingMaskIntoConstraints="NO" id="fp-logo">
-                                                <rect key="frame" x="8" y="8" width="48" height="48"/>
+                                                <rect key="frame" x="7.9999999999999858" y="8" width="128" height="80"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="fp-logo" secondAttribute="bottom" constant="8" id="fp-logo-b"/>
-                                            <constraint firstAttribute="height" constant="64" id="fp-logo-h"/>
+                                            <constraint firstAttribute="height" constant="96" id="fp-logo-h"/>
                                             <constraint firstItem="fp-logo" firstAttribute="leading" secondItem="fp-logo-box" secondAttribute="leading" constant="8" id="fp-logo-l"/>
                                             <constraint firstAttribute="trailing" secondItem="fp-logo" secondAttribute="trailing" constant="8" id="fp-logo-r"/>
                                             <constraint firstItem="fp-logo" firstAttribute="top" secondItem="fp-logo-box" secondAttribute="top" constant="8" id="fp-logo-t"/>
-                                            <constraint firstAttribute="width" constant="64" id="fp-logo-w"/>
+                                            <constraint firstAttribute="width" constant="144" id="fp-logo-w"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
@@ -698,21 +1004,21 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Forgot Password" textAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fp-title">
-                                        <rect key="frame" x="24" y="144" width="345" height="33.666666666666657"/>
+                                        <rect key="frame" x="24" y="176" width="345" height="33.666666666666657"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Enter your email to receive a reset link" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" translatesAutoresizingMaskIntoConstraints="NO" id="fp-sub">
-                                        <rect key="frame" x="24" y="181.66666666666666" width="345" height="18"/>
+                                        <rect key="frame" x="24" y="213.66666666666666" width="345" height="18"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.55294117647058827" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="fp-back" firstAttribute="leading" secondItem="fp-header" secondAttribute="leading" constant="16" id="fp-back-l"/>
+                                    <constraint firstItem="fp-back" firstAttribute="leading" secondItem="fp-header" secondAttribute="leading" constant="15" id="fp-back-l"/>
                                     <constraint firstItem="fp-back" firstAttribute="top" secondItem="fp-header" secondAttribute="top" constant="62" id="fp-back-t"/>
                                     <constraint firstAttribute="height" constant="270" id="fp-header-h"/>
                                     <constraint firstItem="fp-logo-box" firstAttribute="centerX" secondItem="fp-header" secondAttribute="centerX" id="fp-logo-cx"/>
@@ -752,12 +1058,12 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fp-send" customClass="CustomButton" customModule="AIPoweredRealEstate" customModuleProvider="target">
                                         <rect key="frame" x="18" y="100" width="317" height="52"/>
-                                        <color key="backgroundColor" red="0.55294117647058827" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="52" id="fp-send-h"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <state key="normal" title="Send Reset Link">
+                                        <state key="normal" title="Send OTP">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -772,7 +1078,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fp-login">
                                         <rect key="frame" x="130" y="164" width="93" height="30"/>
                                         <state key="normal" title="Back to Login">
-                                            <color key="titleColor" red="0.55294117647058827" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="backToLoginTapped:" destination="vc-forgot" eventType="touchUpInside" id="fp-login-action"/>
@@ -802,7 +1108,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="safe-forgot"/>
-                        <color key="backgroundColor" red="0.9882352941176471" green="0.97254901960784312" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.98039215686274506" green="0.97647058823529409" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="fp-card" firstAttribute="leading" secondItem="safe-forgot" secondAttribute="leading" constant="20" id="fp-card-l"/>
                             <constraint firstItem="safe-forgot" firstAttribute="trailing" secondItem="fp-card" secondAttribute="trailing" constant="20" id="fp-card-r"/>
@@ -825,7 +1131,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fr-forgot" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1720" y="-27"/>
+            <point key="canvasLocation" x="1677" y="-27"/>
         </scene>
         <!--RegistartionVC-->
         <scene sceneID="scene-register">
@@ -836,10 +1142,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rg-header">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="220"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="250"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rg-back">
-                                        <rect key="frame" x="16" y="68" width="36" height="36"/>
+                                        <rect key="frame" x="15" y="68" width="36" height="36"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="36" id="rg-back-h"/>
                                             <constraint firstAttribute="width" constant="36" id="rg-back-w"/>
@@ -851,20 +1157,20 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rg-logo-box" customClass="CustomView" customModule="AIPoweredRealEstate" customModuleProvider="target">
-                                        <rect key="frame" x="168.66666666666666" y="68" width="56" height="56"/>
+                                        <rect key="frame" x="130.66666666666666" y="68" width="131.99999999999997" height="88"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="appLogo" translatesAutoresizingMaskIntoConstraints="NO" id="rg-logo">
-                                                <rect key="frame" x="6" y="6" width="44" height="44"/>
+                                                <rect key="frame" x="6" y="6" width="120" height="76"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="rg-logo" secondAttribute="bottom" constant="6" id="rg-logo-b"/>
-                                            <constraint firstAttribute="height" constant="56" id="rg-logo-h"/>
+                                            <constraint firstAttribute="height" constant="88" id="rg-logo-h"/>
                                             <constraint firstItem="rg-logo" firstAttribute="leading" secondItem="rg-logo-box" secondAttribute="leading" constant="6" id="rg-logo-l"/>
                                             <constraint firstAttribute="trailing" secondItem="rg-logo" secondAttribute="trailing" constant="6" id="rg-logo-r"/>
                                             <constraint firstItem="rg-logo" firstAttribute="top" secondItem="rg-logo-box" secondAttribute="top" constant="6" id="rg-logo-t"/>
-                                            <constraint firstAttribute="width" constant="56" id="rg-logo-w"/>
+                                            <constraint firstAttribute="width" constant="132" id="rg-logo-w"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
@@ -873,23 +1179,23 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Create Account" textAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rg-title">
-                                        <rect key="frame" x="24" y="134" width="345" height="31.333333333333343"/>
+                                        <rect key="frame" x="24" y="166" width="345" height="31.333333333333343"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Register to continue" textAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rg-sub">
-                                        <rect key="frame" x="24" y="169.33333333333334" width="345" height="18"/>
+                                        <rect key="frame" x="24" y="201.33333333333334" width="345" height="18"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.55294117647058827" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="rg-back" firstAttribute="leading" secondItem="rg-header" secondAttribute="leading" constant="16" id="rg-back-l"/>
+                                    <constraint firstItem="rg-back" firstAttribute="leading" secondItem="rg-header" secondAttribute="leading" constant="15" id="rg-back-l"/>
                                     <constraint firstItem="rg-back" firstAttribute="top" secondItem="rg-header" secondAttribute="top" constant="68" id="rg-back-t"/>
-                                    <constraint firstAttribute="height" constant="220" id="rg-header-h"/>
+                                    <constraint firstAttribute="height" constant="250" id="rg-header-h"/>
                                     <constraint firstItem="rg-logo-box" firstAttribute="centerX" secondItem="rg-header" secondAttribute="centerX" id="rg-logo-cx"/>
                                     <constraint firstItem="rg-logo-box" firstAttribute="top" secondItem="rg-header" secondAttribute="top" constant="68" id="rg-logo-top"/>
                                     <constraint firstItem="rg-sub" firstAttribute="leading" secondItem="rg-title" secondAttribute="leading" id="rg-sub-l"/>
@@ -900,17 +1206,17 @@
                                     <constraint firstItem="rg-title" firstAttribute="top" secondItem="rg-logo-box" secondAttribute="bottom" constant="10" id="rg-title-top"/>
                                 </constraints>
                             </view>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rg-scroll">
-                                <rect key="frame" x="0.0" y="200" width="393" height="618"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="rg-scroll">
+                                <rect key="frame" x="0.0" y="230" width="393" height="588"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rg-content">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="669"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="562"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rg-card" customClass="CustomView" customModule="AIPoweredRealEstate" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="8" width="353" height="637"/>
+                                                <rect key="frame" x="20" y="8" width="353" height="530"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="rg-stack">
-                                                        <rect key="frame" x="18" y="20" width="317" height="597"/>
+                                                        <rect key="frame" x="18" y="20" width="317" height="490"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="First name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rg-first" customClass="CustomTextField" customModule="AIPoweredRealEstate" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="317" height="52"/>
@@ -950,7 +1256,7 @@
                                                                     <constraint firstAttribute="height" constant="52" id="rg-email-h"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="username"/>
+                                                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="emailAddress"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
                                                                         <real key="value" value="12"/>
@@ -976,8 +1282,8 @@
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </textField>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Agency / Company name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rg-agency" customClass="CustomTextField" customModule="AIPoweredRealEstate" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="256" width="317" height="52"/>
+                                                            <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Agency / Company name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rg-agency" customClass="CustomTextField" customModule="AIPoweredRealEstate" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="250" width="317" height="52"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="52" id="rg-agency-h"/>
                                                                 </constraints>
@@ -992,13 +1298,43 @@
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </textField>
+                                                            <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="License number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rg-license" customClass="CustomTextField" customModule="AIPoweredRealEstate" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="250" width="317" height="52"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="52" id="rg-license-h"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                                <textInputTraits key="textInputTraits"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
+                                                                        <real key="value" value="12"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="leftPadding">
+                                                                        <real key="value" value="14"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </textField>
+                                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rg-document">
+                                                                <rect key="frame" x="0.0" y="250" width="317" height="52"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="52" id="rg-document-h"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                                <inset key="contentEdgeInsets" minX="14" minY="0.0" maxX="14" maxY="0.0"/>
+                                                                <state key="normal" title="Upload license document">
+                                                                    <color key="titleColor" red="0.66274509803921566" green="0.67843137254901964" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="pickDocumentTapped:" destination="vc-register" eventType="touchUpInside" id="rg-document-action"/>
+                                                                </connections>
+                                                            </button>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rg-password" customClass="CustomTextField" customModule="AIPoweredRealEstate" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="320" width="317" height="52"/>
+                                                                <rect key="frame" x="0.0" y="256" width="317" height="52"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="52" id="rg-password-h"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="newPassword"/>
+                                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="oneTimeCode"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
                                                                         <real key="value" value="12"/>
@@ -1009,12 +1345,12 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </textField>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rg-confirm" customClass="CustomTextField" customModule="AIPoweredRealEstate" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="384" width="317" height="52"/>
+                                                                <rect key="frame" x="0.0" y="320" width="317" height="52"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="52" id="rg-confirm-h"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="newPassword"/>
+                                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="oneTimeCode"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
                                                                         <real key="value" value="12"/>
@@ -1024,14 +1360,14 @@
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </textField>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="rg-terms-row">
-                                                                <rect key="frame" x="0.0" y="448" width="317" height="31"/>
+                                                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="rg-terms-row">
+                                                                <rect key="frame" x="0.0" y="378" width="317" height="0.0"/>
                                                                 <subviews>
-                                                                    <switch opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="rg-terms">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
+                                                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="rg-terms">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="51" height="0.0"/>
                                                                     </switch>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" text="I accept the terms and conditions" lineBreakMode="wordWrap" numberOfLines="2" translatesAutoresizingMaskIntoConstraints="NO" id="rg-terms-label">
-                                                                        <rect key="frame" x="59" y="0.0" width="258" height="31"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="250" text="I accept the terms and conditions" lineBreakMode="wordWrap" numberOfLines="2" translatesAutoresizingMaskIntoConstraints="NO" id="rg-terms-label">
+                                                                        <rect key="frame" x="59" y="0.0" width="258" height="0.0"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                         <color key="textColor" red="0.42352941176470588" green="0.45882352941176469" blue="0.49019607843137253" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
@@ -1039,14 +1375,14 @@
                                                                 </subviews>
                                                             </stackView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="wordWrap" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="rg-error">
-                                                                <rect key="frame" x="0.0" y="491" width="317" height="0.0"/>
+                                                                <rect key="frame" x="0.0" y="384" width="317" height="0.0"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <color key="textColor" red="0.83529411764705885" green="0.2627450980392157" blue="0.25882352941176473" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rg-submit" customClass="CustomButton" customModule="AIPoweredRealEstate" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="503" width="317" height="52"/>
-                                                                <color key="backgroundColor" red="0.55294117647058827" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <rect key="frame" x="0.0" y="396" width="317" height="52"/>
+                                                                <color key="backgroundColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="52" id="rg-submit-h"/>
                                                                 </constraints>
@@ -1063,19 +1399,19 @@
                                                                     <action selector="createAccountTapped:" destination="vc-register" eventType="touchUpInside" id="rg-submit-action"/>
                                                                 </connections>
                                                             </button>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="rg-login-row">
-                                                                <rect key="frame" x="0.0" y="567" width="317" height="30"/>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="rg-login-row">
+                                                                <rect key="frame" x="0.0" y="460" width="317" height="30"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" text="Already have an account?" textAlignment="natural" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rg-login-label">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="275" height="30"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="250" text="Already have an account?" textAlignment="natural" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rg-login-label">
+                                                                        <rect key="frame" x="0.0" y="6.6666666666666288" width="275" height="17"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                        <color key="textColor" red="0.42352941176470588" green="0.45882352941176469" blue="0.49019607843137253" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="textColor" red="0.99215686274509807" green="0.72549019607843135" blue="0.074509803921568626" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rg-login">
+                                                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rg-login">
                                                                         <rect key="frame" x="279" y="0.0" width="38" height="30"/>
                                                                         <state key="normal" title="Login">
-                                                                            <color key="titleColor" red="0.55294117647058827" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <color key="titleColor" red="0.99215686274509807" green="0.72549019607843135" blue="0.074509803921568626" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         </state>
                                                                         <connections>
                                                                             <action selector="backToLoginTapped:" destination="vc-register" eventType="touchUpInside" id="rg-login-action"/>
@@ -1118,7 +1454,7 @@
                             </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="safe-register"/>
-                        <color key="backgroundColor" red="0.9882352941176471" green="0.97254901960784312" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.98039215686274506" green="0.97647058823529409" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="rg-header" firstAttribute="leading" secondItem="view-register" secondAttribute="leading" id="rg-h-l"/>
                             <constraint firstAttribute="trailing" secondItem="rg-header" secondAttribute="trailing" id="rg-h-r"/>
@@ -1133,15 +1469,20 @@
                         <outlet property="agencyTextField" destination="rg-agency" id="out-rg-agency"/>
                         <outlet property="confirmPasswordTextField" destination="rg-confirm" id="out-rg-confirm"/>
                         <outlet property="createAccountButton" destination="rg-submit" id="out-rg-submit"/>
+                        <outlet property="documentButton" destination="rg-document" id="out-rg-document"/>
                         <outlet property="emailTextField" destination="rg-email" id="out-rg-email"/>
                         <outlet property="errorLabel" destination="rg-error" id="out-rg-error"/>
                         <outlet property="firstNameTextField" destination="rg-first" id="out-rg-first"/>
                         <outlet property="formCardView" destination="rg-card" id="out-rg-card"/>
                         <outlet property="headerView" destination="rg-header" id="out-rg-header"/>
                         <outlet property="lastNameTextField" destination="rg-last" id="out-rg-last"/>
+                        <outlet property="licenseTextField" destination="rg-license" id="out-rg-license"/>
+                        <outlet property="loginButton" destination="rg-login" id="out-rg-login-btn"/>
+                        <outlet property="loginPromptLabel" destination="rg-login-label" id="out-rg-login-label"/>
                         <outlet property="logoContainerView" destination="rg-logo-box" id="out-rg-logo"/>
                         <outlet property="passwordTextField" destination="rg-password" id="out-rg-password"/>
                         <outlet property="phoneTextField" destination="rg-phone" id="out-rg-phone"/>
+                        <outlet property="scrollView" destination="rg-scroll" id="out-rg-scroll"/>
                         <outlet property="subtitleLabel" destination="rg-sub" id="out-rg-sub"/>
                         <outlet property="termsSwitch" destination="rg-terms" id="out-rg-terms"/>
                         <outlet property="titleLabel" destination="rg-title" id="out-rg-title"/>
@@ -1149,7 +1490,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fr-register" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2410" y="-27"/>
+            <point key="canvasLocation" x="952" y="-27"/>
         </scene>
         <!--VerificationVC-->
         <scene sceneID="scene-otp">
@@ -1163,7 +1504,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="240"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="otp-back">
-                                        <rect key="frame" x="16" y="62" width="36" height="36"/>
+                                        <rect key="frame" x="15" y="62" width="36" height="36"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="36" id="otp-back-h"/>
                                             <constraint firstAttribute="width" constant="36" id="otp-back-w"/>
@@ -1175,20 +1516,20 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="otp-logo-box" customClass="CustomView" customModule="AIPoweredRealEstate" customModuleProvider="target">
-                                        <rect key="frame" x="164.66666666666666" y="58" width="64" height="64"/>
+                                        <rect key="frame" x="124.66666666666669" y="58" width="144" height="96"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="appLogo" translatesAutoresizingMaskIntoConstraints="NO" id="otp-logo">
-                                                <rect key="frame" x="8" y="8" width="48" height="48"/>
+                                                <rect key="frame" x="7.9999999999999858" y="8" width="128" height="80"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="otp-logo" secondAttribute="bottom" constant="8" id="otp-logo-b"/>
-                                            <constraint firstAttribute="height" constant="64" id="otp-logo-h"/>
+                                            <constraint firstAttribute="height" constant="96" id="otp-logo-h"/>
                                             <constraint firstItem="otp-logo" firstAttribute="leading" secondItem="otp-logo-box" secondAttribute="leading" constant="8" id="otp-logo-l"/>
                                             <constraint firstAttribute="trailing" secondItem="otp-logo" secondAttribute="trailing" constant="8" id="otp-logo-r"/>
                                             <constraint firstItem="otp-logo" firstAttribute="top" secondItem="otp-logo-box" secondAttribute="top" constant="8" id="otp-logo-t"/>
-                                            <constraint firstAttribute="width" constant="64" id="otp-logo-w"/>
+                                            <constraint firstAttribute="width" constant="144" id="otp-logo-w"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
@@ -1197,28 +1538,29 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Verify OTP" textAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="otp-title">
-                                        <rect key="frame" x="24" y="134" width="345" height="33.666666666666657"/>
+                                        <rect key="frame" x="24" y="166" width="345" height="33.666666666666657"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Enter the OTP sent to your email" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" translatesAutoresizingMaskIntoConstraints="NO" id="otp-sub">
-                                        <rect key="frame" x="24" y="171.66666666666666" width="345" height="18"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Enter the OTP sent to your email" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" translatesAutoresizingMaskIntoConstraints="NO" id="otp-sub">
+                                        <rect key="frame" x="24" y="203.66666666666666" width="345" height="18"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.55294117647058827" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="otp-back" firstAttribute="leading" secondItem="otp-header" secondAttribute="leading" constant="16" id="otp-back-l"/>
+                                    <constraint firstItem="otp-back" firstAttribute="leading" secondItem="otp-header" secondAttribute="leading" constant="15" id="otp-back-l"/>
                                     <constraint firstItem="otp-back" firstAttribute="top" secondItem="otp-header" secondAttribute="top" constant="62" id="otp-back-t"/>
-                                    <constraint firstAttribute="height" constant="240" id="otp-header-h"/>
+                                    <constraint firstAttribute="height" constant="288" id="otp-header-h"/>
                                     <constraint firstItem="otp-logo-box" firstAttribute="centerX" secondItem="otp-header" secondAttribute="centerX" id="otp-logo-cx"/>
                                     <constraint firstItem="otp-logo-box" firstAttribute="top" secondItem="otp-header" secondAttribute="top" constant="58" id="otp-logo-top"/>
                                     <constraint firstItem="otp-sub" firstAttribute="leading" secondItem="otp-title" secondAttribute="leading" id="otp-sub-l"/>
                                     <constraint firstItem="otp-sub" firstAttribute="trailing" secondItem="otp-title" secondAttribute="trailing" id="otp-sub-r"/>
                                     <constraint firstItem="otp-sub" firstAttribute="top" secondItem="otp-title" secondAttribute="bottom" constant="4" id="otp-sub-top"/>
+                                    <constraint firstAttribute="bottom" secondItem="otp-sub" secondAttribute="bottom" constant="48" id="otp-sub-b"/>
                                     <constraint firstItem="otp-title" firstAttribute="leading" secondItem="otp-header" secondAttribute="leading" constant="24" id="otp-title-l"/>
                                     <constraint firstAttribute="trailing" secondItem="otp-title" secondAttribute="trailing" constant="24" id="otp-title-r"/>
                                     <constraint firstItem="otp-title" firstAttribute="top" secondItem="otp-logo-box" secondAttribute="bottom" constant="12" id="otp-title-top"/>
@@ -1257,7 +1599,7 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="otp-verify" customClass="CustomButton" customModule="AIPoweredRealEstate" customModuleProvider="target">
                                         <rect key="frame" x="18" y="129" width="317" height="52"/>
-                                        <color key="backgroundColor" red="0.55294117647058827" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="52" id="otp-verify-h"/>
                                         </constraints>
@@ -1277,7 +1619,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="otp-resend">
                                         <rect key="frame" x="134" y="193" width="85" height="30"/>
                                         <state key="normal" title="Resend OTP">
-                                            <color key="titleColor" red="0.55294117647058827" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="resendTapped:" destination="vc-otp" eventType="touchUpInside" id="otp-resend-action"/>
@@ -1309,7 +1651,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="safe-otp"/>
-                        <color key="backgroundColor" red="0.9882352941176471" green="0.97254901960784312" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.98039215686274506" green="0.97647058823529409" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="otp-card" firstAttribute="leading" secondItem="safe-otp" secondAttribute="leading" constant="20" id="otp-card-l"/>
                             <constraint firstItem="safe-otp" firstAttribute="trailing" secondItem="otp-card" secondAttribute="trailing" constant="20" id="otp-card-r"/>
@@ -1329,11 +1671,12 @@
                         <outlet property="subtitleLabel" destination="otp-sub" id="out-otp-sub"/>
                         <outlet property="titleLabel" destination="otp-title" id="out-otp-title"/>
                         <outlet property="verifyButton" destination="otp-verify" id="out-otp-verify"/>
+                        <outlet property="resendButton" destination="otp-resend" id="out-otp-resend"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fr-otp" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3200" y="-27"/>
+            <point key="canvasLocation" x="2350" y="-27"/>
         </scene>
         <!--Reset PasswordVC-->
         <scene sceneID="scene-reset">
@@ -1347,7 +1690,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="240"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rp-back">
-                                        <rect key="frame" x="16" y="62" width="36" height="36"/>
+                                        <rect key="frame" x="15" y="62" width="36" height="36"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="36" id="rp-back-h"/>
                                             <constraint firstAttribute="width" constant="36" id="rp-back-w"/>
@@ -1359,20 +1702,20 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rp-logo-box" customClass="CustomView" customModule="AIPoweredRealEstate" customModuleProvider="target">
-                                        <rect key="frame" x="164.66666666666666" y="58" width="64" height="64"/>
+                                        <rect key="frame" x="124.66666666666669" y="58" width="144" height="96"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="appLogo" translatesAutoresizingMaskIntoConstraints="NO" id="rp-logo">
-                                                <rect key="frame" x="8" y="8" width="48" height="48"/>
+                                                <rect key="frame" x="7.9999999999999858" y="8" width="128" height="80"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="rp-logo" secondAttribute="bottom" constant="8" id="rp-logo-b"/>
-                                            <constraint firstAttribute="height" constant="64" id="rp-logo-h"/>
+                                            <constraint firstAttribute="height" constant="96" id="rp-logo-h"/>
                                             <constraint firstItem="rp-logo" firstAttribute="leading" secondItem="rp-logo-box" secondAttribute="leading" constant="8" id="rp-logo-l"/>
                                             <constraint firstAttribute="trailing" secondItem="rp-logo" secondAttribute="trailing" constant="8" id="rp-logo-r"/>
                                             <constraint firstItem="rp-logo" firstAttribute="top" secondItem="rp-logo-box" secondAttribute="top" constant="8" id="rp-logo-t"/>
-                                            <constraint firstAttribute="width" constant="64" id="rp-logo-w"/>
+                                            <constraint firstAttribute="width" constant="144" id="rp-logo-w"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
@@ -1381,28 +1724,29 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Reset Password" textAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rp-title">
-                                        <rect key="frame" x="24" y="134" width="345" height="33.666666666666657"/>
+                                        <rect key="frame" x="24" y="166" width="345" height="33.666666666666657"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Create a new password for your account" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" translatesAutoresizingMaskIntoConstraints="NO" id="rp-sub">
-                                        <rect key="frame" x="24" y="171.66666666666666" width="345" height="18"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Create a new password for your account" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" translatesAutoresizingMaskIntoConstraints="NO" id="rp-sub">
+                                        <rect key="frame" x="24" y="203.66666666666666" width="345" height="18"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.55294117647058827" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="rp-back" firstAttribute="leading" secondItem="rp-header" secondAttribute="leading" constant="16" id="rp-back-l"/>
+                                    <constraint firstItem="rp-back" firstAttribute="leading" secondItem="rp-header" secondAttribute="leading" constant="15" id="rp-back-l"/>
                                     <constraint firstItem="rp-back" firstAttribute="top" secondItem="rp-header" secondAttribute="top" constant="62" id="rp-back-t"/>
-                                    <constraint firstAttribute="height" constant="240" id="rp-header-h"/>
+                                    <constraint firstAttribute="height" constant="288" id="rp-header-h"/>
                                     <constraint firstItem="rp-logo-box" firstAttribute="centerX" secondItem="rp-header" secondAttribute="centerX" id="rp-logo-cx"/>
                                     <constraint firstItem="rp-logo-box" firstAttribute="top" secondItem="rp-header" secondAttribute="top" constant="58" id="rp-logo-top"/>
                                     <constraint firstItem="rp-sub" firstAttribute="leading" secondItem="rp-title" secondAttribute="leading" id="rp-sub-l"/>
                                     <constraint firstItem="rp-sub" firstAttribute="trailing" secondItem="rp-title" secondAttribute="trailing" id="rp-sub-r"/>
                                     <constraint firstItem="rp-sub" firstAttribute="top" secondItem="rp-title" secondAttribute="bottom" constant="4" id="rp-sub-top"/>
+                                    <constraint firstAttribute="bottom" secondItem="rp-sub" secondAttribute="bottom" constant="48" id="rp-sub-b"/>
                                     <constraint firstItem="rp-title" firstAttribute="leading" secondItem="rp-header" secondAttribute="leading" constant="24" id="rp-title-l"/>
                                     <constraint firstAttribute="trailing" secondItem="rp-title" secondAttribute="trailing" constant="24" id="rp-title-r"/>
                                     <constraint firstItem="rp-title" firstAttribute="top" secondItem="rp-logo-box" secondAttribute="bottom" constant="12" id="rp-title-top"/>
@@ -1451,7 +1795,7 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rp-reset" customClass="CustomButton" customModule="AIPoweredRealEstate" customModuleProvider="target">
                                         <rect key="frame" x="18" y="164" width="317" height="52"/>
-                                        <color key="backgroundColor" red="0.55294117647058827" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="52" id="rp-reset-h"/>
                                         </constraints>
@@ -1471,7 +1815,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rp-login">
                                         <rect key="frame" x="130" y="228" width="93" height="30"/>
                                         <state key="normal" title="Back to Login">
-                                            <color key="titleColor" red="0.55294117647058827" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="backToLoginTapped:" destination="vc-reset" eventType="touchUpInside" id="rp-login-action"/>
@@ -1504,7 +1848,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="safe-reset"/>
-                        <color key="backgroundColor" red="0.9882352941176471" green="0.97254901960784312" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.98039215686274506" green="0.97647058823529409" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="rp-card" firstAttribute="leading" secondItem="safe-reset" secondAttribute="leading" constant="20" id="rp-card-l"/>
                             <constraint firstItem="safe-reset" firstAttribute="trailing" secondItem="rp-card" secondAttribute="trailing" constant="20" id="rp-card-r"/>
@@ -1528,15 +1872,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fr-reset" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4000" y="-27"/>
+            <point key="canvasLocation" x="3013" y="-27"/>
         </scene>
     </scenes>
     <resources>
-        <image name="appLogo" width="256" height="256"/>
+        <image name="appLogo" width="1536" height="1024"/>
         <image name="building.2.fill" catalog="system" width="108" height="128"/>
+        <image name="checkmark.circle.fill" catalog="system" width="128" height="123"/>
         <image name="chevron.forward" catalog="system" width="97" height="128"/>
         <image name="chevron.left" catalog="system" width="97" height="128"/>
+        <image name="circle" catalog="system" width="128" height="123"/>
         <image name="eye" catalog="system" width="128" height="79"/>
+        <image name="globe" catalog="system" width="128" height="123"/>
         <image name="house.fill" catalog="system" width="128" height="104"/>
     </resources>
 </document>

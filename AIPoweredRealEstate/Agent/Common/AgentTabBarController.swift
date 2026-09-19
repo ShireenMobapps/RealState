@@ -5,10 +5,15 @@
 
 import UIKit
 
-final class AgentTabBarController: UITabBarController {
+final class AgentTabBarController: UITabBarController, UITabBarControllerDelegate {
+
+    static let didChangeTab = Notification.Name("agentDidChangeTab")
+    private var previousTabIndex = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        delegate = self
+        previousTabIndex = selectedIndex
         applyTabBarStyle()
         viewControllers?.forEach { controller in
             (controller as? UINavigationController)?.setNavigationBarHidden(true, animated: false)
@@ -45,5 +50,13 @@ final class AgentTabBarController: UITabBarController {
         appearance.compactInlineLayoutAppearance = appearance.stackedLayoutAppearance
         tabBar.standardAppearance = appearance
         tabBar.scrollEdgeAppearance = appearance
+    }
+
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        let index = selectedIndex
+        if index != previousTabIndex {
+            NotificationCenter.default.post(name: Self.didChangeTab, object: index)
+        }
+        previousTabIndex = index
     }
 }

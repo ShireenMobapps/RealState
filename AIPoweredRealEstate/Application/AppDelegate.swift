@@ -9,16 +9,25 @@ import UIKit
 import GoogleMaps
 
 @main
+
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         UIScrollView.appearance().bounces = false
         UIScrollView.appearance().alwaysBounceVertical = false
         UIScrollView.appearance().alwaysBounceHorizontal = false
         GMSServices.provideAPIKey(Constant.googleMapsAPIKey)
+        LanguageManager.enableRuntimeLocalization()
+        CommonMethods.installKeyboardDoneButton()
+        CommonMethods.installBackChevronOnly()
+        UINavigationBar.appearance().tintColor = .darkThemeColor
+        UITabBar.appearance().tintColor = .darkThemeColor
+        NotificationCenter.default.addObserver(self, selector: #selector(updateSemantic), name: LanguageManager.didChange, object: nil)
         return true
+    }
+    
+    @objc func updateSemantic(){
+        UIView.appearance().semanticContentAttribute = .forceLeftToRight
     }
 
     // MARK: UISceneSession Lifecycle

@@ -4,7 +4,6 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -16,17 +15,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splashImage" translatesAutoresizingMaskIntoConstraints="NO" id="X4e-5r-09S">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchSpeedyPop" translatesAutoresizingMaskIntoConstraints="NO" id="lsp-img-01">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.98039215686274506" green="0.97647058823529409" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="X4e-5r-09S" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="6pM-x1-vy6"/>
-                            <constraint firstAttribute="bottom" secondItem="X4e-5r-09S" secondAttribute="bottom" id="r1f-cH-bfJ"/>
-                            <constraint firstAttribute="trailing" secondItem="X4e-5r-09S" secondAttribute="trailing" id="uJQ-wB-bPP"/>
-                            <constraint firstItem="X4e-5r-09S" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="ylb-9G-fou"/>
+                            <constraint firstItem="lsp-img-01" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="lsp-l"/>
+                            <constraint firstAttribute="bottom" secondItem="lsp-img-01" secondAttribute="bottom" id="lsp-b"/>
+                            <constraint firstAttribute="trailing" secondItem="lsp-img-01" secondAttribute="trailing" id="lsp-t"/>
+                            <constraint firstItem="lsp-img-01" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="lsp-tp"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -36,9 +35,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="splashImage" width="426.5" height="922"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <image name="launchSpeedyPop" width="852" height="1846"/>
     </resources>
 </document>

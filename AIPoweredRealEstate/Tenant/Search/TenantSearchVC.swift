@@ -7,38 +7,59 @@ import UIKit
 
 class TenantSearchVC: UIViewController {
 
-    private var criteria = PropertySearchCriteria()
-    private var results: [PropertyItem] = []
+    @IBOutlet weak var keywordField: CustomTextField!
+    @IBOutlet weak var buyButton: UIButton!
+    @IBOutlet weak var rentButton: UIButton!
+    @IBOutlet weak var filtersButton: UIButton!
+    @IBOutlet weak var sortButton: UIButton!
+    @IBOutlet weak var countLabel: UILabel!
+    @IBOutlet weak var saveSearchButton: UIButton!
+    @IBOutlet weak var emptyLabel: UILabel!
+    @IBOutlet weak var collectionView: UICollectionView!
 
-    private let keywordField = CustomTextField()
-    private let buyButton = UIButton(type: .system)
-    private let rentButton = UIButton(type: .system)
-    private let filtersButton = UIButton(type: .system)
-    private let sortButton = UIButton(type: .system)
-    private let countLabel = UILabel()
-    private let saveSearchButton = UIButton(type: .system)
-    private let emptyLabel = UILabel()
-    private let collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = 14
-        return UICollectionView(frame: .zero, collectionViewLayout: layout)
-    }()
+    private var criteria = PropertySearchCriteria()
+    private var allResults: [PropertyItem] = []
+    private var results: [PropertyItem] = []
+    private var filterGroups: [DashboardFilterGroup] = []
+    private var selectedFilters: [DashboardFilterKind: [DashboardFilterChip]] = [:]
+    private var searchToken = UUID()
+    private let filterBar = UIScrollView()
+    private let quickSearchStack = UIStackView()
+    private let rangeFilterBar = RangeFilterChipBar()
+    private var rangeFilters = PropertyRangeFilters()
+    private let contactAgentButton = CustomButton(type: .system)
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .screenBackgroundColor
-        buildLayout()
-        runSearch()
+        keywordField.delegate = self
+        keywordField.addTarget(self, action: #selector(keywordChanged), for: .editingChanged)
+        CommonMethods.styleTextField(keywordField)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(PropertyCardCell.nib, forCellWithReuseIdentifier: PropertyCardCell.identifier)
+        collectionView.backgroundColor = .clear
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 24, right: 16)
+        collectionView.keyboardDismissMode = .onDrag
+        saveSearchButton.isHidden = true
+        installDashboardFilterBar()
+        installContactAgentButton()
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(languageChanged),
+            name: LanguageManager.didChange,
+            object: nil
+        )
+        loadDashboardFilters()
+        reloadProperties()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        contactAgentButton.setTitle("Contact Agent".localized, for: .normal)
         if let pending = PropertyStore.shared.consumePendingCriteria() {
-            criteria = pending
-            keywordField.text = pending.keyword
-            runSearch()
+            applyPendingCriteria(pending)
         }
         collectionView.reloadData()
     }
@@ -46,204 +67,469 @@ class TenantSearchVC: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.collectionViewLayout.invalidateLayout()
+        CommonMethods.updateGradientFrame(for: contactAgentButton)
     }
 
-    private func buildLayout() {
-        let titleLabel = UILabel()
-        titleLabel.text = "Search"
-        titleLabel.font = .systemFont(ofSize: 28, weight: .bold)
-        titleLabel.textColor = UIColor(red: 33/255, green: 37/255, blue: 41/255, alpha: 1)
+    private func installDashboardFilterBar() {
+        guard let chipStack = buyButton.superview as? UIStackView else { return }
+        [buyButton, rentButton, filtersButton, sortButton].forEach {
+            $0?.isHidden = true
+            $0?.isUserInteractionEnabled = false
+        }
+        chipStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        chipStack.axis = .vertical
+        chipStack.distribution = .fill
+        chipStack.spacing = 10
+        chipStack.constraints
+            .filter { $0.firstAttribute == .height }
+            .forEach { $0.isActive = false }
 
-        let aiButton = UIButton(type: .system)
-        let sparkles = UIImage(systemName: "sparkles", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))
-        aiButton.setImage(sparkles, for: .normal)
-        aiButton.tintColor = .darkThemeColor
-        aiButton.addTarget(self, action: #selector(aiSearchTapped), for: .touchUpInside)
-        NSLayoutConstraint.activate([
-            aiButton.widthAnchor.constraint(equalToConstant: 40),
-            aiButton.heightAnchor.constraint(equalToConstant: 40)
-        ])
-
-        let headerRow = UIStackView(arrangedSubviews: [titleLabel, UIView(), aiButton])
-        headerRow.axis = .horizontal
-        headerRow.alignment = .center
-        headerRow.spacing = 8
-
-        keywordField.placeholder = "Location or keyword"
-        keywordField.returnKeyType = .search
-        keywordField.delegate = self
-        keywordField.leftPadding = 14
-        keywordField.cornerRadious = 12
-        keywordField.clipsToBounds = true
-        keywordField.borderStyle = .none
-        keywordField.addTarget(self, action: #selector(keywordChanged), for: .editingChanged)
-        CommonMethods.styleTextField(keywordField)
-        keywordField.heightAnchor.constraint(equalToConstant: 48).isActive = true
-
-        CommonMethods.styleFilterChip(buyButton, title: "Buy", selected: false, compact: true)
-        CommonMethods.styleFilterChip(rentButton, title: "Rent", selected: false, compact: true)
-        CommonMethods.styleFilterChip(filtersButton, title: "Filters", selected: false, compact: true)
-        CommonMethods.styleFilterChip(sortButton, title: "Sort", selected: false, compact: true)
-        buyButton.addTarget(self, action: #selector(listingTapped(_:)), for: .touchUpInside)
-        rentButton.addTarget(self, action: #selector(listingTapped(_:)), for: .touchUpInside)
-        filtersButton.addTarget(self, action: #selector(filtersTapped), for: .touchUpInside)
-        sortButton.addTarget(self, action: #selector(sortTapped), for: .touchUpInside)
-
-        let chipsRow = UIStackView(arrangedSubviews: [buyButton, rentButton, filtersButton, sortButton])
-        chipsRow.axis = .horizontal
-        chipsRow.spacing = 6
-        chipsRow.distribution = .fillEqually
-        chipsRow.alignment = .fill
-        chipsRow.heightAnchor.constraint(equalToConstant: 36).isActive = true
-
-        countLabel.font = .systemFont(ofSize: 15, weight: .semibold)
-        countLabel.textColor = UIColor(red: 33/255, green: 37/255, blue: 41/255, alpha: 1)
-        saveSearchButton.setTitle("Save search", for: .normal)
-        saveSearchButton.setTitleColor(.darkThemeColor, for: .normal)
-        saveSearchButton.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
-        saveSearchButton.addTarget(self, action: #selector(saveSearchTapped), for: .touchUpInside)
-        let countRow = UIStackView(arrangedSubviews: [countLabel, UIView(), saveSearchButton])
-        countRow.axis = .horizontal
-        countRow.alignment = .center
-
-        collectionView.backgroundColor = .clear
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.register(PropertyCardCell.nib, forCellWithReuseIdentifier: PropertyCardCell.identifier)
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 24, right: 16)
-        collectionView.keyboardDismissMode = .onDrag
-
-        emptyLabel.text = "No properties match your search."
-        emptyLabel.font = .systemFont(ofSize: 15, weight: .medium)
-        emptyLabel.textColor = UIColor(red: 108/255, green: 117/255, blue: 125/255, alpha: 1)
-        emptyLabel.textAlignment = .center
-        emptyLabel.isHidden = true
-
-        let topStack = UIStackView(arrangedSubviews: [headerRow, keywordField, chipsRow, countRow])
-        topStack.axis = .vertical
-        topStack.spacing = 12
-        topStack.translatesAutoresizingMaskIntoConstraints = false
-        emptyLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        view.addSubview(topStack)
-        view.addSubview(collectionView)
-        view.addSubview(emptyLabel)
+        filterBar.translatesAutoresizingMaskIntoConstraints = false
+        filterBar.showsHorizontalScrollIndicator = false
+        quickSearchStack.translatesAutoresizingMaskIntoConstraints = false
+        quickSearchStack.axis = .horizontal
+        quickSearchStack.spacing = 8
+        quickSearchStack.alignment = .center
+        filterBar.addSubview(quickSearchStack)
+        chipStack.addArrangedSubview(filterBar)
+        rangeFilterBar.host = self
+        rangeFilterBar.onChanged = { [weak self] values in
+            self?.rangeFilters = values
+            self?.reloadProperties()
+        }
+        chipStack.addArrangedSubview(rangeFilterBar)
 
         NSLayoutConstraint.activate([
-            topStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12),
-            topStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            topStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-
-            collectionView.topAnchor.constraint(equalTo: topStack.bottomAnchor, constant: 12),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-
-            emptyLabel.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor),
-            emptyLabel.topAnchor.constraint(equalTo: collectionView.topAnchor, constant: 40)
+            filterBar.heightAnchor.constraint(equalToConstant: 36),
+            quickSearchStack.leadingAnchor.constraint(equalTo: filterBar.contentLayoutGuide.leadingAnchor),
+            quickSearchStack.trailingAnchor.constraint(equalTo: filterBar.contentLayoutGuide.trailingAnchor),
+            quickSearchStack.topAnchor.constraint(equalTo: filterBar.contentLayoutGuide.topAnchor),
+            quickSearchStack.bottomAnchor.constraint(equalTo: filterBar.contentLayoutGuide.bottomAnchor),
+            quickSearchStack.heightAnchor.constraint(equalTo: filterBar.frameLayoutGuide.heightAnchor)
         ])
     }
 
-    private func runSearch() {
-        criteria.keyword = keywordField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        results = PropertyStore.shared.search(criteria)
-        countLabel.text = "\(results.count) properties"
-        emptyLabel.isHidden = !results.isEmpty
-        refreshToolButtons()
-        collectionView.reloadData()
+    private func installContactAgentButton() {
+        guard let chipStack = buyButton.superview as? UIStackView else { return }
+
+        contactAgentButton.setTitle("Contact Agent".localized, for: .normal)
+       
+        contactAgentButton.setTitleColor(.white, for: .normal)
+        
+        contactAgentButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
+       
+        contactAgentButton.translatesAutoresizingMaskIntoConstraints = false
+       
+        contactAgentButton.addTarget(self, action: #selector(contactAgentTapped), for: .touchUpInside)
+        
+        CommonMethods.styleYellowGradientButton(contactAgentButton)
+       
+        view.addSubview(contactAgentButton)
+
+        view.constraints
+            .filter {
+                ($0.firstItem as? UIView) === chipStack && $0.firstAttribute == .top
+                    || ($0.secondItem as? UIView) === chipStack && $0.secondAttribute == .top
+            }
+            .forEach { $0.isActive = false }
+
+        NSLayoutConstraint.activate([
+            contactAgentButton.topAnchor.constraint(equalTo: keywordField.bottomAnchor, constant: 12),
+            contactAgentButton.leadingAnchor.constraint(equalTo: keywordField.leadingAnchor),
+            contactAgentButton.trailingAnchor.constraint(equalTo: keywordField.trailingAnchor),
+            contactAgentButton.heightAnchor.constraint(equalToConstant: 48),
+            chipStack.topAnchor.constraint(equalTo: contactAgentButton.bottomAnchor, constant: 12)
+        ])
     }
 
-    private func refreshToolButtons() {
-        CommonMethods.styleFilterChip(buyButton, title: "Buy", selected: criteria.listingType == "Buy", compact: true)
-        CommonMethods.styleFilterChip(rentButton, title: "Rent", selected: criteria.listingType == "Rent", compact: true)
-        let filterTitle = criteria.activeFilterCount == 0 ? "Filters" : "Filters (\(criteria.activeFilterCount))"
-        CommonMethods.styleFilterChip(filtersButton, title: filterTitle, selected: criteria.activeFilterCount > 0, compact: true)
-        CommonMethods.styleFilterChip(sortButton, title: sortChipTitle, selected: criteria.sort != .recommended, compact: true)
+    @objc private func contactAgentTapped() {
+        openContactAgent(property: results.first)
     }
 
-    private var sortChipTitle: String {
-        switch criteria.sort {
-        case .recommended: return "Sort"
-        case .priceLowToHigh: return "Low–High"
-        case .priceHighToLow: return "High–Low"
-        case .newest: return "Newest"
+    @objc private func languageChanged() {
+        selectedFilters = [:]
+        rangeFilters = PropertyRangeFilters()
+        rangeFilterBar.values = rangeFilters
+        loadDashboardFilters()
+    }
+
+    private func loadDashboardFilters() {
+        Task {
+            do {
+                let data = try await TenantViewModels.filterOptionsAPI()
+                await MainActor.run { self.applyFilterOptions(data) }
+            } catch {
+                await MainActor.run {
+                    self.applyFilterOptions(
+                        FilterOptionsData(
+                            language: LanguageManager.shared.currentLanguage,
+                            listingTypes: [],
+                            propertyTypes: [],
+                            furnishedStatuses: [],
+                            amenities: []
+                        )
+                    )
+                }
+            }
         }
     }
 
-    @objc private func saveSearchTapped() {
-        criteria.keyword = keywordField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        PropertyStore.shared.saveSearch(from: criteria)
-        let alert = UIAlertController(
-            title: "Search Saved",
-            message: "Find it on the Saved tab to edit preferences and alerts.",
-            preferredStyle: .alert
+    private func applyFilterOptions(_ data: FilterOptionsData) {
+        filterGroups = data.dashboardGroups
+        let validKinds = Set(filterGroups.map(\.kind))
+        selectedFilters = selectedFilters.reduce(into: [:]) { result, entry in
+            let (kind, chips) = entry
+            guard validKinds.contains(kind),
+                  let group = filterGroups.first(where: { $0.kind == kind }) else { return }
+            let kept = chips.filter { chip in
+                group.options.contains { $0.value.caseInsensitiveCompare(chip.value) == .orderedSame }
+            }
+            if !kept.isEmpty {
+                result[kind] = kept
+            }
+        }
+        selectedFilters = filterGroups.selectedFiltersKeepingFirst(selectedFilters)
+        quickSearchStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        for (index, group) in filterGroups.enumerated() {
+            quickSearchStack.addArrangedSubview(makeKeyButton(group, index: index))
+        }
+        reloadProperties()
+    }
+
+    private func makeKeyButton(_ group: DashboardFilterGroup, index: Int) -> UIButton {
+        let button = UIButton(type: .system)
+        button.tag = index
+        button.accessibilityIdentifier = group.key
+        button.heightAnchor.constraint(equalToConstant: 36).isActive = true
+        if group.kind == .amenity {
+            button.addTarget(self, action: #selector(amenityFilterTapped(_:)), for: .touchUpInside)
+        } else {
+            button.showsMenuAsPrimaryAction = true
+            button.menu = UIMenu(children: [
+                UIDeferredMenuElement.uncached { [weak self] completion in
+                    guard let self, self.filterGroups.indices.contains(index) else {
+                        completion([])
+                        return
+                    }
+                    completion(self.menuActions(for: self.filterGroups[index]))
+                }
+            ])
+        }
+        applyKeyAppearance(button, group: group)
+        return button
+    }
+
+    @objc private func amenityFilterTapped(_ sender: UIButton) {
+        guard filterGroups.indices.contains(sender.tag) else { return }
+        let group = filterGroups[sender.tag]
+        guard group.kind == .amenity else { return }
+        FilterListPickerVC.present(
+            from: self,
+            group: group,
+            selected: selectedFilters[.amenity] ?? []
+        ) { [weak self] chips in
+            guard let self else { return }
+            if chips.isEmpty {
+                self.selectedFilters.removeValue(forKey: .amenity)
+            } else {
+                self.selectedFilters[.amenity] = chips
+            }
+            self.refreshKeyButtons()
+            self.reloadProperties()
+        }
+    }
+
+    private func menuActions(for group: DashboardFilterGroup) -> [UIMenuElement] {
+        let selected = selectedFilters[group.kind] ?? []
+        let allowsMultiple = group.kind == .amenity
+        var actions: [UIMenuElement] = [
+            UIAction(
+                title: "Any".localized,
+                attributes: allowsMultiple ? .keepsMenuPresented : [],
+                state: selected.isEmpty ? .on : .off
+            ) { [weak self] _ in
+                self?.select(nil, in: group)
+            }
+        ]
+        for option in group.options {
+            let isOn = selected.contains {
+                $0.value.caseInsensitiveCompare(option.value) == .orderedSame
+            }
+            actions.append(
+                UIAction(
+                    title: option.label,
+                    attributes: allowsMultiple ? .keepsMenuPresented : [],
+                    state: isOn ? .on : .off
+                ) { [weak self] _ in
+                    self?.select(option, in: group, toggleOff: isOn)
+                }
+            )
+        }
+        return actions
+    }
+
+    private func select(_ option: DashboardFilterChip?, in group: DashboardFilterGroup, toggleOff: Bool = false) {
+        if group.kind == .amenity {
+            var current = selectedFilters[.amenity] ?? []
+            if let option {
+                if toggleOff {
+                    current.removeAll {
+                        $0.value.caseInsensitiveCompare(option.value) == .orderedSame
+                    }
+                } else if !current.contains(where: {
+                    $0.value.caseInsensitiveCompare(option.value) == .orderedSame
+                }) {
+                    current.append(option)
+                }
+                if current.isEmpty {
+                    selectedFilters.removeValue(forKey: .amenity)
+                } else {
+                    selectedFilters[.amenity] = current
+                }
+            } else {
+                selectedFilters.removeValue(forKey: .amenity)
+            }
+        } else if let option {
+            selectedFilters[group.kind] = [option]
+        } else {
+            selectedFilters.removeValue(forKey: group.kind)
+        }
+        refreshKeyButtons()
+        reloadProperties()
+    }
+
+    private func applyKeyAppearance(_ button: UIButton, group: DashboardFilterGroup) {
+        
+        var config = UIButton.Configuration.plain()
+       
+        config.title = {
+            let chips = selectedFilters[group.kind] ?? []
+            if chips.isEmpty || group.kind == .amenity { return group.kind.displayTitle }
+            return chips.map(\.label).joined(separator: ", ")
+        }()
+        
+        config.image = UIImage(systemName: "chevron.down")
+       
+        config.imagePlacement = .trailing
+       
+        config.imagePadding = 6
+        
+        config.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 14, bottom: 8, trailing: 12)
+       
+        config.baseForegroundColor = .darkThemeColor
+        config.background.backgroundColor = .white
+        config.background.strokeColor = UIColor.accentThemeColor
+        config.background.strokeWidth = 1
+       
+        config.background.cornerRadius = 18
+       
+        config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
+            var next = incoming
+            next.font = .systemFont(ofSize: 13, weight: .semibold)
+            return next
+        }
+        config.imageColorTransformer = UIConfigurationColorTransformer { _ in
+            .darkThemeColor
+        }
+        button.configuration = config
+        button.layer.cornerRadius = 18
+        button.clipsToBounds = true
+    }
+
+    private func refreshKeyButtons() {
+        quickSearchStack.arrangedSubviews
+            .compactMap { $0 as? UIButton }
+            .forEach { button in
+                guard filterGroups.indices.contains(button.tag) else { return }
+                let group = filterGroups[button.tag]
+                applyKeyAppearance(button, group: group)
+        }
+    }
+
+    private func applyPendingCriteria(_ pending: PropertySearchCriteria) {
+        criteria = pending
+        if pending.keyword.isEmpty {
+            keywordField.text = pending.location
+        } else {
+            keywordField.text = pending.keyword
+        }
+        selectedFilters = [:]
+
+        if let listing = pending.listingType {
+            let listingValue = listing.apiListingType
+            if let chip = matchChip(kind: .listingType, value: listingValue, label: listing) {
+                selectedFilters[.listingType] = [chip]
+            }
+        }
+        if let type = pending.propertyType {
+            let typeValue = type.apiPropertyType
+            if let chip = matchChip(kind: .propertyType, value: typeValue, label: type) {
+                selectedFilters[.propertyType] = [chip]
+            }
+        }
+        if let furnished = pending.furnished {
+            let value = furnished ? "FURNISHED" : "UNFURNISHED"
+            let label = furnished ? "Furnished" : "Unfurnished"
+            if let chip = matchChip(kind: .furnished, value: value, label: label) {
+                selectedFilters[.furnished] = [chip]
+            }
+        }
+        let amenityChips = pending.amenities.compactMap { amenity in
+            matchChip(kind: .amenity, value: amenity, label: amenity)
+        }
+        if !amenityChips.isEmpty {
+            selectedFilters[.amenity] = amenityChips
+        }
+        selectedFilters = filterGroups.selectedFiltersKeepingFirst(selectedFilters)
+        rangeFilters = PropertyRangeFilters(
+            bedrooms: pending.minBedrooms,
+            bathrooms: pending.minBathrooms,
+            minPrice: pending.minPrice,
+            maxPrice: pending.maxPrice,
+            minSize: pending.minArea,
+            maxSize: pending.maxArea
         )
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
+        rangeFilterBar.values = rangeFilters
+
+        refreshKeyButtons()
+        reloadProperties()
+    }
+
+    private func matchChip(kind: DashboardFilterKind, value: String, label: String) -> DashboardFilterChip? {
+        guard let group = filterGroups.first(where: { $0.kind == kind }) else { return nil }
+        for option in group.options {
+            if option.value.caseInsensitiveCompare(value) == .orderedSame
+                || option.label.caseInsensitiveCompare(label) == .orderedSame {
+                return option
+            }
+            if chipMatchesNormalized(option, kind: kind, value: value) {
+                return option
+            }
+        }
+        return nil
+    }
+
+    private func chipMatchesNormalized(
+        _ option: DashboardFilterChip,
+        kind: DashboardFilterKind,
+        value: String
+    ) -> Bool {
+        switch kind {
+        case .listingType:
+            return option.value.apiListingType.caseInsensitiveCompare(value) == .orderedSame
+        case .propertyType:
+            return option.value.apiPropertyType.caseInsensitiveCompare(value) == .orderedSame
+        case .furnished:
+            return option.value.apiFurnishedStatus.caseInsensitiveCompare(value) == .orderedSame
+        case .amenity:
+            return false
+        }
+    }
+
+    private func currentFilterRequest() -> PropertyFilterRequest {
+        var request = PropertyFilterRequest.dashboard(selections: selectedFilters.values.flatMap { $0 })
+        request.apply(criteria)
+        request.apply(rangeFilters)
+        let keyword = keywordField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        if request.location == nil, keyword.isEmpty == false {
+            request.location = keyword
+        }
+        return request
+    }
+
+    private func syncCriteriaFromFilters() {
+        criteria.keyword = keywordField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        if let listing = selectedFilters[.listingType]?.first {
+            criteria.listingType = listing.value.apiListingType == "RENT" ? "Rent" : "Buy"
+        }
+        else {
+            criteria.listingType = nil
+        }
+        criteria.propertyType = selectedFilters[.propertyType]?.first?.label
+        if let furnished = selectedFilters[.furnished]?.first {
+            let status = furnished.value.apiFurnishedStatus
+            switch status {
+            case "FURNISHED":
+                criteria.furnished = true
+            case "UNFURNISHED":
+                criteria.furnished = false
+            default:
+                criteria.furnished = nil
+            }
+        } else {
+            criteria.furnished = nil
+        }
+        let amenityLabels = (selectedFilters[.amenity] ?? []).map(\.label)
+        criteria.amenities = Set(amenityLabels)
+        criteria.location = nil
+    }
+
+    private func reloadProperties() {
+        let token = UUID()
+        searchToken = token
+        let request = currentFilterRequest()
+        syncCriteriaFromFilters()
+        Task {
+            do {
+                let items = try await TenantViewModels.searchPropertiesAPI(request)
+                await MainActor.run {
+                    guard self.searchToken == token else { return }
+                    PropertyStore.shared.mergeRemote(items)
+                    self.allResults = items
+                    self.applyKeywordFilter()
+                }
+            }
+            catch {
+                await MainActor.run {
+                    guard self.searchToken == token else { return }
+                    PropertyStore.shared.mergeRemote(nil)
+                    self.allResults = []
+                    self.applyKeywordFilter()
+                }
+            }
+        }
     }
 
     @objc private func keywordChanged() {
-        runSearch()
+        applyKeywordFilter()
     }
 
-    @objc private func aiSearchTapped() {
+    private func applyKeywordFilter() {
+        let keyword = keywordField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        criteria.keyword = keyword
+        results = keyword.isEmpty ? allResults : allResults.filter { $0.matchesKeyword(keyword) }
+        countLabel.text = "%d properties".localized(results.count)
+        emptyLabel.isHidden = !results.isEmpty
+        collectionView.reloadData()
+    }
+
+    @IBAction func aiSearchTapped(_ sender: Any) {
         openAISearch()
     }
 
-    @objc private func listingTapped(_ sender: UIButton) {
-        let value = sender == buyButton ? "Buy" : "Rent"
-        criteria.listingType = criteria.listingType == value ? nil : value
-        runSearch()
-    }
+    @IBAction func listingTapped(_ sender: UIButton) {}
 
-    @objc private func filtersTapped() {
-        let filters = TenantFiltersVC()
-        filters.criteria = criteria
-        filters.onApply = { [weak self] updated in
-            guard let self else { return }
-            self.criteria.location = updated.location
-            self.criteria.propertyType = updated.propertyType
-            self.criteria.minPrice = updated.minPrice
-            self.criteria.maxPrice = updated.maxPrice
-            self.criteria.minBedrooms = updated.minBedrooms
-            self.criteria.minBathrooms = updated.minBathrooms
-            self.criteria.minArea = updated.minArea
-            self.criteria.maxArea = updated.maxArea
-            self.criteria.furnished = updated.furnished
-            self.criteria.amenities = updated.amenities
-            self.runSearch()
-        }
-        let nav = UINavigationController(rootViewController: filters)
-        nav.modalPresentationStyle = .pageSheet
-        if let sheet = nav.sheetPresentationController {
-            sheet.detents = [.large()]
-            sheet.prefersGrabberVisible = true
-        }
-        present(nav, animated: true)
-    }
+    @IBAction func filtersTapped(_ sender: Any) {}
 
-    @objc private func sortTapped() {
-        let sheet = UIAlertController(title: "Sort", message: nil, preferredStyle: .actionSheet)
-        PropertySort.allCases.forEach { option in
-            sheet.addAction(UIAlertAction(title: option.rawValue, style: .default) { [weak self] _ in
-                self?.criteria.sort = option
-                self?.runSearch()
-            })
-        }
-        sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        if let popover = sheet.popoverPresentationController {
-            popover.sourceView = sortButton
-            popover.sourceRect = sortButton.bounds
-        }
-        present(sheet, animated: true)
+    @IBAction func sortTapped(_ sender: Any) {}
+
+    @IBAction func saveSearchTapped(_ sender: Any) {
+        syncCriteriaFromFilters()
+        PropertyStore.shared.saveSearch(from: criteria)
+        let alert = UIAlertController(
+            title: "Search Saved".localized,
+            message: "Find it on the Saved tab to edit preferences and alerts.".localized,
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "OK".localized, style: .default))
+        present(alert, animated: true)
     }
 }
 
 extension TenantSearchVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        runSearch()
+        applyKeywordFilter()
         return true
     }
 }
@@ -254,17 +540,22 @@ extension TenantSearchVC: UICollectionViewDataSource, UICollectionViewDelegate, 
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+       
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: PropertyCardCell.identifier,
             for: indexPath
-        ) as? PropertyCardCell else {
+        )
+            as? PropertyCardCell else {
             return UICollectionViewCell()
         }
+        
         let property = results[indexPath.item]
-        cell.configure(with: property, isFavorite: PropertyStore.shared.isFavorite(property.id))
+       
+        cell.configure(with: property, isFavorite: PropertyStore.shared.isFavorite(property.id) || property.isFav)
         cell.onFavorite = { [weak self] in
-            PropertyStore.shared.toggleFavorite(property.id)
-            self?.collectionView.reloadItems(at: [indexPath])
+            self?.toggleFavoriteRemote(propertyId: property.id) { _ in
+                self?.collectionView.reloadItems(at: [indexPath])
+            }
         }
         return cell
     }
@@ -274,6 +565,11 @@ extension TenantSearchVC: UICollectionViewDataSource, UICollectionViewDelegate, 
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: collectionView.bounds.width - 32, height: 268)
+        let width = collectionView.bounds.width - 32
+        return CGSize(
+            width: width,
+            height: PropertyCardCell.height(forTitle: results[indexPath.item].title, width: width)
+        )
     }
+    
 }

@@ -17,7 +17,7 @@ class ResetPasswordVC: UIViewController {
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var resetButton: CustomButton!
 
-    var selectedRole: UserRole = .tenant
+    var selectedRole: String = "buyer"
     var email: String = ""
     var otp: String = ""
 
@@ -46,11 +46,19 @@ class ResetPasswordVC: UIViewController {
         CommonMethods.styleTextField(confirmPasswordTextField)
         CommonMethods.stylePrimaryButton(resetButton)
 
-        titleLabel.text = "Reset Password"
-        subtitleLabel.text = "Create a new password for your account"
+        titleLabel.text = "Reset Password".localized
+        subtitleLabel.text = "Create a new password for your account".localized
+        subtitleLabel.numberOfLines = 3
+        subtitleLabel.lineBreakMode = .byWordWrapping
         errorLabel.text = nil
         passwordTextField.isSecureTextEntry = true
         confirmPasswordTextField.isSecureTextEntry = true
+        if let loginButton = formCardView.subviews.compactMap({ $0 as? UIButton }).first(where: {
+            ($0.currentTitle ?? "").localizedCaseInsensitiveContains("login")
+        }) {
+            loginButton.setImage(nil, for: .normal)
+            loginButton.configuration?.image = nil
+        }
     }
 
     @IBAction func backTapped(_ sender: UIButton) {
@@ -63,19 +71,47 @@ class ResetPasswordVC: UIViewController {
         let confirmPassword = confirmPasswordTextField.text ?? ""
 
         guard !password.isEmpty else {
-            errorLabel.text = "Please enter a new password."
+            errorLabel.text = "Please enter a new password.".localized
             return
         }
         guard password.count >= 8 else {
-            errorLabel.text = "Password must be at least 8 characters."
+            errorLabel.text = "Password must be at least 8 characters.".localized
             return
         }
         guard password == confirmPassword else {
-            errorLabel.text = "Passwords do not match."
+            errorLabel.text = "Passwords do not match.".localized
             return
         }
 
-        popToLogin()
+        resetButton.isEnabled = false
+        Task {
+            do {
+                let response = try await AuthViewModel.forgotPasswordResetAPI(param: [
+                    "email": email,
+                    "newPassword": password,
+                    "confirmPassword": confirmPassword,
+                    "language": LanguageManager.shared.currentLanguage
+                ])
+                await MainActor.run {
+                    let message = response.message?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+                    CommonMethods.showAlert(
+                        message: message.isEmpty ? "Password reset successfully.".localized : message,
+                        from: self
+                    ) {
+                        self.resetButton.isEnabled = true
+                        self.goToLoginRoot(role: self.selectedRole)
+                    }
+                }
+            } catch {
+                await MainActor.run {
+                    self.resetButton.isEnabled = true
+                    let message = error.localizedDescription.trimmingCharacters(in: .whitespacesAndNewlines)
+                    self.errorLabel.text = message.isEmpty
+                        ? "Unable to reset password. Please try again.".localized
+                        : message
+                }
+            }
+        }
     }
 
     @IBAction func backToLoginTapped(_ sender: UIButton) {

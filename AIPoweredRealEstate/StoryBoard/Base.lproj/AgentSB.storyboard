@@ -1,0 +1,1750 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="agent-tab">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Agent Tab Bar Controller-->
+        <scene sceneID="scene-agent-tab">
+            <objects>
+                <tabBarController storyboardIdentifier="AgentTabBarController" id="agent-tab" customClass="AgentTabBarController" customModule="AIPoweredRealEstate" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="tb-agent">
+                        <rect key="frame" x="0.0" y="803" width="393" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="nav-ahome" kind="relationship" relationship="viewControllers" id="seg-tab-home"/>
+                        <segue destination="nav-asearch" kind="relationship" relationship="viewControllers" id="seg-tab-search"/>
+                        <segue destination="nav-asaved" kind="relationship" relationship="viewControllers" id="seg-tab-saved"/>
+                        <segue destination="nav-aprofile" kind="relationship" relationship="viewControllers" id="seg-tab-profile"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fr-agent-tab" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-780" y="0.0"/>
+        </scene>
+        <!--Home-->
+        <scene sceneID="scene-nav-ahome">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="nav-ahome" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Home" image="house.fill" catalog="system" selectedImage="house.fill" id="tbi-ahome"/>
+                    <navigationBar key="navigationBar" hidden="YES" contentMode="scaleToFill" id="nb-nav-ahome">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="vc-ahome" kind="relationship" relationship="rootViewController" id="seg-nav-ahome"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fr-nav-ahome" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="20" y="-720"/>
+        </scene>
+        <!--Inventory-->
+        <scene sceneID="scene-nav-asearch">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="nav-asearch" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Inventory" image="square.grid.2x2.fill" catalog="system" selectedImage="square.grid.2x2.fill" id="tbi-asearch"/>
+                    <navigationBar key="navigationBar" hidden="YES" contentMode="scaleToFill" id="nb-nav-asearch">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="vc-asearch" kind="relationship" relationship="rootViewController" id="seg-nav-asearch"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fr-nav-asearch" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="20" y="0.0"/>
+        </scene>
+        <!--Workspace-->
+        <scene sceneID="scene-nav-asaved">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="nav-asaved" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Workspace" image="briefcase.fill" catalog="system" selectedImage="briefcase.fill" id="tbi-asaved"/>
+                    <navigationBar key="navigationBar" hidden="YES" contentMode="scaleToFill" id="nb-nav-asaved">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="vc-asaved" kind="relationship" relationship="rootViewController" id="seg-nav-asaved"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fr-nav-asaved" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="20" y="720"/>
+        </scene>
+        <!--Profile-->
+        <scene sceneID="scene-nav-aprofile">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="nav-aprofile" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Profile" image="person.fill" catalog="system" selectedImage="person.fill" id="tbi-aprofile"/>
+                    <navigationBar key="navigationBar" hidden="YES" contentMode="scaleToFill" id="nb-nav-aprofile">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="vc-aprofile" kind="relationship" relationship="rootViewController" id="seg-nav-aprofile"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fr-nav-aprofile" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="20" y="1440"/>
+        </scene>
+        <!--Home-->
+        <scene sceneID="scene-ahome">
+            <objects>
+                <viewController storyboardIdentifier="AgentHomeVC" id="vc-ahome" customClass="AgentHomeVC" customModule="AIPoweredRealEstate" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="view-ahome">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="scrl-ahome">
+                                <rect key="frame" x="0.0" y="59" width="393" height="710"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="content-ahome">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="1324"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="img-ahome-profile">
+                                                <rect key="frame" x="20" y="12" width="48" height="48"/>
+                                                <color key="backgroundColor" red="0.92549019607843142" green="0.89411764705882357" blue="0.8901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="48" id="img-ahome-h"/>
+                                                    <constraint firstAttribute="width" constant="48" id="img-ahome-w"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lb-ahome-name">
+                                                <rect key="frame" x="80" y="14" width="245" height="24"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                <color key="textColor" red="0.12941176470588237" green="0.14509803921568629" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lb-ahome-agency">
+                                                <rect key="frame" x="80" y="40" width="245" height="15.666666666666664"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                                <color key="textColor" red="0.28627450980392155" green="0.31372549019607843" blue="0.3411764705882353" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btn-bell">
+                                                <rect key="frame" x="333" y="16" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="btn-bell-h"/>
+                                                    <constraint firstAttribute="width" constant="40" id="btn-bell-w"/>
+                                                </constraints>
+                                                <color key="tintColor" red="0.99215686274509807" green="0.72549019607843135" blue="0.074509803921568626" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" image="bell.fill" catalog="system"/>
+                                                <connections>
+                                                    <action selector="notificationsTapped:" destination="vc-ahome" eventType="touchUpInside" id="act-bell"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" text="3" textAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lb-badge">
+                                                <rect key="frame" x="357" y="12" width="18" height="18"/>
+                                                <color key="backgroundColor" red="0.86274509803921573" green="0.20784313725490197" blue="0.27058823529411763" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="18" id="lb-badge-h"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="18" id="lb-badge-w"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <real key="value" value="9"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="4 portals  ·  8 listings  ·  1 open leads  ·  0 saved" lineBreakMode="wordWrap" numberOfLines="2" translatesAutoresizingMaskIntoConstraints="NO" id="lb-metrics">
+                                                <rect key="frame" x="20" y="72" width="353" height="15.666666666666671"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
+                                                <color key="textColor" red="0.42352941176470588" green="0.45882352941176469" blue="0.49019607843137253" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Quick Actions" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lb-qa">
+                                                <rect key="frame" x="20" y="189.66666666666666" width="119" height="21.666666666666657"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                <color key="textColor" red="0.12941176470588237" green="0.14509803921568629" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="st-qa">
+                                                <rect key="frame" x="20" y="219.33333333333331" width="353" height="359.99999999999994"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="card-qa-ai" customClass="CustomView" customModule="AIPoweredRealEstate" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="353" height="64"/>
+                                                        <subviews>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="sparkles" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ic-qa-ai">
+                                                                <rect key="frame" x="16" y="20" width="22" height="22.666666666666671"/>
+                                                                <color key="tintColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="22" id="ic-qa-ai-h"/>
+                                                                    <constraint firstAttribute="width" constant="22" id="ic-qa-ai-w"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="AI Property Search" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lb-qa-ai-t">
+                                                                <rect key="frame" x="50" y="12" width="287" height="18"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                                <color key="textColor" red="0.12941176470588237" green="0.14509803921568629" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Describe a home in plain language" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lb-qa-ai-s">
+                                                                <rect key="frame" x="50" y="31.999999999999996" width="287" height="14.333333333333332"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                <color key="textColor" red="0.42352941176470588" green="0.45882352941176469" blue="0.49019607843137253" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btn-qa-ai">
+                                                                <rect key="frame" x="0.0" y="0.0" width="353" height="64"/>
+                                                                <connections>
+                                                                    <action selector="aiSearchTapped:" destination="vc-ahome" eventType="touchUpInside" id="act-qa-ai"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="bottom" secondItem="btn-qa-ai" secondAttribute="bottom" id="btn-qa-ai-b"/>
+                                                            <constraint firstItem="btn-qa-ai" firstAttribute="leading" secondItem="card-qa-ai" secondAttribute="leading" id="btn-qa-ai-l"/>
+                                                            <constraint firstAttribute="trailing" secondItem="btn-qa-ai" secondAttribute="trailing" id="btn-qa-ai-r"/>
+                                                            <constraint firstItem="btn-qa-ai" firstAttribute="top" secondItem="card-qa-ai" secondAttribute="top" id="btn-qa-ai-t"/>
+                                                            <constraint firstAttribute="height" constant="64" id="card-qa-ai-h"/>
+                                                            <constraint firstItem="ic-qa-ai" firstAttribute="centerY" secondItem="card-qa-ai" secondAttribute="centerY" id="ic-qa-ai-cy"/>
+                                                            <constraint firstItem="ic-qa-ai" firstAttribute="leading" secondItem="card-qa-ai" secondAttribute="leading" constant="16" id="ic-qa-ai-l"/>
+                                                            <constraint firstItem="lb-qa-ai-s" firstAttribute="leading" secondItem="lb-qa-ai-t" secondAttribute="leading" id="lb-qa-ai-s-l"/>
+                                                            <constraint firstItem="lb-qa-ai-s" firstAttribute="trailing" secondItem="lb-qa-ai-t" secondAttribute="trailing" id="lb-qa-ai-s-r"/>
+                                                            <constraint firstItem="lb-qa-ai-s" firstAttribute="top" secondItem="lb-qa-ai-t" secondAttribute="bottom" constant="2" id="lb-qa-ai-s-t"/>
+                                                            <constraint firstItem="lb-qa-ai-t" firstAttribute="leading" secondItem="ic-qa-ai" secondAttribute="trailing" constant="12" id="lb-qa-ai-t-l"/>
+                                                            <constraint firstAttribute="trailing" secondItem="lb-qa-ai-t" secondAttribute="trailing" constant="16" id="lb-qa-ai-t-r"/>
+                                                            <constraint firstItem="lb-qa-ai-t" firstAttribute="top" secondItem="card-qa-ai" secondAttribute="top" constant="12" id="lb-qa-ai-t-t"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
+                                                                <real key="value" value="16"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="card-qa-cmp" customClass="CustomView" customModule="AIPoweredRealEstate" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="74" width="353" height="64"/>
+                                                        <subviews>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="square.split.2x1" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ic-qa-cmp">
+                                                                <rect key="frame" x="16" y="22.666666666666664" width="22" height="19.000000000000007"/>
+                                                                <color key="tintColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="22" id="ic-qa-cmp-h"/>
+                                                                    <constraint firstAttribute="width" constant="22" id="ic-qa-cmp-w"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Compare Properties" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lb-qa-cmp-t">
+                                                                <rect key="frame" x="50" y="12" width="287" height="18"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                                <color key="textColor" red="0.12941176470588237" green="0.14509803921568629" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Pick 2–3 listings, then compare" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lb-qa-cmp-s">
+                                                                <rect key="frame" x="50" y="31.999999999999996" width="287" height="14.333333333333332"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                <color key="textColor" red="0.42352941176470588" green="0.45882352941176469" blue="0.49019607843137253" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btn-qa-cmp">
+                                                                <rect key="frame" x="0.0" y="0.0" width="353" height="64"/>
+                                                                <connections>
+                                                                    <action selector="compareTapped:" destination="vc-ahome" eventType="touchUpInside" id="act-qa-cmp"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="bottom" secondItem="btn-qa-cmp" secondAttribute="bottom" id="btn-qa-cmp-b"/>
+                                                            <constraint firstItem="btn-qa-cmp" firstAttribute="leading" secondItem="card-qa-cmp" secondAttribute="leading" id="btn-qa-cmp-l"/>
+                                                            <constraint firstAttribute="trailing" secondItem="btn-qa-cmp" secondAttribute="trailing" id="btn-qa-cmp-r"/>
+                                                            <constraint firstItem="btn-qa-cmp" firstAttribute="top" secondItem="card-qa-cmp" secondAttribute="top" id="btn-qa-cmp-t"/>
+                                                            <constraint firstAttribute="height" constant="64" id="card-qa-cmp-h"/>
+                                                            <constraint firstItem="ic-qa-cmp" firstAttribute="centerY" secondItem="card-qa-cmp" secondAttribute="centerY" id="ic-qa-cmp-cy"/>
+                                                            <constraint firstItem="ic-qa-cmp" firstAttribute="leading" secondItem="card-qa-cmp" secondAttribute="leading" constant="16" id="ic-qa-cmp-l"/>
+                                                            <constraint firstItem="lb-qa-cmp-s" firstAttribute="leading" secondItem="lb-qa-cmp-t" secondAttribute="leading" id="lb-qa-cmp-s-l"/>
+                                                            <constraint firstItem="lb-qa-cmp-s" firstAttribute="trailing" secondItem="lb-qa-cmp-t" secondAttribute="trailing" id="lb-qa-cmp-s-r"/>
+                                                            <constraint firstItem="lb-qa-cmp-s" firstAttribute="top" secondItem="lb-qa-cmp-t" secondAttribute="bottom" constant="2" id="lb-qa-cmp-s-t"/>
+                                                            <constraint firstItem="lb-qa-cmp-t" firstAttribute="leading" secondItem="ic-qa-cmp" secondAttribute="trailing" constant="12" id="lb-qa-cmp-t-l"/>
+                                                            <constraint firstAttribute="trailing" secondItem="lb-qa-cmp-t" secondAttribute="trailing" constant="16" id="lb-qa-cmp-t-r"/>
+                                                            <constraint firstItem="lb-qa-cmp-t" firstAttribute="top" secondItem="card-qa-cmp" secondAttribute="top" constant="12" id="lb-qa-cmp-t-t"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
+                                                                <real key="value" value="16"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </view>
+                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="card-qa-mkt" customClass="CustomView" customModule="AIPoweredRealEstate" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="148" width="353" height="64"/>
+                                                        <subviews>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="megaphone.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ic-qa-mkt">
+                                                                <rect key="frame" x="16" y="21.333333333333329" width="22" height="21.666666666666671"/>
+                                                                <color key="tintColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="22" id="ic-qa-mkt-h"/>
+                                                                    <constraint firstAttribute="width" constant="22" id="ic-qa-mkt-w"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Generate Marketing Content" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lb-qa-mkt-t">
+                                                                <rect key="frame" x="50" y="12" width="287" height="18"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                                <color key="textColor" red="0.12941176470588237" green="0.14509803921568629" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Listing, Instagram, WhatsApp, email, reports" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lb-qa-mkt-s">
+                                                                <rect key="frame" x="50" y="31.999999999999996" width="287" height="14.333333333333332"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                <color key="textColor" red="0.42352941176470588" green="0.45882352941176469" blue="0.49019607843137253" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btn-qa-mkt">
+                                                                <rect key="frame" x="0.0" y="0.0" width="353" height="64"/>
+                                                                <connections>
+                                                                    <action selector="marketingTapped:" destination="vc-ahome" eventType="touchUpInside" id="act-qa-mkt"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="bottom" secondItem="btn-qa-mkt" secondAttribute="bottom" id="btn-qa-mkt-b"/>
+                                                            <constraint firstItem="btn-qa-mkt" firstAttribute="leading" secondItem="card-qa-mkt" secondAttribute="leading" id="btn-qa-mkt-l"/>
+                                                            <constraint firstAttribute="trailing" secondItem="btn-qa-mkt" secondAttribute="trailing" id="btn-qa-mkt-r"/>
+                                                            <constraint firstItem="btn-qa-mkt" firstAttribute="top" secondItem="card-qa-mkt" secondAttribute="top" id="btn-qa-mkt-t"/>
+                                                            <constraint firstAttribute="height" constant="64" id="card-qa-mkt-h"/>
+                                                            <constraint firstItem="ic-qa-mkt" firstAttribute="centerY" secondItem="card-qa-mkt" secondAttribute="centerY" id="ic-qa-mkt-cy"/>
+                                                            <constraint firstItem="ic-qa-mkt" firstAttribute="leading" secondItem="card-qa-mkt" secondAttribute="leading" constant="16" id="ic-qa-mkt-l"/>
+                                                            <constraint firstItem="lb-qa-mkt-s" firstAttribute="leading" secondItem="lb-qa-mkt-t" secondAttribute="leading" id="lb-qa-mkt-s-l"/>
+                                                            <constraint firstItem="lb-qa-mkt-s" firstAttribute="trailing" secondItem="lb-qa-mkt-t" secondAttribute="trailing" id="lb-qa-mkt-s-r"/>
+                                                            <constraint firstItem="lb-qa-mkt-s" firstAttribute="top" secondItem="lb-qa-mkt-t" secondAttribute="bottom" constant="2" id="lb-qa-mkt-s-t"/>
+                                                            <constraint firstItem="lb-qa-mkt-t" firstAttribute="leading" secondItem="ic-qa-mkt" secondAttribute="trailing" constant="12" id="lb-qa-mkt-t-l"/>
+                                                            <constraint firstAttribute="trailing" secondItem="lb-qa-mkt-t" secondAttribute="trailing" constant="16" id="lb-qa-mkt-t-r"/>
+                                                            <constraint firstItem="lb-qa-mkt-t" firstAttribute="top" secondItem="card-qa-mkt" secondAttribute="top" constant="12" id="lb-qa-mkt-t-t"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
+                                                                <real key="value" value="16"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </view>
+                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="card-qa-rep" customClass="CustomView" customModule="AIPoweredRealEstate" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="222" width="353" height="64"/>
+                                                        <subviews>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="doc.text.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ic-qa-rep">
+                                                                <rect key="frame" x="16" y="21.333333333333385" width="22" height="21.666666666666671"/>
+                                                                <color key="tintColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="22" id="ic-qa-rep-h"/>
+                                                                    <constraint firstAttribute="width" constant="22" id="ic-qa-rep-w"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Create Client Report" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lb-qa-rep-t">
+                                                                <rect key="frame" x="50" y="12.000000000000057" width="287" height="18"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                                <color key="textColor" red="0.12941176470588237" green="0.14509803921568629" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Client-facing summary to share" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lb-qa-rep-s">
+                                                                <rect key="frame" x="50" y="32.000000000000057" width="287" height="14.333333333333336"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                <color key="textColor" red="0.42352941176470588" green="0.45882352941176469" blue="0.49019607843137253" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btn-qa-rep">
+                                                                <rect key="frame" x="0.0" y="0.0" width="353" height="64"/>
+                                                                <connections>
+                                                                    <action selector="reportTapped:" destination="vc-ahome" eventType="touchUpInside" id="act-qa-rep"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="bottom" secondItem="btn-qa-rep" secondAttribute="bottom" id="btn-qa-rep-b"/>
+                                                            <constraint firstItem="btn-qa-rep" firstAttribute="leading" secondItem="card-qa-rep" secondAttribute="leading" id="btn-qa-rep-l"/>
+                                                            <constraint firstAttribute="trailing" secondItem="btn-qa-rep" secondAttribute="trailing" id="btn-qa-rep-r"/>
+                                                            <constraint firstItem="btn-qa-rep" firstAttribute="top" secondItem="card-qa-rep" secondAttribute="top" id="btn-qa-rep-t"/>
+                                                            <constraint firstAttribute="height" constant="64" id="card-qa-rep-h"/>
+                                                            <constraint firstItem="ic-qa-rep" firstAttribute="centerY" secondItem="card-qa-rep" secondAttribute="centerY" id="ic-qa-rep-cy"/>
+                                                            <constraint firstItem="ic-qa-rep" firstAttribute="leading" secondItem="card-qa-rep" secondAttribute="leading" constant="16" id="ic-qa-rep-l"/>
+                                                            <constraint firstItem="lb-qa-rep-s" firstAttribute="leading" secondItem="lb-qa-rep-t" secondAttribute="leading" id="lb-qa-rep-s-l"/>
+                                                            <constraint firstItem="lb-qa-rep-s" firstAttribute="trailing" secondItem="lb-qa-rep-t" secondAttribute="trailing" id="lb-qa-rep-s-r"/>
+                                                            <constraint firstItem="lb-qa-rep-s" firstAttribute="top" secondItem="lb-qa-rep-t" secondAttribute="bottom" constant="2" id="lb-qa-rep-s-t"/>
+                                                            <constraint firstItem="lb-qa-rep-t" firstAttribute="leading" secondItem="ic-qa-rep" secondAttribute="trailing" constant="12" id="lb-qa-rep-t-l"/>
+                                                            <constraint firstAttribute="trailing" secondItem="lb-qa-rep-t" secondAttribute="trailing" constant="16" id="lb-qa-rep-t-r"/>
+                                                            <constraint firstItem="lb-qa-rep-t" firstAttribute="top" secondItem="card-qa-rep" secondAttribute="top" constant="12" id="lb-qa-rep-t-t"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
+                                                                <real key="value" value="16"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="card-qa-lead" customClass="CustomView" customModule="AIPoweredRealEstate" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="296.00000000000006" width="353" height="64"/>
+                                                        <subviews>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="person.crop.rectangle.stack" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ic-qa-lead">
+                                                                <rect key="frame" x="16" y="21" width="22" height="23.666666666666671"/>
+                                                                <color key="tintColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="22" id="ic-qa-lead-h"/>
+                                                                    <constraint firstAttribute="width" constant="22" id="ic-qa-lead-w"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Leads" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lb-qa-lead-t">
+                                                                <rect key="frame" x="50" y="12" width="287" height="18"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                                <color key="textColor" red="0.12941176470588237" green="0.14509803921568629" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Buyer enquiries and follow-up status" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lb-qa-lead-s">
+                                                                <rect key="frame" x="50" y="31.999999999999996" width="287" height="14.333333333333332"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                <color key="textColor" red="0.42352941176470588" green="0.45882352941176469" blue="0.49019607843137253" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btn-qa-lead">
+                                                                <rect key="frame" x="0.0" y="0.0" width="353" height="64"/>
+                                                                <connections>
+                                                                    <action selector="leadsTapped:" destination="vc-ahome" eventType="touchUpInside" id="act-qa-lead"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="bottom" secondItem="btn-qa-lead" secondAttribute="bottom" id="btn-qa-lead-b"/>
+                                                            <constraint firstItem="btn-qa-lead" firstAttribute="leading" secondItem="card-qa-lead" secondAttribute="leading" id="btn-qa-lead-l"/>
+                                                            <constraint firstAttribute="trailing" secondItem="btn-qa-lead" secondAttribute="trailing" id="btn-qa-lead-r"/>
+                                                            <constraint firstItem="btn-qa-lead" firstAttribute="top" secondItem="card-qa-lead" secondAttribute="top" id="btn-qa-lead-t"/>
+                                                            <constraint firstAttribute="height" constant="64" id="card-qa-lead-h"/>
+                                                            <constraint firstItem="ic-qa-lead" firstAttribute="centerY" secondItem="card-qa-lead" secondAttribute="centerY" id="ic-qa-lead-cy"/>
+                                                            <constraint firstItem="ic-qa-lead" firstAttribute="leading" secondItem="card-qa-lead" secondAttribute="leading" constant="16" id="ic-qa-lead-l"/>
+                                                            <constraint firstItem="lb-qa-lead-s" firstAttribute="leading" secondItem="lb-qa-lead-t" secondAttribute="leading" id="lb-qa-lead-s-l"/>
+                                                            <constraint firstItem="lb-qa-lead-s" firstAttribute="trailing" secondItem="lb-qa-lead-t" secondAttribute="trailing" id="lb-qa-lead-s-r"/>
+                                                            <constraint firstItem="lb-qa-lead-s" firstAttribute="top" secondItem="lb-qa-lead-t" secondAttribute="bottom" constant="2" id="lb-qa-lead-s-t"/>
+                                                            <constraint firstItem="lb-qa-lead-t" firstAttribute="leading" secondItem="ic-qa-lead" secondAttribute="trailing" constant="12" id="lb-qa-lead-t-l"/>
+                                                            <constraint firstAttribute="trailing" secondItem="lb-qa-lead-t" secondAttribute="trailing" constant="16" id="lb-qa-lead-t-r"/>
+                                                            <constraint firstItem="lb-qa-lead-t" firstAttribute="top" secondItem="card-qa-lead" secondAttribute="top" constant="12" id="lb-qa-lead-t-t"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
+                                                                <real key="value" value="16"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </view>
+                                                </subviews>
+                                            </stackView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Recent Searches" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lb-rs">
+                                                <rect key="frame" x="20" y="597.33333333333337" width="145" height="21.666666666666629"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                <color key="textColor" red="0.12941176470588237" green="0.14509803921568629" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="scrl-rs">
+                                                <rect key="frame" x="0.0" y="627" width="393" height="36"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="st-rs">
+                                                        <rect key="frame" x="20" y="0.0" width="20" height="36"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="1" id="st-rs-minw"/>
+                                                        </constraints>
+                                                    </stackView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="36" id="scrl-rs-h"/>
+                                                    <constraint firstAttribute="bottom" secondItem="st-rs" secondAttribute="bottom" id="st-rs-b"/>
+                                                    <constraint firstItem="st-rs" firstAttribute="height" secondItem="scrl-rs" secondAttribute="height" id="st-rs-h"/>
+                                                    <constraint firstItem="st-rs" firstAttribute="leading" secondItem="scrl-rs" secondAttribute="leading" constant="20" id="st-rs-l"/>
+                                                    <constraint firstAttribute="trailing" secondItem="st-rs" secondAttribute="trailing" constant="20" id="st-rs-r"/>
+                                                    <constraint firstItem="st-rs" firstAttribute="top" secondItem="scrl-rs" secondAttribute="top" id="st-rs-t"/>
+                                                </constraints>
+                                            </scrollView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Saved Properties" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lb-saved">
+                                                <rect key="frame" x="20" y="683" width="147" height="22"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="22" id="lb-saved-h"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                <color key="textColor" red="0.12941176470588237" green="0.14509803921568629" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="col-saved">
+                                                <rect key="frame" x="0.0" y="713" width="393" height="268"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="292" id="col-saved-h"/>
+                                                </constraints>
+                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="12" minimumInteritemSpacing="0.0" id="flow-saved">
+                                                    <size key="itemSize" width="236" height="284"/>
+                                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                    <inset key="sectionInset" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
+                                                </collectionViewFlowLayout>
+                                                <cells/>
+                                            </collectionView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Quick Search" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lb-rec">
+                                                <rect key="frame" x="20" y="1001" width="224" height="21.666666666666629"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                <color key="textColor" red="0.12941176470588237" green="0.14509803921568629" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="col-rec">
+                                                <rect key="frame" x="0.0" y="1030.6666666666667" width="393" height="268"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="292" id="col-rec-h"/>
+                                                </constraints>
+                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="12" minimumInteritemSpacing="0.0" id="flow-rec">
+                                                    <size key="itemSize" width="236" height="284"/>
+                                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                    <inset key="sectionInset" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
+                                                </collectionViewFlowLayout>
+                                                <cells/>
+                                            </collectionView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Recent Searches" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lb-cs">
+                                                <rect key="frame" x="20" y="1318.6666666666667" width="199.66666666666666" height="21.666666666666742"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                <color key="textColor" red="0.12941176470588237" green="0.14509803921568629" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="st-cs">
+                                                <rect key="frame" x="20" y="1348" width="353" height="8"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="st-cs-minh"/>
+                                                </constraints>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="lb-ahome-agency" firstAttribute="leading" secondItem="lb-ahome-name" secondAttribute="leading" id="c-ag-l"/>
+                                            <constraint firstItem="lb-ahome-agency" firstAttribute="trailing" secondItem="lb-ahome-name" secondAttribute="trailing" id="c-ag-r"/>
+                                            <constraint firstItem="lb-ahome-agency" firstAttribute="top" secondItem="lb-ahome-name" secondAttribute="bottom" constant="2" id="c-ag-t"/>
+                                            <constraint firstItem="lb-badge" firstAttribute="trailing" secondItem="btn-bell" secondAttribute="trailing" constant="2" id="c-badge-r"/>
+                                            <constraint firstItem="lb-badge" firstAttribute="top" secondItem="btn-bell" secondAttribute="top" constant="-2" id="c-badge-t"/>
+                                            <constraint firstItem="btn-bell" firstAttribute="centerY" secondItem="img-ahome-profile" secondAttribute="centerY" id="c-bell-cy"/>
+                                            <constraint firstAttribute="trailing" secondItem="btn-bell" secondAttribute="trailing" constant="20" id="c-bell-r"/>
+                                            <constraint firstItem="col-rec" firstAttribute="leading" secondItem="content-ahome" secondAttribute="leading" id="c-colr-l"/>
+                                            <constraint firstAttribute="trailing" secondItem="col-rec" secondAttribute="trailing" id="c-colr-r"/>
+                                            <constraint firstItem="col-rec" firstAttribute="top" secondItem="lb-rec" secondAttribute="bottom" constant="8" id="c-colr-t"/>
+                                            <constraint firstItem="col-saved" firstAttribute="leading" secondItem="content-ahome" secondAttribute="leading" id="c-cols-l"/>
+                                            <constraint firstAttribute="trailing" secondItem="col-saved" secondAttribute="trailing" id="c-cols-r"/>
+                                            <constraint firstItem="col-saved" firstAttribute="top" secondItem="lb-saved" secondAttribute="bottom" constant="8" id="c-cols-t"/>
+                                            <constraint firstItem="lb-cs" firstAttribute="leading" secondItem="lb-metrics" secondAttribute="leading" id="c-cs-l"/>
+                                            <constraint firstItem="lb-cs" firstAttribute="top" secondItem="col-rec" secondAttribute="bottom" constant="20" id="c-cs-t"/>
+                                            <constraint firstItem="img-ahome-profile" firstAttribute="leading" secondItem="content-ahome" secondAttribute="leading" constant="20" id="c-img-l"/>
+                                            <constraint firstItem="img-ahome-profile" firstAttribute="top" secondItem="content-ahome" secondAttribute="top" constant="12" id="c-img-t"/>
+                                            <constraint firstItem="lb-metrics" firstAttribute="leading" secondItem="content-ahome" secondAttribute="leading" constant="20" id="c-met-l"/>
+                                            <constraint firstAttribute="trailing" secondItem="lb-metrics" secondAttribute="trailing" constant="20" id="c-met-r"/>
+                                            <constraint firstItem="lb-metrics" firstAttribute="top" secondItem="img-ahome-profile" secondAttribute="bottom" constant="12" id="c-met-t"/>
+                                            <constraint firstItem="lb-ahome-name" firstAttribute="leading" secondItem="img-ahome-profile" secondAttribute="trailing" constant="12" id="c-name-l"/>
+                                            <constraint firstItem="btn-bell" firstAttribute="leading" secondItem="lb-ahome-name" secondAttribute="trailing" constant="8" id="c-name-r"/>
+                                            <constraint firstItem="lb-ahome-name" firstAttribute="top" secondItem="img-ahome-profile" secondAttribute="top" constant="2" id="c-name-t"/>
+                                            <constraint firstItem="lb-qa" firstAttribute="leading" secondItem="lb-metrics" secondAttribute="leading" id="c-qa-l"/>
+                                            <constraint firstItem="lb-qa" firstAttribute="top" secondItem="lb-metrics" secondAttribute="bottom" constant="18" id="c-qa-t"/>
+                                            <constraint firstItem="lb-rec" firstAttribute="leading" secondItem="lb-metrics" secondAttribute="leading" id="c-rec-l"/>
+                                            <constraint firstItem="lb-rec" firstAttribute="top" secondItem="col-saved" secondAttribute="bottom" constant="20" id="c-rec-t"/>
+                                            <constraint firstItem="lb-rs" firstAttribute="leading" secondItem="lb-metrics" secondAttribute="leading" id="c-rs-l"/>
+                                            <constraint firstItem="lb-rs" firstAttribute="top" secondItem="st-qa" secondAttribute="bottom" constant="18" id="c-rs-t"/>
+                                            <constraint firstItem="lb-saved" firstAttribute="leading" secondItem="lb-metrics" secondAttribute="leading" id="c-saved-l"/>
+                                            <constraint firstItem="lb-saved" firstAttribute="top" secondItem="scrl-rs" secondAttribute="bottom" constant="20" id="c-saved-t"/>
+                                            <constraint firstItem="scrl-rs" firstAttribute="leading" secondItem="content-ahome" secondAttribute="leading" id="c-scrlrs-l"/>
+                                            <constraint firstAttribute="trailing" secondItem="scrl-rs" secondAttribute="trailing" id="c-scrlrs-r"/>
+                                            <constraint firstItem="scrl-rs" firstAttribute="top" secondItem="lb-rs" secondAttribute="bottom" constant="8" id="c-scrlrs-t"/>
+                                            <constraint firstAttribute="bottom" secondItem="st-cs" secondAttribute="bottom" constant="24" id="c-stcs-b"/>
+                                            <constraint firstItem="st-cs" firstAttribute="leading" secondItem="lb-metrics" secondAttribute="leading" id="c-stcs-l"/>
+                                            <constraint firstItem="st-cs" firstAttribute="trailing" secondItem="lb-metrics" secondAttribute="trailing" id="c-stcs-r"/>
+                                            <constraint firstItem="st-cs" firstAttribute="top" secondItem="lb-cs" secondAttribute="bottom" constant="8" id="c-stcs-t"/>
+                                            <constraint firstItem="st-qa" firstAttribute="leading" secondItem="lb-metrics" secondAttribute="leading" id="c-stqa-l"/>
+                                            <constraint firstItem="st-qa" firstAttribute="trailing" secondItem="lb-metrics" secondAttribute="trailing" id="c-stqa-r"/>
+                                            <constraint firstItem="st-qa" firstAttribute="top" secondItem="lb-qa" secondAttribute="bottom" constant="8" id="c-stqa-t"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="content-ahome" firstAttribute="bottom" secondItem="scrl-ahome" secondAttribute="bottom" id="content-b"/>
+                                    <constraint firstItem="content-ahome" firstAttribute="leading" secondItem="scrl-ahome" secondAttribute="leading" id="content-l"/>
+                                    <constraint firstItem="content-ahome" firstAttribute="trailing" secondItem="scrl-ahome" secondAttribute="trailing" id="content-r"/>
+                                    <constraint firstItem="content-ahome" firstAttribute="top" secondItem="scrl-ahome" secondAttribute="top" id="content-t"/>
+                                    <constraint firstItem="content-ahome" firstAttribute="width" secondItem="scrl-ahome" secondAttribute="width" id="content-w"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="safe-ahome"/>
+                        <color key="backgroundColor" red="0.98039215686274506" green="0.97647058823529409" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="safe-ahome" firstAttribute="bottom" secondItem="scrl-ahome" secondAttribute="bottom" id="scrl-b"/>
+                            <constraint firstItem="scrl-ahome" firstAttribute="leading" secondItem="view-ahome" secondAttribute="leading" id="scrl-l"/>
+                            <constraint firstAttribute="trailing" secondItem="scrl-ahome" secondAttribute="trailing" id="scrl-r"/>
+                            <constraint firstItem="scrl-ahome" firstAttribute="top" secondItem="safe-ahome" secondAttribute="top" id="scrl-t"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Home" id="ni-ahome"/>
+                    <connections>
+                        <outlet property="agencyLabel" destination="lb-ahome-agency" id="out-agency"/>
+                        <outlet property="badgeLabel" destination="lb-badge" id="out-badge"/>
+                        <outlet property="bellButton" destination="btn-bell" id="out-bell"/>
+                        <outlet property="clientHost" destination="st-cs" id="out-cs"/>
+                        <outlet property="compareCardView" destination="card-qa-cmp" id="out-cmp"/>
+                        <outlet property="leadsCardView" destination="card-qa-lead" id="out-lead"/>
+                        <outlet property="marketingCardView" destination="card-qa-mkt" id="out-mkt"/>
+                        <outlet property="metricsLabel" destination="lb-metrics" id="out-metrics"/>
+                        <outlet property="nameLabel" destination="lb-ahome-name" id="out-name"/>
+                        <outlet property="profileImageView" destination="img-ahome-profile" id="out-profile"/>
+                        <outlet property="quickSearchCardView" destination="card-qa-ai" id="out-qa-ai"/>
+                        <outlet property="recentHost" destination="st-rs" id="out-rs"/>
+                        <outlet property="recommendedAfterSaved" destination="c-rec-t" id="out-rec-after"/>
+                        <outlet property="recommendedCollection" destination="col-rec" id="out-rec"/>
+                        <outlet property="recommendedTitleLabel" destination="lb-rec" id="out-rec-title"/>
+                        <outlet property="reportCardView" destination="card-qa-rep" id="out-rep-card"/>
+                        <outlet property="savedCollection" destination="col-saved" id="out-saved"/>
+                        <outlet property="savedCollectionHeight" destination="col-saved-h" id="out-saved-h"/>
+                        <outlet property="savedCollectionTop" destination="c-cols-t" id="out-saved-top"/>
+                        <outlet property="savedTitleHeight" destination="lb-saved-h" id="out-saved-th"/>
+                        <outlet property="savedTitleLabel" destination="lb-saved" id="out-saved-title"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fr-ahome" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="20" y="0.0"/>
+        </scene>
+        <!--Inventory-->
+        <scene sceneID="scene-asearch">
+            <objects>
+                <viewController storyboardIdentifier="AgentSearchVC" id="vc-asearch" customClass="AgentSearchVC" customModule="AIPoweredRealEstate" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="view-asearch">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Inventory" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lb-inv">
+                                <rect key="frame" x="20.000000000000007" y="71" width="124.66666666666669" height="33.666666666666657"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                                <color key="textColor" red="0.12941176470588237" green="0.14509803921568629" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btn-ai-inv">
+                                <rect key="frame" x="333" y="68" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="btn-ai-inv-h"/>
+                                    <constraint firstAttribute="width" constant="40" id="btn-ai-inv-w"/>
+                                </constraints>
+                                <color key="tintColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" image="sparkles" catalog="system"/>
+                                <connections>
+                                    <action selector="aiSearchTapped:" destination="vc-asearch" eventType="touchUpInside" id="act-ai-inv"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Client brief, location, or portal" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tf-inv" customClass="CustomTextField" customModule="AIPoweredRealEstate" customModuleProvider="target">
+                                <rect key="frame" x="20" y="118.66666666666669" width="353" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="tf-inv-h"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
+                                        <real key="value" value="12"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="leftPadding">
+                                        <real key="value" value="14"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Portals" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lb-portals">
+                                <rect key="frame" x="20" y="178.66666666666666" width="45" height="15.666666666666657"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                <color key="textColor" red="0.42352941176470588" green="0.45882352941176469" blue="0.49019607843137253" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="scrl-src">
+                                <rect key="frame" x="0.0" y="202.33333333333334" width="393" height="36"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="st-src">
+                                        <rect key="frame" x="20" y="0.0" width="20" height="36"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="1" id="st-src-minw"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="scrl-src-h"/>
+                                    <constraint firstAttribute="bottom" secondItem="st-src" secondAttribute="bottom" id="st-src-b"/>
+                                    <constraint firstItem="st-src" firstAttribute="height" secondItem="scrl-src" secondAttribute="height" id="st-src-hh"/>
+                                    <constraint firstItem="st-src" firstAttribute="leading" secondItem="scrl-src" secondAttribute="leading" constant="20" id="st-src-l"/>
+                                    <constraint firstAttribute="trailing" secondItem="st-src" secondAttribute="trailing" constant="20" id="st-src-r"/>
+                                    <constraint firstItem="st-src" firstAttribute="top" secondItem="scrl-src" secondAttribute="top" id="st-src-t"/>
+                                </constraints>
+                            </scrollView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="st-chips">
+                                <rect key="frame" x="20" y="250.33333333333337" width="353" height="36"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btn-buy">
+                                        <rect key="frame" x="0.0" y="0.0" width="83.666666666666671" height="36"/>
+                                        <state key="normal" title="Buy"/>
+                                        <connections>
+                                            <action selector="listingTapped:" destination="vc-asearch" eventType="touchUpInside" id="act-buy"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btn-rent">
+                                        <rect key="frame" x="89.666666666666686" y="0.0" width="84" height="36"/>
+                                        <state key="normal" title="Rent"/>
+                                        <connections>
+                                            <action selector="listingTapped:" destination="vc-asearch" eventType="touchUpInside" id="act-rent"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btn-filters">
+                                        <rect key="frame" x="179.66666666666666" y="0.0" width="83.666666666666657" height="36"/>
+                                        <state key="normal" title="Filters"/>
+                                        <connections>
+                                            <action selector="filtersTapped:" destination="vc-asearch" eventType="touchUpInside" id="act-filters"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btn-sort">
+                                        <rect key="frame" x="269.33333333333331" y="0.0" width="83.666666666666686" height="36"/>
+                                        <state key="normal" title="Sort"/>
+                                        <connections>
+                                            <action selector="sortTapped:" destination="vc-asearch" eventType="touchUpInside" id="act-sort"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="st-chips-h"/>
+                                </constraints>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="0 listings" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lb-count">
+                                <rect key="frame" x="20" y="298.33333333333331" width="65.333333333333329" height="18"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                <color key="textColor" red="0.12941176470588237" green="0.14509803921568629" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btn-save-client">
+                                <rect key="frame" x="277" y="293" width="96" height="29"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                <state key="normal" title="Save for client">
+                                    <color key="titleColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="saveForClientTapped:" destination="vc-asearch" eventType="touchUpInside" id="act-save-client"/>
+                                </connections>
+                            </button>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="col-inv">
+                                <rect key="frame" x="0.0" y="328.33333333333326" width="393" height="440.66666666666674"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="14" minimumInteritemSpacing="0.0" id="flow-inv">
+                                    <size key="itemSize" width="360" height="292"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="No listings match this inventory search." textAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lb-empty-inv">
+                                <rect key="frame" x="58.333333333333343" y="368.33333333333331" width="276.66666666666663" height="18"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                <color key="textColor" red="0.42352941176470588" green="0.45882352941176469" blue="0.49019607843137253" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="safe-asearch"/>
+                        <color key="backgroundColor" red="0.98039215686274506" green="0.97647058823529409" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="lb-inv" firstAttribute="leading" secondItem="safe-asearch" secondAttribute="leading" constant="20" id="c1"/>
+                            <constraint firstItem="scrl-src" firstAttribute="leading" secondItem="view-asearch" secondAttribute="leading" id="c10"/>
+                            <constraint firstItem="scrl-src" firstAttribute="trailing" secondItem="view-asearch" secondAttribute="trailing" id="c11"/>
+                            <constraint firstItem="scrl-src" firstAttribute="top" secondItem="lb-portals" secondAttribute="bottom" constant="8" id="c12"/>
+                            <constraint firstItem="st-chips" firstAttribute="leading" secondItem="tf-inv" secondAttribute="leading" id="c13"/>
+                            <constraint firstItem="st-chips" firstAttribute="trailing" secondItem="tf-inv" secondAttribute="trailing" id="c14"/>
+                            <constraint firstItem="st-chips" firstAttribute="top" secondItem="scrl-src" secondAttribute="bottom" constant="12" id="c15"/>
+                            <constraint firstItem="lb-count" firstAttribute="leading" secondItem="tf-inv" secondAttribute="leading" id="c16"/>
+                            <constraint firstItem="lb-count" firstAttribute="top" secondItem="st-chips" secondAttribute="bottom" constant="12" id="c17"/>
+                            <constraint firstItem="btn-save-client" firstAttribute="trailing" secondItem="tf-inv" secondAttribute="trailing" id="c18"/>
+                            <constraint firstItem="btn-save-client" firstAttribute="centerY" secondItem="lb-count" secondAttribute="centerY" id="c19"/>
+                            <constraint firstItem="lb-inv" firstAttribute="top" secondItem="safe-asearch" secondAttribute="top" constant="12" id="c2"/>
+                            <constraint firstItem="col-inv" firstAttribute="leading" secondItem="view-asearch" secondAttribute="leading" id="c20"/>
+                            <constraint firstItem="col-inv" firstAttribute="trailing" secondItem="view-asearch" secondAttribute="trailing" id="c21"/>
+                            <constraint firstItem="col-inv" firstAttribute="top" secondItem="lb-count" secondAttribute="bottom" constant="12" id="c22"/>
+                            <constraint firstItem="safe-asearch" firstAttribute="bottom" secondItem="col-inv" secondAttribute="bottom" id="c23"/>
+                            <constraint firstItem="lb-empty-inv" firstAttribute="centerX" secondItem="col-inv" secondAttribute="centerX" id="c24"/>
+                            <constraint firstItem="lb-empty-inv" firstAttribute="top" secondItem="col-inv" secondAttribute="top" constant="40" id="c25"/>
+                            <constraint firstItem="btn-ai-inv" firstAttribute="centerY" secondItem="lb-inv" secondAttribute="centerY" id="c3"/>
+                            <constraint firstItem="safe-asearch" firstAttribute="trailing" secondItem="btn-ai-inv" secondAttribute="trailing" constant="20" id="c4"/>
+                            <constraint firstItem="tf-inv" firstAttribute="leading" secondItem="lb-inv" secondAttribute="leading" id="c5"/>
+                            <constraint firstItem="tf-inv" firstAttribute="trailing" secondItem="btn-ai-inv" secondAttribute="trailing" id="c6"/>
+                            <constraint firstItem="tf-inv" firstAttribute="top" secondItem="lb-inv" secondAttribute="bottom" constant="14" id="c7"/>
+                            <constraint firstItem="lb-portals" firstAttribute="leading" secondItem="tf-inv" secondAttribute="leading" id="c8"/>
+                            <constraint firstItem="lb-portals" firstAttribute="top" secondItem="tf-inv" secondAttribute="bottom" constant="12" id="c9"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Inventory" id="ni-asearch"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="buyButton" destination="btn-buy" id="o-buy"/>
+                        <outlet property="collectionView" destination="col-inv" id="o-col"/>
+                        <outlet property="countLabel" destination="lb-count" id="o-count"/>
+                        <outlet property="emptyLabel" destination="lb-empty-inv" id="o-empty"/>
+                        <outlet property="filtersButton" destination="btn-filters" id="o-filters"/>
+                        <outlet property="keywordField" destination="tf-inv" id="o-kw"/>
+                        <outlet property="rentButton" destination="btn-rent" id="o-rent"/>
+                        <outlet property="saveClientButton" destination="btn-save-client" id="o-save"/>
+                        <outlet property="sortButton" destination="btn-sort" id="o-sort"/>
+                        <outlet property="sourceStack" destination="st-src" id="o-src"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fr-asearch" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="820" y="0.0"/>
+        </scene>
+        <!--Workspace-->
+        <scene sceneID="scene-asaved">
+            <objects>
+                <viewController storyboardIdentifier="AgentSavedVC" id="vc-asaved" customClass="AgentSavedVC" customModule="AIPoweredRealEstate" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="view-asaved">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Workspace" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lb-ws">
+                                <rect key="frame" x="20" y="71" width="147" height="34"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                                <color key="textColor" red="0.12941176470588237" green="0.14509803921568629" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btn-add-ws">
+                                <rect key="frame" x="333" y="68" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="btn-add-ws-h"/>
+                                    <constraint firstAttribute="width" constant="40" id="btn-add-ws-w"/>
+                                </constraints>
+                                <color key="tintColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" image="plus" catalog="system"/>
+                                <connections>
+                                    <action selector="addClientTapped:" destination="vc-asaved" eventType="touchUpInside" id="act-add-ws"/>
+                                </connections>
+                            </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="seg-ws">
+                                <rect key="frame" x="20" y="119" width="353" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="seg-ws-h"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Properties"/>
+                                    <segment title="Searches"/>
+                                    <segment title="Compare"/>
+                                </segments>
+                                <connections>
+                                    <action selector="segmentChanged:" destination="vc-asaved" eventType="valueChanged" id="act-seg-ws"/>
+                                </connections>
+                            </segmentedControl>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="col-ws">
+                                <rect key="frame" x="0.0" y="167" width="393" height="602"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="14" minimumInteritemSpacing="0.0" id="flow-ws">
+                                    <size key="itemSize" width="360" height="292"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" sectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="tv-ws">
+                                <rect key="frame" x="0.0" y="167" width="393" height="602"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="lb-empty-ws">
+                                <rect key="frame" x="32" y="201" width="329" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                <color key="textColor" red="0.42352941176470588" green="0.45882352941176469" blue="0.49019607843137253" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btn-report-ws">
+                                <rect key="frame" x="20" y="670" width="353" height="29"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                <state key="normal" title="Create client report">
+                                    <color key="titleColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="openReport:" destination="vc-asaved" eventType="touchUpInside" id="act-report-ws"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btn-cmp-ws" customClass="CustomButton" customModule="AIPoweredRealEstate" customModuleProvider="target">
+                                <rect key="frame" x="20" y="707" width="353" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="btn-cmp-ws-h"/>
+                                </constraints>
+                                <state key="normal" title="Compare">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
+                                        <real key="value" value="14"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="openComparison:" destination="vc-asaved" eventType="touchUpInside" id="act-cmp-ws"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="safe-asaved"/>
+                        <color key="backgroundColor" red="0.98039215686274506" green="0.97647058823529409" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="lb-ws" firstAttribute="leading" secondItem="safe-asaved" secondAttribute="leading" constant="20" id="ws1"/>
+                            <constraint firstItem="col-ws" firstAttribute="top" secondItem="seg-ws" secondAttribute="bottom" constant="14" id="ws10"/>
+                            <constraint firstItem="safe-asaved" firstAttribute="bottom" secondItem="col-ws" secondAttribute="bottom" id="ws11"/>
+                            <constraint firstItem="tv-ws" firstAttribute="leading" secondItem="col-ws" secondAttribute="leading" id="ws12"/>
+                            <constraint firstItem="tv-ws" firstAttribute="trailing" secondItem="col-ws" secondAttribute="trailing" id="ws13"/>
+                            <constraint firstItem="tv-ws" firstAttribute="top" secondItem="col-ws" secondAttribute="top" id="ws14"/>
+                            <constraint firstItem="tv-ws" firstAttribute="bottom" secondItem="col-ws" secondAttribute="bottom" id="ws15"/>
+                            <constraint firstItem="lb-empty-ws" firstAttribute="leading" secondItem="view-asaved" secondAttribute="leading" constant="32" id="ws16"/>
+                            <constraint firstItem="lb-empty-ws" firstAttribute="trailing" secondItem="view-asaved" secondAttribute="trailing" constant="-32" id="ws17"/>
+                            <constraint firstItem="lb-empty-ws" firstAttribute="top" secondItem="seg-ws" secondAttribute="bottom" constant="48" id="ws18"/>
+                            <constraint firstItem="btn-cmp-ws" firstAttribute="leading" secondItem="seg-ws" secondAttribute="leading" id="ws19"/>
+                            <constraint firstItem="lb-ws" firstAttribute="top" secondItem="safe-asaved" secondAttribute="top" constant="12" id="ws2"/>
+                            <constraint firstItem="btn-cmp-ws" firstAttribute="trailing" secondItem="seg-ws" secondAttribute="trailing" id="ws20"/>
+                            <constraint firstItem="safe-asaved" firstAttribute="bottom" secondItem="btn-cmp-ws" secondAttribute="bottom" constant="12" id="ws21"/>
+                            <constraint firstItem="btn-report-ws" firstAttribute="leading" secondItem="btn-cmp-ws" secondAttribute="leading" id="ws22"/>
+                            <constraint firstItem="btn-report-ws" firstAttribute="trailing" secondItem="btn-cmp-ws" secondAttribute="trailing" id="ws23"/>
+                            <constraint firstItem="btn-cmp-ws" firstAttribute="top" secondItem="btn-report-ws" secondAttribute="bottom" constant="8" id="ws24"/>
+                            <constraint firstItem="btn-add-ws" firstAttribute="centerY" secondItem="lb-ws" secondAttribute="centerY" id="ws3"/>
+                            <constraint firstItem="safe-asaved" firstAttribute="trailing" secondItem="btn-add-ws" secondAttribute="trailing" constant="20" id="ws4"/>
+                            <constraint firstItem="seg-ws" firstAttribute="leading" secondItem="lb-ws" secondAttribute="leading" id="ws5"/>
+                            <constraint firstItem="seg-ws" firstAttribute="trailing" secondItem="btn-add-ws" secondAttribute="trailing" id="ws6"/>
+                            <constraint firstItem="seg-ws" firstAttribute="top" secondItem="lb-ws" secondAttribute="bottom" constant="14" id="ws7"/>
+                            <constraint firstItem="col-ws" firstAttribute="leading" secondItem="view-asaved" secondAttribute="leading" id="ws8"/>
+                            <constraint firstItem="col-ws" firstAttribute="trailing" secondItem="view-asaved" secondAttribute="trailing" id="ws9"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Workspace" id="ni-asaved"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="addButton" destination="btn-add-ws" id="o-add"/>
+                        <outlet property="collectionView" destination="col-ws" id="o-col-ws"/>
+                        <outlet property="compareButton" destination="btn-cmp-ws" id="o-cmp-ws"/>
+                        <outlet property="emptyLabel" destination="lb-empty-ws" id="o-empty-ws"/>
+                        <outlet property="reportButton" destination="btn-report-ws" id="o-rep-ws"/>
+                        <outlet property="segment" destination="seg-ws" id="o-seg-ws"/>
+                        <outlet property="tableView" destination="tv-ws" id="o-tv-ws"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fr-asaved" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="820" y="720"/>
+        </scene>
+        <!--Profile-->
+        <scene sceneID="scene-aprofile">
+            <objects>
+                <viewController storyboardIdentifier="AgentProfileVC" id="vc-aprofile" customClass="AgentProfileVC" customModule="AIPoweredRealEstate" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="view-aprofile">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Profile" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lb-pr">
+                                <rect key="frame" x="20" y="71" width="85" height="34"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                                <color key="textColor" red="0.12941176470588237" green="0.14509803921568629" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="card-pr" customClass="CustomView" customModule="AIPoweredRealEstate" customModuleProvider="target">
+                                <rect key="frame" x="20" y="121" width="353" height="88"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="img-pr">
+                                        <rect key="frame" x="16" y="16" width="56" height="56"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="56" id="img-pr-h"/>
+                                            <constraint firstAttribute="width" constant="56" id="img-pr-w"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lb-pr-name">
+                                        <rect key="frame" x="84" y="20" width="253" height="24"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <color key="textColor" red="0.12941176470588237" green="0.14509803921568629" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" numberOfLines="2" translatesAutoresizingMaskIntoConstraints="NO" id="lb-pr-ag">
+                                        <rect key="frame" x="84" y="44" width="253" height="15.666666666666664"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" red="0.42352941176470588" green="0.45882352941176469" blue="0.49019607843137253" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="88" id="card-pr-h"/>
+                                    <constraint firstItem="img-pr" firstAttribute="centerY" secondItem="card-pr" secondAttribute="centerY" id="img-pr-cy"/>
+                                    <constraint firstItem="img-pr" firstAttribute="leading" secondItem="card-pr" secondAttribute="leading" constant="16" id="img-pr-l"/>
+                                    <constraint firstItem="lb-pr-ag" firstAttribute="leading" secondItem="lb-pr-name" secondAttribute="leading" id="lb-pr-ag-l"/>
+                                    <constraint firstItem="lb-pr-ag" firstAttribute="trailing" secondItem="lb-pr-name" secondAttribute="trailing" id="lb-pr-ag-r"/>
+                                    <constraint firstItem="lb-pr-ag" firstAttribute="top" secondItem="lb-pr-name" secondAttribute="bottom" constant="2" id="lb-pr-ag-t"/>
+                                    <constraint firstItem="lb-pr-name" firstAttribute="leading" secondItem="img-pr" secondAttribute="trailing" constant="12" id="lb-pr-name-l"/>
+                                    <constraint firstAttribute="trailing" secondItem="lb-pr-name" secondAttribute="trailing" constant="16" id="lb-pr-name-r"/>
+                                    <constraint firstItem="lb-pr-name" firstAttribute="top" secondItem="card-pr" secondAttribute="top" constant="20" id="lb-pr-name-t"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
+                                        <real key="value" value="18"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="54" sectionHeaderHeight="-1" sectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="tv-pr">
+                                <rect key="frame" x="0.0" y="217" width="393" height="552"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="safe-aprofile"/>
+                        <color key="backgroundColor" red="0.98039215686274506" green="0.97647058823529409" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="lb-pr" firstAttribute="leading" secondItem="safe-aprofile" secondAttribute="leading" constant="20" id="pr1"/>
+                            <constraint firstItem="lb-pr" firstAttribute="top" secondItem="safe-aprofile" secondAttribute="top" constant="12" id="pr2"/>
+                            <constraint firstItem="card-pr" firstAttribute="leading" secondItem="lb-pr" secondAttribute="leading" id="pr3"/>
+                            <constraint firstItem="safe-aprofile" firstAttribute="trailing" secondItem="card-pr" secondAttribute="trailing" constant="20" id="pr4"/>
+                            <constraint firstItem="card-pr" firstAttribute="top" secondItem="lb-pr" secondAttribute="bottom" constant="16" id="pr5"/>
+                            <constraint firstItem="tv-pr" firstAttribute="leading" secondItem="view-aprofile" secondAttribute="leading" id="pr6"/>
+                            <constraint firstItem="tv-pr" firstAttribute="trailing" secondItem="view-aprofile" secondAttribute="trailing" id="pr7"/>
+                            <constraint firstItem="tv-pr" firstAttribute="top" secondItem="card-pr" secondAttribute="bottom" constant="8" id="pr8"/>
+                            <constraint firstItem="safe-aprofile" firstAttribute="bottom" secondItem="tv-pr" secondAttribute="bottom" id="pr9"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Profile" id="ni-aprofile"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="agencyLabel" destination="lb-pr-ag" id="o-pr-ag"/>
+                        <outlet property="nameLabel" destination="lb-pr-name" id="o-pr-name"/>
+                        <outlet property="photoView" destination="img-pr" id="o-pr-photo"/>
+                        <outlet property="profileCardView" destination="card-pr" id="o-pr-card"/>
+                        <outlet property="tableView" destination="tv-pr" id="o-pr-tv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fr-aprofile" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="820" y="1440"/>
+        </scene>
+        <!--Notifications-->
+        <scene sceneID="scene-anotif">
+            <objects>
+                <viewController storyboardIdentifier="AgentNotificationsVC" id="vc-anotif" customClass="AgentNotificationsVC" customModule="AIPoweredRealEstate" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="view-anotif">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="0.0" sectionFooterHeight="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="tv-notif">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <color key="backgroundColor" red="0.98039215686274506" green="0.97647058823529409" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="safe-anotif"/>
+                        <color key="backgroundColor" red="0.98039215686274506" green="0.97647058823529409" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="tv-notif" firstAttribute="top" secondItem="view-anotif" secondAttribute="top" id="n1"/>
+                            <constraint firstItem="tv-notif" firstAttribute="leading" secondItem="view-anotif" secondAttribute="leading" id="n2"/>
+                            <constraint firstItem="tv-notif" firstAttribute="trailing" secondItem="view-anotif" secondAttribute="trailing" id="n3"/>
+                            <constraint firstItem="tv-notif" firstAttribute="bottom" secondItem="view-anotif" secondAttribute="bottom" id="n4"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Notifications" id="ni-anotif"/>
+                    <connections>
+                        <outlet property="tableView" destination="tv-notif" id="o-notif"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fr-anotif" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1620" y="-720"/>
+        </scene>
+        <!--Leads-->
+        <scene sceneID="scene-aleads">
+            <objects>
+                <viewController storyboardIdentifier="AgentLeadsVC" id="vc-aleads" customClass="AgentLeadsVC" customModule="AIPoweredRealEstate" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="view-aleads">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="tv-leads">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <color key="backgroundColor" red="0.98039215686274506" green="0.97647058823529409" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="No buyer enquiries yet." textAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lb-leads-empty">
+                                <rect key="frame" x="115.33333333333333" y="99" width="162.66666666666669" height="18"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                <color key="textColor" red="0.42352941176470588" green="0.45882352941176469" blue="0.49019607843137253" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="safe-aleads"/>
+                        <color key="backgroundColor" red="0.98039215686274506" green="0.97647058823529409" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="tv-leads" firstAttribute="top" secondItem="view-aleads" secondAttribute="top" id="ld1"/>
+                            <constraint firstItem="tv-leads" firstAttribute="leading" secondItem="view-aleads" secondAttribute="leading" id="ld2"/>
+                            <constraint firstItem="tv-leads" firstAttribute="trailing" secondItem="view-aleads" secondAttribute="trailing" id="ld3"/>
+                            <constraint firstItem="tv-leads" firstAttribute="bottom" secondItem="view-aleads" secondAttribute="bottom" id="ld4"/>
+                            <constraint firstItem="lb-leads-empty" firstAttribute="centerX" secondItem="view-aleads" secondAttribute="centerX" id="ld5"/>
+                            <constraint firstItem="lb-leads-empty" firstAttribute="top" secondItem="safe-aleads" secondAttribute="top" constant="40" id="ld6"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Leads" id="ni-aleads"/>
+                    <connections>
+                        <outlet property="emptyLabel" destination="lb-leads-empty" id="o-leads-empty"/>
+                        <outlet property="tableView" destination="tv-leads" id="o-leads-tv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fr-aleads" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1620" y="720"/>
+        </scene>
+        <!--Edit Profile-->
+        <scene sceneID="scene-aedit">
+            <objects>
+                <viewController storyboardIdentifier="AgentEditProfileVC" id="vc-aedit" customClass="TenantEditProfileVC" customModule="AIPoweredRealEstate" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="view-aedit">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="scroll-aedit">
+                                <rect key="frame" x="0.0" y="59" width="393" height="793"/>
+                                <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="st-edit">
+                                <rect key="frame" x="20" y="79" width="353" height="446"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="img-edit">
+                                        <rect key="frame" x="128.66666666666666" y="0.0" width="96" height="96"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="96" id="img-edit-h"/>
+                                            <constraint firstAttribute="width" constant="96" id="img-edit-w"/>
+                                        </constraints>
+                                    </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="card-edit" customClass="CustomView" customModule="AIPoweredRealEstate" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="116" width="353" height="260"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="st-edit-fields">
+                                                <rect key="frame" x="16" y="16" width="321" height="228"/>
+                                                <subviews>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Full name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tf-name" customClass="CustomTextField" customModule="AIPoweredRealEstate" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="321" height="48"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="48" id="tf-name-h"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
+                                                                <real key="value" value="12"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="leftPadding">
+                                                                <real key="value" value="14"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </textField>
+                                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Agency" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tf-agency" customClass="CustomTextField" customModule="AIPoweredRealEstate" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="60" width="321" height="48"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="48" id="tf-agency-h"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
+                                                                <real key="value" value="12"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="leftPadding">
+                                                                <real key="value" value="14"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </textField>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tf-email" customClass="CustomTextField" customModule="AIPoweredRealEstate" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="120" width="321" height="48"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="48" id="tf-email-h"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
+                                                                <real key="value" value="12"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="leftPadding">
+                                                                <real key="value" value="14"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </textField>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="License number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tf-license" customClass="CustomTextField" customModule="AIPoweredRealEstate" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="180" width="321" height="48"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="48" id="tf-license-h"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
+                                                                <real key="value" value="12"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="leftPadding">
+                                                                <real key="value" value="14"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </textField>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Document" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lb-aedit-doc">
+                                                        <rect key="frame" x="0.0" y="228" width="321" height="18"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                        <color key="textColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btn-aedit-doc">
+                                                        <rect key="frame" x="0.0" y="240" width="321" height="148"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="148" id="btn-aedit-doc-h"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                        <state key="normal" title="Upload license document">
+                                                            <color key="titleColor" red="0.66000000000000003" green="0.68000000000000005" blue="0.69999999999999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="pickDocumentTapped:" destination="vc-aedit" eventType="touchUpInside" id="act-aedit-doc"/>
+                                                        </connections>
+                                                    </button>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Phone" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tf-phone" customClass="CustomTextField" customModule="AIPoweredRealEstate" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="180" width="321" height="48"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="48" id="tf-phone-h"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
+                                                                <real key="value" value="12"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="leftPadding">
+                                                                <real key="value" value="14"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </textField>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="st-edit-fields" firstAttribute="top" secondItem="card-edit" secondAttribute="top" constant="16" id="cef1"/>
+                                            <constraint firstItem="st-edit-fields" firstAttribute="leading" secondItem="card-edit" secondAttribute="leading" constant="16" id="cef2"/>
+                                            <constraint firstAttribute="trailing" secondItem="st-edit-fields" secondAttribute="trailing" constant="16" id="cef3"/>
+                                            <constraint firstAttribute="bottom" secondItem="st-edit-fields" secondAttribute="bottom" constant="16" id="cef4"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btn-save-edit" customClass="CustomButton" customModule="AIPoweredRealEstate" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="396" width="353" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="btn-save-edit-h"/>
+                                        </constraints>
+                                        <state key="normal" title="Save">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
+                                                <real key="value" value="14"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="saveTapped:" destination="vc-aedit" eventType="touchUpInside" id="act-save-edit"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="card-edit" firstAttribute="leading" secondItem="st-edit" secondAttribute="leading" id="stc1"/>
+                                    <constraint firstItem="card-edit" firstAttribute="trailing" secondItem="st-edit" secondAttribute="trailing" id="stc2"/>
+                                    <constraint firstItem="btn-save-edit" firstAttribute="leading" secondItem="st-edit" secondAttribute="leading" id="stc3"/>
+                                    <constraint firstItem="btn-save-edit" firstAttribute="trailing" secondItem="st-edit" secondAttribute="trailing" id="stc4"/>
+                                </constraints>
+                            </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="st-edit" firstAttribute="top" secondItem="scroll-aedit" secondAttribute="top" constant="20" id="sc-aedit-t"/>
+                                    <constraint firstItem="st-edit" firstAttribute="leading" secondItem="scroll-aedit" secondAttribute="leading" constant="20" id="sc-aedit-l"/>
+                                    <constraint firstItem="scroll-aedit" firstAttribute="trailing" secondItem="st-edit" secondAttribute="trailing" constant="20" id="sc-aedit-r"/>
+                                    <constraint firstItem="scroll-aedit" firstAttribute="bottom" secondItem="st-edit" secondAttribute="bottom" constant="20" id="sc-aedit-b"/>
+                                    <constraint firstItem="st-edit" firstAttribute="width" secondItem="scroll-aedit" secondAttribute="width" constant="-40" id="sc-aedit-w"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="safe-aedit"/>
+                        <color key="backgroundColor" red="0.98039215686274506" green="0.97647058823529409" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="scroll-aedit" firstAttribute="top" secondItem="safe-aedit" secondAttribute="top" id="ed1"/>
+                            <constraint firstItem="scroll-aedit" firstAttribute="leading" secondItem="safe-aedit" secondAttribute="leading" id="ed2"/>
+                            <constraint firstItem="safe-aedit" firstAttribute="trailing" secondItem="scroll-aedit" secondAttribute="trailing" id="ed3"/>
+                            <constraint firstItem="safe-aedit" firstAttribute="bottom" secondItem="scroll-aedit" secondAttribute="bottom" id="ed4"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Edit Profile" id="ni-aedit"/>
+                    <connections>
+                        <outlet property="agencyField" destination="tf-agency" id="o-ag"/>
+                        <outlet property="documentButton" destination="btn-aedit-doc" id="o-doc"/>
+                        <outlet property="documentTitleLabel" destination="lb-aedit-doc" id="o-doc-title"/>
+                        <outlet property="emailField" destination="tf-email" id="o-em"/>
+                        <outlet property="formCardView" destination="card-edit" id="o-card"/>
+                        <outlet property="licenseField" destination="tf-license" id="o-lic"/>
+                        <outlet property="nameField" destination="tf-name" id="o-nm"/>
+                        <outlet property="phoneField" destination="tf-phone" id="o-ph"/>
+                        <outlet property="photoView" destination="img-edit" id="o-photo"/>
+                        <outlet property="saveButton" destination="btn-save-edit" id="o-sv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fr-aedit" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1620" y="1440"/>
+        </scene>
+        <!--Marketing-->
+        <scene sceneID="scene-amkt">
+            <objects>
+                <viewController storyboardIdentifier="AgentMarketingVC" id="vc-amkt" customClass="AgentMarketingVC" customModule="AIPoweredRealEstate" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="view-amkt">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="st-mkt">
+                                <rect key="frame" x="20" y="74.999999999999972" width="353" height="477.33333333333326"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Generate a listing description, Instagram caption, WhatsApp message, email, or a client-facing report." lineBreakMode="tailTruncation" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="lb-mkt-hint">
+                                        <rect key="frame" x="0.0" y="0.0" width="353" height="31.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" red="0.42352941176470588" green="0.45882352941176469" blue="0.49019607843137253" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btn-pick">
+                                        <rect key="frame" x="0.0" y="45.333333333333329" width="353" height="48"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="btn-pick-h"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                        <state key="normal" title="Select a property">
+                                            <color key="titleColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="pickProperty:" destination="vc-amkt" eventType="touchUpInside" id="act-pick"/>
+                                        </connections>
+                                    </button>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="seg-ch">
+                                        <rect key="frame" x="0.0" y="107.33333333333334" width="353" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="34" id="seg-ch-h"/>
+                                        </constraints>
+                                        <segments>
+                                            <segment title="Listing"/>
+                                            <segment title="Instagram"/>
+                                            <segment title="WhatsApp"/>
+                                            <segment title="Email"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="generate" destination="vc-amkt" eventType="valueChanged" id="act-ch"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btn-gen" customClass="CustomButton" customModule="AIPoweredRealEstate" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="155.33333333333334" width="353" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="btn-gen-h"/>
+                                        </constraints>
+                                        <state key="normal" title="Generate">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
+                                                <real key="value" value="14"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="generate" destination="vc-amkt" eventType="touchUpInside" id="act-gen"/>
+                                        </connections>
+                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="st-share">
+                                        <rect key="frame" x="0.0" y="219.33333333333331" width="353" height="44"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btn-copy">
+                                                <rect key="frame" x="0.0" y="0.0" width="171.66666666666666" height="44"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                <state key="normal" title="Copy">
+                                                    <color key="titleColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="copyTapped:" destination="vc-amkt" eventType="touchUpInside" id="act-copy"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btn-share">
+                                                <rect key="frame" x="181.66666666666663" y="0.0" width="171.33333333333337" height="44"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                <state key="normal" title="Share / send">
+                                                    <color key="titleColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="shareTapped:" destination="vc-amkt" eventType="touchUpInside" id="act-share"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="st-share-h"/>
+                                        </constraints>
+                                    </stackView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="card-mkt" customClass="CustomView" customModule="AIPoweredRealEstate" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="277.33333333333331" width="353" height="200"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Pick a listing, choose Instagram, WhatsApp, Email or listing copy, then generate." lineBreakMode="tailTruncation" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="lb-result">
+                                                <rect key="frame" x="16" y="16" width="321" height="168"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" red="0.12941176470588237" green="0.14509803921568629" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="160" id="card-mkt-h"/>
+                                            <constraint firstItem="lb-result" firstAttribute="top" secondItem="card-mkt" secondAttribute="top" constant="16" id="lr1"/>
+                                            <constraint firstItem="lb-result" firstAttribute="leading" secondItem="card-mkt" secondAttribute="leading" constant="16" id="lr2"/>
+                                            <constraint firstAttribute="trailing" secondItem="lb-result" secondAttribute="trailing" constant="16" id="lr3"/>
+                                            <constraint firstAttribute="bottom" secondItem="lb-result" secondAttribute="bottom" constant="16" id="lr4"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="safe-amkt"/>
+                        <color key="backgroundColor" red="0.98039215686274506" green="0.97647058823529409" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="st-mkt" firstAttribute="top" secondItem="safe-amkt" secondAttribute="top" constant="16" id="m1"/>
+                            <constraint firstItem="st-mkt" firstAttribute="leading" secondItem="safe-amkt" secondAttribute="leading" constant="20" id="m2"/>
+                            <constraint firstItem="safe-amkt" firstAttribute="trailing" secondItem="st-mkt" secondAttribute="trailing" constant="20" id="m3"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Marketing" id="ni-amkt"/>
+                    <connections>
+                        <outlet property="channelControl" destination="seg-ch" id="o-ch"/>
+                        <outlet property="copyButton" destination="btn-copy" id="o-copy"/>
+                        <outlet property="generateButton" destination="btn-gen" id="o-gen"/>
+                        <outlet property="pickerButton" destination="btn-pick" id="o-pick"/>
+                        <outlet property="resultCardView" destination="card-mkt" id="o-rcard"/>
+                        <outlet property="resultLabel" destination="lb-result" id="o-res"/>
+                        <outlet property="shareButton" destination="btn-share" id="o-share"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fr-amkt" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1620" y="0.0"/>
+        </scene>
+        <!--Listing-->
+        <scene sceneID="scene-adet">
+            <objects>
+                <viewController storyboardIdentifier="AgentPropertyDetailsVC" id="vc-adet" customClass="AgentPropertyDetailsVC" customModule="AIPoweredRealEstate" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="view-adet">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="scrl-adet">
+                                <rect key="frame" x="0.0" y="59" width="393" height="793"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="st-adet">
+                                        <rect key="frame" x="20" y="16" width="353" height="691.66666666666663"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="img-adet">
+                                                <rect key="frame" x="0.0" y="0.0" width="353" height="220"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="220" id="img-adet-h"/>
+                                                </constraints>
+                                            </imageView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btn-fav">
+                                                <rect key="frame" x="0.0" y="232" width="353" height="36"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="36" id="btn-fav-h"/>
+                                                </constraints>
+                                                <state key="normal" image="heart" catalog="system"/>
+                                                <connections>
+                                                    <action selector="favoriteTapped:" destination="vc-adet" eventType="touchUpInside" id="act-fav-ad"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="  Buy · Villa  " textAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lb-type">
+                                                <rect key="frame" x="0.0" y="280" width="353" height="14.333333333333314"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
+                                                <color key="textColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="$0" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lb-price">
+                                                <rect key="frame" x="0.0" y="306.33333333333331" width="353" height="28.666666666666686"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                                <color key="textColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="lb-title">
+                                                <rect key="frame" x="0.0" y="347" width="353" height="24"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                <color key="textColor" red="0.12941176470588237" green="0.14509803921568629" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Location" lineBreakMode="tailTruncation" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="lb-loc">
+                                                <rect key="frame" x="0.0" y="383" width="353" height="18"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" red="0.42352941176470588" green="0.45882352941176469" blue="0.49019607843137253" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Specs" lineBreakMode="tailTruncation" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="lb-specs">
+                                                <rect key="frame" x="0.0" y="413" width="353" height="18"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                <color key="textColor" red="0.12941176470588237" green="0.14509803921568629" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Summary" lineBreakMode="tailTruncation" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="lb-sum">
+                                                <rect key="frame" x="0.0" y="443" width="353" height="18"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" red="0.12941176470588237" green="0.14509803921568629" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Amenities" lineBreakMode="tailTruncation" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="lb-amen">
+                                                <rect key="frame" x="0.0" y="473" width="353" height="17"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.42352941176470588" green="0.45882352941176469" blue="0.49019607843137253" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Portal" lineBreakMode="tailTruncation" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="lb-listed">
+                                                <rect key="frame" x="0.0" y="502" width="353" height="15.666666666666629"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <color key="textColor" red="0.42352941176470588" green="0.45882352941176469" blue="0.49019607843137253" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btn-mkt-ad" customClass="CustomButton" customModule="AIPoweredRealEstate" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="529.66666666666663" width="353" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="btn-mkt-ad-h"/>
+                                                </constraints>
+                                                <state key="normal" title="Generate marketing copy">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
+                                                        <real key="value" value="14"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="marketingTapped:" destination="vc-adet" eventType="touchUpInside" id="act-mkt-ad"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btn-cmp-ad">
+                                                <rect key="frame" x="0.0" y="591.66666666666663" width="353" height="44"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="btn-cmp-ad-h"/>
+                                                </constraints>
+                                                <state key="normal" title="Add to compare">
+                                                    <color key="titleColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="compareTapped:" destination="vc-adet" eventType="touchUpInside" id="act-cmp-ad"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btn-rep-ad">
+                                                <rect key="frame" x="0.0" y="647.66666666666663" width="353" height="44"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="btn-rep-ad-h"/>
+                                                </constraints>
+                                                <state key="normal" title="Client report">
+                                                    <color key="titleColor" red="0.054901960784313725" green="0.14117647058823529" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="reportTapped:" destination="vc-adet" eventType="touchUpInside" id="act-rep-ad"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="st-adet" firstAttribute="top" secondItem="scrl-adet" secondAttribute="top" constant="16" id="sad1"/>
+                                    <constraint firstItem="st-adet" firstAttribute="leading" secondItem="scrl-adet" secondAttribute="leading" constant="20" id="sad2"/>
+                                    <constraint firstItem="st-adet" firstAttribute="bottom" secondItem="scrl-adet" secondAttribute="bottom" constant="-24" id="sad4"/>
+                                    <constraint firstItem="st-adet" firstAttribute="width" secondItem="scrl-adet" secondAttribute="width" constant="-40" id="sad5"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="safe-adet"/>
+                        <color key="backgroundColor" red="0.98039215686274506" green="0.97647058823529409" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="scrl-adet" firstAttribute="top" secondItem="safe-adet" secondAttribute="top" id="ad1"/>
+                            <constraint firstItem="scrl-adet" firstAttribute="leading" secondItem="view-adet" secondAttribute="leading" id="ad2"/>
+                            <constraint firstItem="scrl-adet" firstAttribute="trailing" secondItem="view-adet" secondAttribute="trailing" id="ad3"/>
+                            <constraint firstItem="scrl-adet" firstAttribute="bottom" secondItem="view-adet" secondAttribute="bottom" id="ad4"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Listing" id="ni-adet"/>
+                    <connections>
+                        <outlet property="amenitiesLabel" destination="lb-amen" id="o-amen"/>
+                        <outlet property="compareButton" destination="btn-cmp-ad" id="o-cmp-ad"/>
+                        <outlet property="favoriteButton" destination="btn-fav" id="o-fav"/>
+                        <outlet property="listedByLabel" destination="lb-listed" id="o-listed"/>
+                        <outlet property="locationLabel" destination="lb-loc" id="o-loc"/>
+                        <outlet property="marketingButton" destination="btn-mkt-ad" id="o-mkt-ad"/>
+                        <outlet property="photoView" destination="img-adet" id="o-photo-ad"/>
+                        <outlet property="priceLabel" destination="lb-price" id="o-price"/>
+                        <outlet property="reportButton" destination="btn-rep-ad" id="o-rep-ad"/>
+                        <outlet property="specsLabel" destination="lb-specs" id="o-specs"/>
+                        <outlet property="summaryLabel" destination="lb-sum" id="o-sum"/>
+                        <outlet property="titleLabel" destination="lb-title" id="o-title"/>
+                        <outlet property="typeLabel" destination="lb-type" id="o-type"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fr-adet" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2420" y="0.0"/>
+        </scene>
+        <!--Client report-->
+        <scene sceneID="scene-arep">
+            <objects>
+                <viewController storyboardIdentifier="AgentReportVC" id="vc-arep" customClass="AgentReportVC" customModule="AIPoweredRealEstate" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="view-arep">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select a client" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tf-client" customClass="CustomTextField" customModule="AIPoweredRealEstate" customModuleProvider="target">
+                                <rect key="frame" x="20" y="75" width="353" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="tf-client-h"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
+                                        <real key="value" value="12"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="leftPadding">
+                                        <real key="value" value="14"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textField>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="scrl-rep">
+                                <rect key="frame" x="20" y="139" width="353" height="597"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="card-rep" customClass="CustomView" customModule="AIPoweredRealEstate" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="353" height="120"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="lb-body-rep">
+                                                <rect key="frame" x="16" y="16" width="321" height="88"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" red="0.12941176470588237" green="0.14509803921568629" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="lb-body-rep" firstAttribute="top" secondItem="card-rep" secondAttribute="top" constant="16" id="br1"/>
+                                            <constraint firstItem="lb-body-rep" firstAttribute="leading" secondItem="card-rep" secondAttribute="leading" constant="16" id="br2"/>
+                                            <constraint firstAttribute="trailing" secondItem="lb-body-rep" secondAttribute="trailing" constant="16" id="br3"/>
+                                            <constraint firstAttribute="bottom" secondItem="lb-body-rep" secondAttribute="bottom" constant="16" id="br4"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="120" id="card-rep-h"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="card-rep" firstAttribute="top" secondItem="scrl-rep" secondAttribute="top" id="scr1"/>
+                                    <constraint firstItem="card-rep" firstAttribute="leading" secondItem="scrl-rep" secondAttribute="leading" id="scr2"/>
+                                    <constraint firstItem="card-rep" firstAttribute="trailing" secondItem="scrl-rep" secondAttribute="trailing" id="scr3"/>
+                                    <constraint firstItem="card-rep" firstAttribute="bottom" secondItem="scrl-rep" secondAttribute="bottom" constant="-8" id="scr4"/>
+                                    <constraint firstItem="card-rep" firstAttribute="width" secondItem="scrl-rep" secondAttribute="width" id="scr5"/>
+                                </constraints>
+                            </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btn-share-rep" customClass="CustomButton" customModule="AIPoweredRealEstate" customModuleProvider="target">
+                                <rect key="frame" x="20" y="752" width="353" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="btn-share-rep-h"/>
+                                </constraints>
+                                <state key="normal" title="Share report">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
+                                        <real key="value" value="14"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="shareTapped:" destination="vc-arep" eventType="touchUpInside" id="act-share-rep"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="safe-arep"/>
+                        <color key="backgroundColor" red="0.98039215686274506" green="0.97647058823529409" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="tf-client" firstAttribute="top" secondItem="safe-arep" secondAttribute="top" constant="16" id="rp1"/>
+                            <constraint firstItem="safe-arep" firstAttribute="bottom" secondItem="btn-share-rep" secondAttribute="bottom" constant="16" id="rp10"/>
+                            <constraint firstItem="tf-client" firstAttribute="leading" secondItem="safe-arep" secondAttribute="leading" constant="20" id="rp2"/>
+                            <constraint firstItem="safe-arep" firstAttribute="trailing" secondItem="tf-client" secondAttribute="trailing" constant="20" id="rp3"/>
+                            <constraint firstItem="scrl-rep" firstAttribute="top" secondItem="tf-client" secondAttribute="bottom" constant="16" id="rp4"/>
+                            <constraint firstItem="scrl-rep" firstAttribute="leading" secondItem="tf-client" secondAttribute="leading" id="rp5"/>
+                            <constraint firstItem="scrl-rep" firstAttribute="trailing" secondItem="tf-client" secondAttribute="trailing" id="rp6"/>
+                            <constraint firstItem="btn-share-rep" firstAttribute="top" secondItem="scrl-rep" secondAttribute="bottom" constant="16" id="rp7"/>
+                            <constraint firstItem="btn-share-rep" firstAttribute="leading" secondItem="tf-client" secondAttribute="leading" id="rp8"/>
+                            <constraint firstItem="btn-share-rep" firstAttribute="trailing" secondItem="tf-client" secondAttribute="trailing" id="rp9"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Client report" id="ni-arep"/>
+                    <connections>
+                        <outlet property="bodyLabel" destination="lb-body-rep" id="o-body-rep"/>
+                        <outlet property="clientField" destination="tf-client" id="o-client"/>
+                        <outlet property="reportCardView" destination="card-rep" id="o-rcard-rep"/>
+                        <outlet property="shareButton" destination="btn-share-rep" id="o-share-rep"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fr-arep" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2420" y="720"/>
+        </scene>
+        <!--Lead-->
+        <scene sceneID="scene-aleadd">
+            <objects>
+                <viewController storyboardIdentifier="AgentLeadDetailVC" id="vc-aleadd" customClass="AgentLeadDetailVC" customModule="AIPoweredRealEstate" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="view-aleadd">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="st-ldd">
+                                <rect key="frame" x="20" y="79" width="353" height="50"/>
+                                <subviews>
+                                    <segmentedControl hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="seg-status">
+                                        <rect key="frame" x="0.0" y="0.0" width="353" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="0" id="seg-status-h"/>
+                                        </constraints>
+                                        <segments>
+                                            <segment title="New"/>
+                                            <segment title="Contacted"/>
+                                            <segment title="Viewing"/>
+                                            <segment title="Closed"/>
+                                        </segments>
+                                    </segmentedControl>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="lb-ldd">
+                                        <rect key="frame" x="0.0" y="50" width="353" height="0.0"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" red="0.12941176470588237" green="0.14509803921568629" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="safe-aleadd"/>
+                        <color key="backgroundColor" red="0.98039215686274506" green="0.97647058823529409" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="st-ldd" firstAttribute="top" secondItem="safe-aleadd" secondAttribute="top" constant="20" id="ldd1"/>
+                            <constraint firstItem="st-ldd" firstAttribute="leading" secondItem="safe-aleadd" secondAttribute="leading" constant="20" id="ldd2"/>
+                            <constraint firstItem="safe-aleadd" firstAttribute="trailing" secondItem="st-ldd" secondAttribute="trailing" constant="20" id="ldd3"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Lead" id="ni-aleadd"/>
+                    <connections>
+                        <outlet property="body" destination="lb-ldd" id="o-ldd-body"/>
+                        <outlet property="status" destination="seg-status" id="o-ldd-st"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fr-aleadd" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2420" y="1440"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="bell.fill" catalog="system" width="123" height="128"/>
+        <image name="briefcase.fill" catalog="system" width="128" height="100"/>
+        <image name="chevron.right" catalog="system" width="97" height="128"/>
+        <image name="doc.text.fill" catalog="system" width="115" height="128"/>
+        <image name="heart" catalog="system" width="128" height="107"/>
+        <image name="house.fill" catalog="system" width="128" height="104"/>
+        <image name="megaphone.fill" catalog="system" width="128" height="112"/>
+        <image name="person.crop.rectangle.stack" catalog="system" width="126" height="128"/>
+        <image name="person.fill" catalog="system" width="128" height="120"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="sparkles" catalog="system" width="115" height="128"/>
+        <image name="square.grid.2x2.fill" catalog="system" width="128" height="114"/>
+        <image name="square.split.2x1" catalog="system" width="128" height="114"/>
+    </resources>
+</document>
