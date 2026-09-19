@@ -30,10 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var arr2:[Int] = [1,2,3,4]
         print(arr2)
         
-        print("I am Saif")
-        
-        
-        
+      
         
         return true
     }
