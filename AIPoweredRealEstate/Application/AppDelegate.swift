@@ -27,7 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //craete array here
         var arr:[Int] = [1,2,3,4]
         print(arr)
-        
+        var arr2:[Int] = [1,2,3,4]
+        print(arr2)
         return true
     }
     
